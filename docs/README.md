@@ -18,13 +18,14 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 ### Ideas
 * Host Language: C
 * C/C++ like syntax
-* Interpretter
+* Interpreter
+* Compiler
 * Compiler
 * Object Orientated
     * Inheritance
 * Functional
 * Dynamically Typed
-* Garbage Collection (Controlled with interpretter options)
+* Garbage Collection (Controlled with interpreter/compiler options)
     * Start with Automatic Garbage Collection, Implement programmer control later
     * Programmer Managed
     * Auto
