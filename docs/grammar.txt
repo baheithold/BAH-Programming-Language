@@ -1,7 +1,7 @@
 /*
  *  GRAMMAR
  *  Author: Brett Heithold
- *  Last Revised: 8/13/2019
+ *  Last Revised: 1/7/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -37,6 +37,9 @@ optInheritance : COLON ID
                | *EMPTY*
 
 
+functionCall : ID OPAREN optExpressionList CPAREN
+
+
 parameterList : ID
               | ID COMMA parameterList
 
@@ -64,7 +67,7 @@ optExpressionList : expressionList
 
 
 unary : ID
-      | ID OPAREN optExpressionList CPAREN
+      | functionCall
       | ID OBRACKET optExpressionList CBRACKET
       | INTEGER
       | REAL
@@ -98,8 +101,8 @@ statement : variableDefinition
           | loop
           | ifStatement
           | returnStatement
-          | CONTINUE
-          | BREAK
+          | CONTINUE SEMI
+          | BREAK SEMI
 
 
 loop : forLoop
