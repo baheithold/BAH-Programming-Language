@@ -40,6 +40,7 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
     * type coercion functions
     * print and println
 * Arrays with O(1) access time
+* Associative Arrays (Hash Tables)
 * conditionals
 * Recursion
 * Iteration
