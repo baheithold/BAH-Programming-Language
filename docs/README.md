@@ -23,7 +23,6 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 * Object Orientated
     * Inheritance
 * Functional
-* Interleaved Functions/Parameters
 * Dynamically Typed
 * Garbage Collection (Controlled with interpretter options)
     * Start with Automatic Garbage Collection, Implement programmer control later
