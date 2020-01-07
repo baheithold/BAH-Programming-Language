@@ -1,0 +1,161 @@
+/*
+ *  GRAMMAR
+ *  Author: Brett Heithold
+ *  Last Revised: 8/13/2019
+ *
+ *  NOTES:
+ *          + NO left-recursive rules
+ */
+
+
+program : include program
+        | definition program
+        | *EMPTY*
+
+
+include : IMPORT QUOTE ID DOT ID QUOTE
+
+
+definition : variableDefinition
+           | functionDefinition
+           | classDefinition
+
+
+variableDefinition : VAR ID SEMI
+                   | VAR ID EQUAL expression SEMI
+                   | ID EQUAL expression SEMI
+
+
+functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
+                   | FUNCTION ID OPAREN VOID CPAREN block
+
+
+classDefinition : CLASS ID optInheritance block
+
+
+optInheritance : COLON ID
+               | *EMPTY*
+
+
+parameterList : ID
+              | ID COMMA parameterList
+
+
+optParameterList : parameterList
+                 | *EMPTY*
+
+
+expression : unary
+           | unary binaryOperator expression
+           | unaryOperator unary
+           | unary unaryOperator
+
+
+optExpression : expression
+              | *EMPTY*
+
+
+expressionList : expression
+               | expression COMMA expressionList
+
+
+optExpressionList : expressionList
+                  | *EMPTY*
+
+
+unary : ID
+      | ID OPAREN optExpressionList CPAREN
+      | ID OBRACKET optExpressionList CBRACKET
+      | INTEGER
+      | REAL
+      | CHAR
+      | STRING
+      | BOOLEAN
+      | MINUS unary
+      | OPAREN expression CPAREN
+      | lambdaDef
+      | PRINT OPAREN expressionList CPAREN
+      | NULL
+
+
+lambdaDef : LAMBDA OPAREN optParameterList CPAREN block
+
+
+block : OBRACE optStatementList CBRACE
+
+
+optStatementList : statementList
+                 | *EMPTY*
+
+
+statementList : statement optStatementList
+
+
+statement : variableDefinition
+          | functionDefinition
+          | classDefinition
+          | expression SEMI
+          | loop
+          | ifStatement
+          | returnStatement
+          | CONTINUE
+          | BREAK
+
+
+loop : forLoop
+     | whileLoop
+
+
+forLoop : FOR OPAREN variableDefinition SEMI expressionList SEMI expressionList CPAREN block
+
+
+whileLoop : WHILE OPAREN expression CPAREN block
+
+
+ifStatement : IF OPAREN expression CPAREN block optElseStatement
+
+
+returnStatement : RETURN optExpression SEMI
+
+
+optElseStatement : elseStatement
+                 | *EMPTY*
+
+
+elseStatement : ELSE block
+              | ELSE ifStatement
+
+
+unaryOperator : NOT
+              | UMINUS
+              | PLUS_PLUS
+              | MINUS_MINUS
+
+
+binaryOperator : PLUS
+               | MINUS
+               | MULTIPLY
+               | DIVIDE
+               | POW
+               | MODULO
+               | ASSIGN
+               | PLUS_ASSIGN
+               | MINUS_ASSIGN
+               | MULTIPLY_ASSIGN
+               | DIVIDE_ASSIGN
+               | POW_ASSIGN
+               | MODULO_ASSIGN
+               | DOT
+
+
+logicalOperator : AND
+                | OR
+                | XOR
+
+
+comparator : LESS_THAN
+           | GREATER_THAN
+           | LESS_EQUAL
+           | GREATER_EQUAL
+           | DOUBLE_EQUAL
+           | NOT_EQUAL
