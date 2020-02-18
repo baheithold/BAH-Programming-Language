@@ -3,6 +3,7 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 
 ### Todo
 * [ ] Grammar
+* [ ] Lexeme Tokens
 * [ ] Lexer
 * [ ] Recognizer
 * [ ] Parser
@@ -25,7 +26,8 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 * Functional
 * Dynamically Typed
 * Garbage Collection (Controlled with interpreter/compiler options)
-    * Start with Automatic Garbage Collection, Implement programmer control later
+    * Start with Programmer controlled Garbage Collection
+    * Implement Automatic Garbage Collection later
     * Programmer Managed
     * Auto
 * Programmer-controlled delayed execution
@@ -45,6 +47,7 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 * Recursion
 * Iteration
     * for
+    * foreach (maybe??)
     * while
     * do-while (maybe??)
 * Convenient means to access command line arguments
