@@ -3,7 +3,6 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 
 ### Todo
 * [ ] Grammar
-* [ ] Types
 * [ ] Lexer
 * [ ] Recognizer
 * [ ] Parser
@@ -18,8 +17,8 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 ### Ideas
 * Host Language: C
 * C/C++ like syntax
+* Both interpreted and compiled
 * Interpreter
-* Compiler
 * Compiler
 * Object Orientated
     * Inheritance

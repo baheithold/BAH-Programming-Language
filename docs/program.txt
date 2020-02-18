@@ -134,6 +134,21 @@ else if ((x % 2) == 0 xor (y % 2) == 0) {
     println("Either x or y is even but not both");
 }
 
+if (x > 0) {
+    if (x % 2 == 0) {
+        println("x is positive and even");
+    }
+    else {
+        println("x is positive and odd");
+    }
+}
+
+### ternary statements ###
+
+bool even? = (x % 2 == 0) ? true : false;
+
+### Lambdas ###
+
 function line(m, b) {
     return lambda (x) {
         (m * x) + b;
