@@ -1,19 +1,34 @@
 /*
  *  GRAMMAR
  *  Author: Brett Heithold
- *  Last Revised: 1/7/2020
+ *  Last Revised: 10/21/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
  */
 
 
-program : include program
-        | definition program
-        | *EMPTY*
+program : import program
+        | optStatementList
 
 
-include : IMPORT QUOTE ID DOT ID QUOTE
+import : IMPORT QUOTE ID DOT ID QUOTE
+
+
+statement : definition SEMI
+          | expression SEMI
+          | loop
+          | ifStatement
+          | returnStatement SEMI
+          | CONTINUE SEMI
+          | BREAK SEMI
+
+
+statementList : statement optStatementList
+
+
+optStatementList : statementList
+                 | *EMPTY*
 
 
 definition : variableDefinition
@@ -21,9 +36,9 @@ definition : variableDefinition
            | classDefinition
 
 
-variableDefinition : VAR ID SEMI
-                   | VAR ID EQUAL expression SEMI
-                   | ID EQUAL expression SEMI
+variableDefinition : VAR ID
+                   | VAR ID EQUAL expression
+                   | ID EQUAL expression
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
@@ -87,29 +102,12 @@ lambdaDef : LAMBDA OPAREN optParameterList CPAREN block
 block : OBRACE optStatementList CBRACE
 
 
-optStatementList : statementList
-                 | *EMPTY*
-
-
-statementList : statement optStatementList
-
-
-statement : variableDefinition
-          | functionDefinition
-          | classDefinition
-          | expression SEMI
-          | loop
-          | ifStatement
-          | returnStatement
-          | CONTINUE SEMI
-          | BREAK SEMI
-
-
 loop : forLoop
      | whileLoop
 
 
-forLoop : FOR OPAREN variableDefinition SEMI expressionList SEMI expressionList CPAREN block
+forLoop : FOR OPAREN variableDefinition SEMI expression SEMI expression CPAREN block
+        | FOR OPAREN ID SEMI expression SEMI expression CPAREN black
 
 
 whileLoop : WHILE OPAREN expression CPAREN block
@@ -118,15 +116,15 @@ whileLoop : WHILE OPAREN expression CPAREN block
 ifStatement : IF OPAREN expression CPAREN block optElseStatement
 
 
-returnStatement : RETURN optExpression SEMI
-
-
-optElseStatement : elseStatement
-                 | *EMPTY*
+returnStatement : RETURN optExpression
 
 
 elseStatement : ELSE block
               | ELSE ifStatement
+
+
+optElseStatement : elseStatement
+                 | *EMPTY*
 
 
 unaryOperator : NOT
