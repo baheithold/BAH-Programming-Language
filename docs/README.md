@@ -18,9 +18,7 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 ### Ideas
 * Host Language: C
 * C/C++ like syntax
-* Both interpreted and compiled
 * Interpreter
-* Compiler
 * Object Orientated
     * Inheritance
 * Functional
