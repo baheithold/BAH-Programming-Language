@@ -17,28 +17,20 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
 
 ### Ideas
 * Host Language: C
+* Source File Extension: .bah
 * C/C++ like syntax
 * Interpreter
 * Object Orientated
     * Inheritance
-* Functional
 * Dynamically Typed
-* Garbage Collection (Controlled with interpreter/compiler options)
-    * Start with Programmer controlled Garbage Collection
-    * Implement Automatic Garbage Collection later
-    * Programmer Managed
-    * Auto
-* Programmer-controlled delayed execution
+* Functional
+* Programmer-controlled delayed execution (Lazy Execution)
 * Parallel Programming Support
     * Multi-threading
-* Includes
-* Extension: .bah
+* Includes (import)
 * ID's can have symbols
 * Function Definition
-    * If no parameter list is preset, the keyword "void" must be used
-* Built-in Functions
-    * type coercion functions
-    * print and println
+    * If no parameter list is set, the keyword "void" must be used (Syntax Error if neither is used)
 * Arrays with O(1) access time
 * Associative Arrays (Hash Tables)
 * conditionals
