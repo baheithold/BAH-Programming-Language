@@ -10,6 +10,7 @@
 #include "lexer.h"
 #include "types.h"
 
+#include <assert.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -27,9 +28,12 @@ static int currentLine = 1;
 void skipWhiteSpace(FILE *);
 void skipComment(FILE *);
 bool commentPending(char);
+bool numberPending(char);
+char peek(FILE *);
+void growTokenAsNeeded(char *, int, int);
 Lexeme *lexNumber(FILE *);
 Lexeme *lexString(FILE *);
-Lexeme *lexIDorKeyword(FILE *);
+Lexeme *lexKeywordOrID(FILE *);
 
 
 /********** Public Function Definitions **********/
@@ -48,19 +52,26 @@ Lexeme *lex(FILE *fp) {
         case ',': return newLexeme(COMMA, NULL);
         case ';': return newLexeme(SEMICOLON, NULL);
         case ':': return newLexeme(COLON, NULL);
-        case '.': return newLexeme(DOT_BINARY, NULL);
+        case '.':
+            if (isdigit(peek(fp))) {
+                ungetc(ch, fp);
+                return lexNumber(fp);
+            }
+            else return newLexeme(DOT_BINARY, NULL);
         default:
             if (isdigit(ch)) {
                 ungetc(ch, fp);
                 return lexNumber(fp);
             }
+            /*
             else if (isalpha(ch)) {
                 ungetc(ch, fp);
-                return lexIDorKeyword(fp);
+                return lexKeywordOrID(fp);
             }
             else if (ch == '\"') {
                 return lexString(fp);
             }
+            */
             else {
                 return newLexeme(UNKNOWN, &ch);
             }
@@ -97,4 +108,60 @@ void skipComment(FILE *fp) {
 
 bool commentPending(char ch) {
     return ch == '#';
+}
+
+bool numberPending(char ch) {
+    return isdigit(ch);
+}
+
+char peek(FILE *fp) {
+    char ch = fgetc(fp);
+    ungetc(ch, fp);
+    return ch;
+}
+
+void growTokenAsNeeded(char *token, int index, int length) {
+    assert(token != NULL);
+    assert(index >= 0);
+    assert(length >= 0);
+
+    if (index >= length) {
+        int newLength = length * 2;
+        token = realloc(token, sizeof(char) * newLength);
+    }
+}
+
+Lexeme *lexNumber(FILE *fp) {
+    int length = 1;
+    int index = 0;
+    char *token = malloc(sizeof(char) * length);
+    bool isReal = false;
+
+    char ch = fgetc(fp);
+    while (!feof(fp) && (isdigit(ch) || ch == '.')) {
+        if (ch == '.') {
+            // if a dot has not yet been encountered,
+            // set isReal to true and continue, else return BAD_NUMBER Lexeme
+            if (!isReal) isReal = true;
+            else return newLexeme(BAD_NUMBER, &ch);
+        }
+
+        // add character to token
+        token[index++] = ch;
+
+        // grow token as needed
+        growTokenAsNeeded(token, index, length);
+
+        // get next character
+        ch = fgetc(fp);
+    }
+
+    // pushback character that broke the loop
+    ungetc(ch, fp);
+
+    // add termination character to the end of token
+    token[index] = '\0';
+
+    // return appropriate Lexeme
+    return isReal ? newLexeme(REAL_TYPE, token) : newLexeme(INTEGER_TYPE, token);
 }
