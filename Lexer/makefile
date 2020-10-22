@@ -32,6 +32,11 @@ lexer.o : lexer.c lexer.h lexeme.h types.h
 	@gcc $(OOPTS) lexer.c
 
 
+test0 : scanner
+	@echo Running test0...
+	@./scanner ./testing/test-0.bah
+
+
 rebuild : all
 	@echo Rebuilding scanner...
 	@make clean -s
