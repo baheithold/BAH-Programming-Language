@@ -80,6 +80,7 @@ extern char *BAD_STRING;
 extern char *END_OF_INPUT;
 extern char *VARIABLE_DEFINITION;
 extern char *FUNCTION_DEFINITION;
+extern char *FUNCTION_CALL;
 extern char *CLASS_DEFINITION;
 
 
