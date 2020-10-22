@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexeme.c
  *  Created:        10/21/2020
- *  Last Revised:   10/21/2020
+ *  Last Revised:   10/22/2020
  */
 
 
@@ -36,7 +36,7 @@ Lexeme *newLexeme(char *type, char *value) {
     else if (type == REAL_TYPE) {
         result->realValue = atof(value);
     }
-    else if (type == STRING_TYPE) {
+    else {
         result->stringValue = value;
     }
     result->lineNumber = 0;
