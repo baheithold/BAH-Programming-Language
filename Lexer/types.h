@@ -23,6 +23,7 @@ extern char *CPAREN;
 extern char *OBRACE;
 extern char *CBRACE;
 extern char *COMMA;
+extern char *COLON;
 extern char *SEMICOLON;
 
 /* Binary Operators */
@@ -71,6 +72,7 @@ extern char *BREAK;
 extern char *CONTINUE;
 extern char *CLASS;
 extern char *LAMBDA;
+extern char *VOID;
 
 /* Other */
 extern char *UNKNOWN;

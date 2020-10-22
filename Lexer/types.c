@@ -23,6 +23,7 @@ char *CPAREN = "CPAREN";
 char *OBRACE = "OBRACE";
 char *CBRACE = "CBRACE";
 char *COMMA = "COMMA";
+char *COLON = "COLON";
 char *SEMICOLON = "SEMICOLON";
 
 /* Binary Operators */
@@ -71,6 +72,7 @@ char *BREAK = "BREAK";
 char *CONTINUE = "CONTINUE";
 char *CLASS = "CLASS";
 char *LAMBDA = "LAMBDA";
+char *VOID = "VOID";
 
 /* Other */
 char *UNKNOWN = "UNKNOWN";
