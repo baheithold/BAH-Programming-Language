@@ -10,12 +10,12 @@
 
 
 /* Types */
-char *INTEGER_TYPE = "INTEGER";
-char *REAL_TYPE = "REAL";
-char *STRING_TYPE = "STRING";
-char *BOOLEAN_TYPE = "BOOLEAN";
-char *ID_TYPE = "ID";
-char *VARIABLE_TYPE = "VARIABLE";
+char *INTEGER_TYPE = "INTEGER_TYPE";
+char *REAL_TYPE = "REAL_TYPE";
+char *STRING_TYPE = "STRING_TYPE";
+char *BOOLEAN_TYPE = "BOOLEAN_TYPE";
+char *ID_TYPE = "ID_TYPE";
+char *VARIABLE_TYPE = "VARIABLE_TYPE";
 
 /* Punctuation */
 char *OPAREN = "OPAREN";
@@ -40,6 +40,7 @@ char *TIMES_ASSIGN_BINARY = "TIMES_ASSIGN_BINARY";
 char *DIVIDE_ASSIGN_BINARY = "DIVIDE_ASSIGN_BINARY";
 char *MOD_ASSIGN_BINARY = "MOD_ASSIGN_BINARY";
 char *POW_ASSIGN_BINARY = "POW_ASSIGN_BINARY";
+char *MODULO_ASSIGN_BINARY = "MODULO_ASSIGN_BINARY";
 char *DOT_BINARY = "DOT_BINARY";
 
 /* Unary Operators */
@@ -61,18 +62,18 @@ char *OR = "OR";
 char *XOR = "XOR";
 
 /* Keywords */
-char *IF = "IF";
-char *ELSE = "ELSE";
-char *FOR = "FOR";
-char *WHILE = "WHILE";
-char *FUNCTION = "FUNCTION";
-char *VAR = "VAR";
-char *RETURN = "RETURN";
-char *BREAK = "BREAK";
-char *CONTINUE = "CONTINUE";
-char *CLASS = "CLASS";
-char *LAMBDA = "LAMBDA";
-char *VOID = "VOID";
+char *IF = "IF_KEYWORD";
+char *ELSE = "ELSE_KEYWORD";
+char *FOR = "FOR_KEYWORD";
+char *WHILE = "WHILE_KEYWORD";
+char *FUNCTION = "FUNCTION_KEYWORD";
+char *VAR = "VAR_KEYWORD";
+char *RETURN = "RETURN_KEYWORD";
+char *BREAK = "BREAK_KEYWORD";
+char *CONTINUE = "CONTINUE_KEYWORD";
+char *CLASS = "CLASS_KEYWORD";
+char *LAMBDA = "LAMBDA_KEYWORD";
+char *VOID = "VOID_KEYWORD";
 
 /* Other */
 char *UNKNOWN = "UNKNOWN";

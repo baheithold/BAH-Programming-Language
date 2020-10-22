@@ -40,6 +40,7 @@ extern char *TIMES_ASSIGN_BINARY;
 extern char *DIVIDE_ASSIGN_BINARY;
 extern char *MOD_ASSIGN_BINARY;
 extern char *POW_ASSIGN_BINARY;
+extern char *MODULO_ASSIGN_BINARY;
 extern char *DOT_BINARY;
 
 /* Unary Operators */
