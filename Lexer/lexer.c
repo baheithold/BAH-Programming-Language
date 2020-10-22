@@ -48,6 +48,7 @@ Lexeme *lex(FILE *fp) {
         case ',': return newLexeme(COMMA, NULL);
         case ';': return newLexeme(SEMICOLON, NULL);
         case ':': return newLexeme(COLON, NULL);
+        case '.': return newLexeme(DOT_BINARY, NULL);
         default:
             if (isdigit(ch)) {
                 ungetc(ch, fp);
