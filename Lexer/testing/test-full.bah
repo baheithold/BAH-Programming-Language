@@ -1,20 +1,14 @@
-/*
- *  Program Example
- *  Author: Brett Heithold
- *  Last Revised: 1/6/2020
- *
- *  NOTES:
-*/
-
+#
+# Author:       Brett Heithold
+# File:         test-full.bah
+# Created on:   1/6/2020
+# Last Revised: 10/22/2020
+#
 
 import "fileToImport.bah"
 
 
 # Single-line comments
-
-/*
-    Multi-line comments
-*/
 
 
 #### Variable Examples ###
@@ -143,9 +137,6 @@ if (x > 0) {
     }
 }
 
-### ternary statements ###
-
-bool even? = (x % 2 == 0) ? true : false;
 
 ### Lambdas ###
 
