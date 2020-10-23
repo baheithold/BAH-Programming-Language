@@ -1,3 +1,4 @@
+OBJDIR = obj
 OBJS  = scanner.o types.o lexeme.o lexer.o
 OOPTS = -Wall -Wextra -g -c
 LOPTS = -Wall -Wextra -g
@@ -8,28 +9,32 @@ all : scanner
 
 scanner : $(OBJS)
 	@echo Creating scanner executable...
-	@gcc $(LOPTS) $(OBJS) -o scanner
+	@gcc $(LOPTS) $(OBJDIR)/* -o scanner
 	@echo Done.
 
 
 scanner.o : scanner.c types.h lexeme.h lexer.h
 	@echo Compiling scanner...
-	@gcc $(OOPTS) scanner.c
+	@mkdir -p $(OBJDIR)
+	@gcc $(OOPTS) scanner.c -o $(OBJDIR)/$@
 
 
 types.o : types.c types.h
 	@echo Compiling types...
-	@gcc $(OOPTS) types.c
+	@mkdir -p $(OBJDIR)
+	@gcc $(OOPTS) types.c -o $(OBJDIR)/$@
 
 
 lexeme.o : lexeme.c lexeme.h types.h
 	@echo Compiling lexeme...
-	@gcc $(OOPTS) lexeme.c
+	@mkdir -p $(OBJDIR)
+	@gcc $(OOPTS) lexeme.c -o $(OBJDIR)/$@
 
 
 lexer.o : lexer.c lexer.h lexeme.h types.h
 	@echo Compiling lexer...
-	@gcc $(OOPTS) lexer.c
+	@mkdir -p $(OBJDIR)
+	@gcc $(OOPTS) lexer.c -o $(OBJDIR)/$@
 
 
 test0 : scanner
@@ -45,4 +50,4 @@ rebuild : all
 
 clean :
 	@echo Cleaning...
-	@rm -rf $(OBJS) scanner
+	@rm -rf $(OBJDIR) scanner
