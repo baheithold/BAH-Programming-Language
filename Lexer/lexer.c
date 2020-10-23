@@ -256,6 +256,10 @@ Lexeme *lexString(FILE *fp) {
             ungetc(ch, fp);
             return newLexeme(BAD_STRING, NULL);
         }
+        else if (ch == '\\') {
+            // handle escape character
+            ch = fgetc(fp);
+        }
         str[index++] = ch;
         if (index >= length) {
             length *= 2;
