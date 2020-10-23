@@ -2,13 +2,13 @@
  *  Author:         Brett Heithold
  *  File:           scanner.c
  *  Created:        10/22/2020
- *  Last Revised:   10/22/2020
+ *  Last Revised:   10/23/2020
  */
 
 
-#include "lexeme.h"
-#include "lexer.h"
-#include "types.h"
+#include "../header/lexeme.h"
+#include "../header/lexer.h"
+#include "../header/types.h"
 
 #include <stdio.h>
 #include <stdlib.h>

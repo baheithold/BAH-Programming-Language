@@ -1,7 +1,9 @@
-OBJDIR = obj
-OBJS  = scanner.o types.o lexeme.o lexer.o
-OOPTS = -Wall -Wextra -g -c
-LOPTS = -Wall -Wextra -g
+SRCDIR 	  = src
+HEADERDIR = header
+OBJDIR 	  = obj
+OBJS  	  = scanner.o types.o lexeme.o lexer.o
+OOPTS 	  = -Wall -Wextra -g -c
+LOPTS 	  = -Wall -Wextra -g
 
 
 all : scanner
@@ -13,28 +15,28 @@ scanner : $(OBJS)
 	@echo Done.
 
 
-scanner.o : scanner.c types.h lexeme.h lexer.h
+scanner.o : $(SRCDIR)/scanner.c $(HEADERDIR)/types.h $(HEADERDIR)/lexeme.h $(HEADERDIR)/lexer.h
 	@echo Compiling scanner...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) scanner.c -o $(OBJDIR)/$@
+	@gcc $(OOPTS) $(SRCDIR)/scanner.c -o $(OBJDIR)/$@
 
 
-types.o : types.c types.h
+types.o : $(SRCDIR)/types.c $(HEADERDIR)/types.h
 	@echo Compiling types...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) types.c -o $(OBJDIR)/$@
+	@gcc $(OOPTS) $(SRCDIR)/types.c -o $(OBJDIR)/$@
 
 
-lexeme.o : lexeme.c lexeme.h types.h
+lexeme.o : $(SRCDIR)/lexeme.c $(HEADERDIR)/lexeme.h $(HEADERDIR)/types.h
 	@echo Compiling lexeme...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) lexeme.c -o $(OBJDIR)/$@
+	@gcc $(OOPTS) $(SRCDIR)/lexeme.c -o $(OBJDIR)/$@
 
 
-lexer.o : lexer.c lexer.h lexeme.h types.h
+lexer.o : $(SRCDIR)/lexer.c $(HEADERDIR)/lexer.h $(HEADERDIR)/lexeme.h $(HEADERDIR)/types.h
 	@echo Compiling lexer...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) lexer.c -o $(OBJDIR)/$@
+	@gcc $(OOPTS) $(SRCDIR)/lexer.c -o $(OBJDIR)/$@
 
 
 test0 : scanner
