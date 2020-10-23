@@ -93,17 +93,12 @@ void printLexeme(FILE *fp, Lexeme *lexeme) {
     }
     else if (lexeme->type == STRING_TYPE) {
         // Print REAL_TYPE Lexeme
-        fprintf(fp, "%s %s", lexeme->type, lexeme->stringValue);
+        fprintf(fp, "%s \"%s\"", lexeme->type, lexeme->stringValue);
     }
     else {
         fprintf(fp, "%s", lexeme->type);
-        if (lexeme->type == STRING_TYPE) {
-            fprintf(fp, " \"%s\"", lexeme->stringValue);
-        }
-        else {
-            if (lexeme->stringValue != NULL) {
-                fprintf(fp, " %s", lexeme->stringValue);
-            }
+        if (lexeme->stringValue != NULL) {
+            fprintf(fp, " %s", lexeme->stringValue);
         }
     }
 }
