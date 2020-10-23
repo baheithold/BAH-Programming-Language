@@ -30,10 +30,11 @@ void skipComment(FILE *);
 bool commentPending(char);
 bool numberPending(char);
 char peek(FILE *);
-void growTokenAsNeeded(char *, int, int);
 Lexeme *lexNumber(FILE *);
 Lexeme *lexString(FILE *);
 Lexeme *lexKeywordOrID(FILE *);
+bool isValidSymbol(char);
+bool isValidCharacterForID(char);
 
 
 /********** Public Function Definitions **********/
@@ -58,20 +59,100 @@ Lexeme *lex(FILE *fp) {
                 return lexNumber(fp);
             }
             else return newLexeme(DOT_BINARY, NULL);
+        case '+':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '+': return newLexeme(INCREMENT_UNARY, NULL);
+                case '=': return newLexeme(PLUS_ASSIGN_BINARY, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(PLUS_BINARY, NULL);
+            }
+        case '-':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '-': return newLexeme(DECREMENT_UNARY, NULL);
+                case '=': return newLexeme(MINUS_ASSIGN_BINARY, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(MINUS_BINARY, NULL);
+            }
+        case '*':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(TIMES_ASSIGN_BINARY, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(TIMES_BINARY, NULL);
+            }
+        case '/':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(DIVIDE_ASSIGN_BINARY, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(DIVIDE_BINARY, NULL);
+            }
+        case '^':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(POW_ASSIGN_BINARY, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(POW_BINARY, NULL);
+            }
+        case '%':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(MODULO_ASSIGN_BINARY, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(MODULO_BINARY, NULL);
+            }
+        case '<':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(LESSER_EQUALS_COMPARATOR, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(LESSER_THAN_COMPARATOR, NULL);
+            }
+        case '>':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(GREATER_EQUALS_COMPARATOR, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(GREATER_THAN_COMPARATOR, NULL);
+            }
+        case '=':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(EQUALS_COMPARATOR, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(ASSIGN_BINARY, NULL);
+            }
+        case '!':
+            ch = fgetc(fp);
+            switch (ch) {
+                case '=': return newLexeme(NOT_EQUALS_COMPARATOR, NULL);
+                default:
+                    ungetc(ch, fp);
+                    return newLexeme(NEGATE_UNARY, NULL);
+            }
         default:
             if (isdigit(ch)) {
                 ungetc(ch, fp);
                 return lexNumber(fp);
             }
-            /*
-            else if (isalpha(ch)) {
+            else if (isalpha(ch) || isValidSymbol(ch)) {
                 ungetc(ch, fp);
                 return lexKeywordOrID(fp);
             }
             else if (ch == '\"') {
                 return lexString(fp);
             }
-            */
             else {
                 return newLexeme(UNKNOWN, &ch);
             }
@@ -120,21 +201,11 @@ char peek(FILE *fp) {
     return ch;
 }
 
-void growTokenAsNeeded(char *token, int index, int length) {
-    assert(token != NULL);
-    assert(index >= 0);
-    assert(length >= 0);
-
-    if (index >= length) {
-        int newLength = length * 2;
-        token = realloc(token, sizeof(char) * newLength);
-    }
-}
-
 Lexeme *lexNumber(FILE *fp) {
     int length = 1;
     int index = 0;
     char *token = malloc(sizeof(char) * length);
+    assert(token != NULL);
     bool isReal = false;
 
     char ch = fgetc(fp);
@@ -150,7 +221,10 @@ Lexeme *lexNumber(FILE *fp) {
         token[index++] = ch;
 
         // grow token as needed
-        growTokenAsNeeded(token, index, length);
+        if (index >= length) {
+            length *= 2;
+            token = realloc(token, length);
+        }
 
         // get next character
         ch = fgetc(fp);
@@ -162,6 +236,99 @@ Lexeme *lexNumber(FILE *fp) {
     // add termination character to the end of token
     token[index] = '\0';
 
+    // shrink token length to fit
+    token = realloc(token, sizeof(char) * (index + 1));
+    assert(token != NULL);
+
     // return appropriate Lexeme
     return isReal ? newLexeme(REAL_TYPE, token) : newLexeme(INTEGER_TYPE, token);
+}
+
+Lexeme *lexString(FILE *fp) {
+    int length = 1;
+    int index = 0;
+    char *str = malloc(sizeof(char) * length);
+    assert(str != NULL);
+
+    char ch = fgetc(fp);
+    while (ch != '\"') {
+        if (ch == EOF) {
+            ungetc(ch, fp);
+            return newLexeme(BAD_STRING, NULL);
+        }
+        str[index++] = ch;
+        if (index >= length) {
+            length *= 2;
+            str = realloc(str, length);
+        }
+        ch = fgetc(fp);
+    }
+
+    // add termination character to the end of token
+    str[index] = '\0';
+
+    // shrink token length to fit
+    str = realloc(str, sizeof(char) * (index + 1));
+    assert(str != NULL);
+
+    return newLexeme(STRING_TYPE, str);
+}
+
+Lexeme *lexKeywordOrID(FILE *fp) {
+    int length = 1;
+    int index = 0;
+    char *token = malloc(sizeof(char) * length);
+    assert(token != NULL);
+
+    char ch = fgetc(fp);
+    while (!feof(fp) && isValidCharacterForID(ch)) {
+        token[index++] = ch;
+        if (index >= length) {
+            length *= 2;
+            token = realloc(token, length);
+        }
+        ch = fgetc(fp);
+    }
+
+    // pushback character that broke the loop
+    ungetc(ch, fp);
+
+    // add termination character to the end of token
+    token[index] = '\0';
+
+    // shrink token length to fit
+    token = realloc(token, sizeof(char) * (index + 1));
+    assert(token != NULL);
+
+    // return appropriate Lexeme
+    if (strcmp(token, "if") == 0) return newLexeme(IF, token);
+    else if (strcmp(token, "else") == 0) return newLexeme(ELSE, token);
+    else if (strcmp(token, "for") == 0) return newLexeme(FOR, token);
+    else if (strcmp(token, "while") == 0) return newLexeme(WHILE, token);
+    else if (strcmp(token, "function") == 0) return newLexeme(FUNCTION, token);
+    else if (strcmp(token, "var") == 0) return newLexeme(VAR, token);
+    else if (strcmp(token, "return") == 0) return newLexeme(RETURN, token);
+    else if (strcmp(token, "break") == 0) return newLexeme(BREAK, token);
+    else if (strcmp(token, "continue") == 0) return newLexeme(CONTINUE, token);
+    else if (strcmp(token, "class") == 0) return newLexeme(CLASS, token);
+    else if (strcmp(token, "lambda") == 0) return newLexeme(LAMBDA, token);
+    else if (strcmp(token, "void") == 0) return newLexeme(VOID, token);
+    else return newLexeme(ID_TYPE, token);
+}
+
+bool isValidSymbol(char ch) {
+    switch (ch) {
+        case '_':
+        case '?':
+        case '@':
+        case '&':
+        case '~':
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool isValidCharacterForID(char ch) {
+    return isalpha(ch) || isdigit(ch) || isValidSymbol(ch);
 }
