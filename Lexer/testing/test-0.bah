@@ -13,3 +13,5 @@ var d = 3.14159;
 var dd = 3.;
 var ddd = .5;
 object.field;
+
+var str = "     this is a test string! ";
