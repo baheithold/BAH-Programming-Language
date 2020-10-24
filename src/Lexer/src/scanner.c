@@ -30,10 +30,20 @@ int main(int argc, char **argv) {
 
     // Lexically analyze the provided file
     Lexeme *lexeme = lex(fp);
-    while (getLexemeType(lexeme) != END_OF_INPUT) {
-        printLexeme(stdout, lexeme);
-        fprintf(stdout, "\n");
+    char *type = getLexemeType(lexeme);
+    while (type != END_OF_INPUT) {
+        if (type != BAD_NUMBER && type != BAD_CHARACTER && type != BAD_STRING) {
+            printLexeme(stdout, lexeme);
+            fprintf(stdout, "\n");
+        }
+        else {
+            printf("ERROR, line %d: ", getLexemeLineNumber(lexeme));
+            printLexeme(stdout, lexeme);
+            fprintf(stdout, "\n");
+            return 0;
+        }
         lexeme = lex(fp);
+        type = getLexemeType(lexeme);
     }
     printLexeme(stdout, lexeme);
     fprintf(stdout, "\n");
