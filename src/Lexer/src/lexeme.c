@@ -72,6 +72,11 @@ char *getLexemeStringValue(Lexeme *lexeme) {
     return lexeme->stringValue;
 }
 
+void setLexemeStringValue(Lexeme *lexeme, char *str) {
+    assert(lexeme != NULL);
+    lexeme->stringValue = str;
+}
+
 
 int getLexemeLineNumber(Lexeme *lexeme) {
     assert(lexeme != NULL);

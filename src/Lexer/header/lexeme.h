@@ -20,6 +20,7 @@ extern void      setLexemeType(Lexeme *, char *);
 extern int       getLexemeIntegerValue(Lexeme *);
 extern double    getLexemeRealValue(Lexeme *);
 extern char     *getLexemeStringValue(Lexeme *);
+extern void      setLexemeStringValue(Lexeme *, char *);
 extern int       getLexemeLineNumber(Lexeme *);
 extern void      setLexemeLineNumber(Lexeme *, int);
 extern void      printLexeme(FILE *, Lexeme *);
