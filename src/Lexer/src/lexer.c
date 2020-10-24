@@ -320,6 +320,9 @@ Lexeme *lexKeywordOrID(FILE *fp) {
     else if (strcmp(token, "true") == 0) return newLexeme(BOOLEAN_TYPE, token);
     else if (strcmp(token, "false") == 0) return newLexeme(BOOLEAN_TYPE, token);
     else if (strcmp(token, "null") == 0) return newLexeme(NULL_TYPE, token);
+    else if (strcmp(token, "and") == 0) return newLexeme(AND, token);
+    else if (strcmp(token, "or") == 0) return newLexeme(OR, token);
+    else if (strcmp(token, "xor") == 0) return newLexeme(XOR, token);
     else return newLexeme(ID_TYPE, token);
 }
 
