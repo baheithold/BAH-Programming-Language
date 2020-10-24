@@ -1,0 +1,10 @@
+# This file tests valid loops
+
+
+for (var i = 0; i < length; i++) {
+    #do something
+}
+
+while (i < length) {
+    # do something
+}
