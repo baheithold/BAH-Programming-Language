@@ -1,0 +1,15 @@
+# This test file tests various variable use cases
+
+var x = 7;
+x = 10;
+
+var y = 10.6;
+y = y + x;
+y += 2;
+
+var isOdd = false;
+var isEven = true;
+isOdd = !isEven;
+isEven = !isOdd;
+
+var nullify = null;
