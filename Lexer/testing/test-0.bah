@@ -15,3 +15,5 @@ var ddd = .5;
 object.field;
 
 var str = "     \"this is a test\\\" \'s\'tring! ";
+var isOdd = false;
+var thisValueIsNull = null;
