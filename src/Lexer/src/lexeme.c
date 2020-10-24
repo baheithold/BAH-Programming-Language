@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexeme.c
  *  Created:        10/21/2020
- *  Last Revised:   10/23/2020
+ *  Last Revised:   10/24/2020
  */
 
 
@@ -47,6 +47,11 @@ Lexeme *newLexeme(char *type, char *value) {
 char *getLexemeType(Lexeme *lexeme) {
     assert(lexeme != NULL);
     return lexeme->type;
+}
+
+void setLexemeType(Lexeme *lexeme, char *type) {
+    assert(lexeme != NULL);
+    lexeme->type = type;
 }
 
 
