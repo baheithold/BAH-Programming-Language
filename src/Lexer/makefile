@@ -85,6 +85,20 @@ test-class : scanner
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
+test-operators : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
+
+
+test-keywords : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
+
+
 rebuild : all
 	@echo Rebuilding scanner...
 	@make clean -s
