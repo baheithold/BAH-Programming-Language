@@ -1,0 +1,7 @@
+# This file tests valid functions
+
+function isOdd(var num) {
+    return num % 2 == 0;
+}
+
+var odd? = isOdd(5);
