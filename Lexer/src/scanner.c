@@ -31,7 +31,6 @@ int main(int argc, char **argv) {
     // Lexically analyze the provided file
     Lexeme *lexeme = lex(fp);
     while (getLexemeType(lexeme) != END_OF_INPUT) {
-        //char *type = getLexemeType(lexeme);
         printLexeme(stdout, lexeme);
         fprintf(stdout, "\n");
         lexeme = lex(fp);
