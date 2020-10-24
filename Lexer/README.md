@@ -9,6 +9,7 @@ Lexical analysis is the first stage of implementing a programming language. Lexi
 The `types` module contains definitions for keywords, types, operators, punctuation, and various other useful constructs. The `types` module is used by the `lexer` and the `scanner` modules during lexical analysis of a file.
 
 ## Lexeme
+A `lexeme` is a simple data structure holds the token type and its value.
 
 ## Lexer
 
