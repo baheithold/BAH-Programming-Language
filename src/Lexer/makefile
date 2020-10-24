@@ -1,9 +1,13 @@
-SRCDIR 	  = src
-HEADERDIR = header
-OBJDIR 	  = obj
-OBJS  	  = scanner.o types.o lexeme.o lexer.o
-OOPTS 	  = -Wall -Wextra -g -c
-LOPTS 	  = -Wall -Wextra -g
+CC 			 = gcc
+SRCDIR 		 = src
+HEADERDIR 	 = header
+OBJDIR 		 = obj
+TESTDIR 	 = testing
+EXPECTEDPATH = $(TESTDIR)/expected
+ACTUALPATH 	 = $(TESTDIR)/actual
+OBJS  	  	 = $(OBJDIR)/scanner.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o $(OBJDIR)/lexer.o
+OOPTS 		 = -Wall -Wextra -g -c
+LOPTS 		 = -Wall -Wextra -g
 
 
 all : scanner
@@ -11,37 +15,46 @@ all : scanner
 
 scanner : $(OBJS)
 	@echo Creating scanner executable...
-	@gcc $(LOPTS) $(OBJDIR)/* -o scanner
+	@$(CC) $(LOPTS) $(OBJDIR)/* -o scanner
 	@echo Done.
 
 
-scanner.o : $(SRCDIR)/scanner.c $(HEADERDIR)/types.h $(HEADERDIR)/lexeme.h $(HEADERDIR)/lexer.h
+$(OBJDIR)/scanner.o : $(SRCDIR)/scanner.c $(HEADERDIR)/types.h $(HEADERDIR)/lexeme.h $(HEADERDIR)/lexer.h
 	@echo Compiling scanner...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) $(SRCDIR)/scanner.c -o $(OBJDIR)/$@
+	@$(CC) $(OOPTS) $(SRCDIR)/scanner.c -o $@
 
 
-types.o : $(SRCDIR)/types.c $(HEADERDIR)/types.h
+$(OBJDIR)/types.o : $(SRCDIR)/types.c $(HEADERDIR)/types.h
 	@echo Compiling types...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) $(SRCDIR)/types.c -o $(OBJDIR)/$@
+	@$(CC) $(OOPTS) $(SRCDIR)/types.c -o $@
 
 
-lexeme.o : $(SRCDIR)/lexeme.c $(HEADERDIR)/lexeme.h $(HEADERDIR)/types.h
+$(OBJDIR)/lexeme.o : $(SRCDIR)/lexeme.c $(HEADERDIR)/lexeme.h $(HEADERDIR)/types.h
 	@echo Compiling lexeme...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) $(SRCDIR)/lexeme.c -o $(OBJDIR)/$@
+	@$(CC) $(OOPTS) $(SRCDIR)/lexeme.c -o $@
 
 
-lexer.o : $(SRCDIR)/lexer.c $(HEADERDIR)/lexer.h $(HEADERDIR)/lexeme.h $(HEADERDIR)/types.h
+$(OBJDIR)/lexer.o : $(SRCDIR)/lexer.c $(HEADERDIR)/lexer.h $(HEADERDIR)/lexeme.h $(HEADERDIR)/types.h
 	@echo Compiling lexer...
 	@mkdir -p $(OBJDIR)
-	@gcc $(OOPTS) $(SRCDIR)/lexer.c -o $(OBJDIR)/$@
+	@$(CC) $(OOPTS) $(SRCDIR)/lexer.c -o $@
 
 
-test0 : scanner
-	@echo Running test0...
-	@./scanner ./testing/test-0.bah
+test-variables : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
+
+
+test-functions : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
 rebuild : all
@@ -52,4 +65,4 @@ rebuild : all
 
 clean :
 	@echo Cleaning...
-	@rm -rf $(OBJDIR) scanner
+	@rm -rf $(OBJDIR) $(ACTUALPATH) scanner
