@@ -26,9 +26,9 @@ struct Lexeme {
 /********** Public Function Definitions **********/
 
 Lexeme *newLexeme(char *type, char *value) {
-    assert(type != NULL);
     Lexeme *result = malloc(sizeof(Lexeme));
     assert(result != NULL);
+    result->type = type;
     setLexemeValue(result, value);
     result->lineNumber = 0;
     return result;
