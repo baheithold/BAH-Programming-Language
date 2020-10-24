@@ -1,0 +1,36 @@
+# This file tests valid operators
+
+
+# Binary operators
++
+-
+*
+/
+^
+%
+=
++=
+-=
+*=
+/=
+^=
+%=
+.
+
+# Unary operators
+++
+--
+!
+
+# Comparators
+==
+!=
+>
+<
+>=
+<=
+
+# Logical operators
+and
+or
+xor
