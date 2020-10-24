@@ -1,0 +1,36 @@
+# This file tests valid types
+
+
+# Integers
+1234567890
+0
+-1
+-2
+-100
+-5000
+-1234567890
+
+# Reals
+0.0
+3.14159
+123.456789
+-0.1
+-5.123
+-3.14159
+-.05
+-5.
+
+# Strings
+"This is a standard string"
+"   some spaces before"
+"some spaces after  "
+"some    random spaces   "
+"\"this is a quote\""
+"and\\or"
+
+# Booleans
+true
+false
+
+# Null
+null
