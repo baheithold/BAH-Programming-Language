@@ -74,8 +74,6 @@ extern char *CONTINUE;
 extern char *CLASS;
 extern char *LAMBDA;
 extern char *VOID;
-extern char *TRUE;
-extern char *FALSE;
 
 /* Other */
 extern char *UNKNOWN;

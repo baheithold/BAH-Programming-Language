@@ -74,8 +74,6 @@ char *CONTINUE = "CONTINUE_KEYWORD";
 char *CLASS = "CLASS_KEYWORD";
 char *LAMBDA = "LAMBDA_KEYWORD";
 char *VOID = "VOID_KEYWORD";
-char *TRUE = "TRUE_KEYWORD";
-char *FALSE = "FALSE_KEYWORD";
 
 /* Other */
 char *UNKNOWN = "UNKNOWN";
