@@ -317,6 +317,9 @@ Lexeme *lexKeywordOrID(FILE *fp) {
     else if (strcmp(token, "class") == 0) return newLexeme(CLASS, token);
     else if (strcmp(token, "lambda") == 0) return newLexeme(LAMBDA, token);
     else if (strcmp(token, "void") == 0) return newLexeme(VOID, token);
+    else if (strcmp(token, "true") == 0) return newLexeme(BOOLEAN_TYPE, token);
+    else if (strcmp(token, "false") == 0) return newLexeme(BOOLEAN_TYPE, token);
+    else if (strcmp(token, "null") == 0) return newLexeme(NULL_TYPE, token);
     else return newLexeme(ID_TYPE, token);
 }
 

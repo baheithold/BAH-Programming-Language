@@ -16,6 +16,7 @@ extern char *STRING_TYPE;
 extern char *BOOLEAN_TYPE;
 extern char *ID_TYPE;
 extern char *VARIABLE_TYPE;
+extern char *NULL_TYPE;
 
 /* Punctuation */
 extern char *OPAREN;
@@ -74,6 +75,8 @@ extern char *CONTINUE;
 extern char *CLASS;
 extern char *LAMBDA;
 extern char *VOID;
+extern char *TRUE;
+extern char *FALSE;
 
 /* Other */
 extern char *UNKNOWN;
