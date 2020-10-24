@@ -154,10 +154,13 @@ Lexeme *lex(FILE *fp) {
                 return lexString(fp);
             }
             else {
-                return newLexeme(UNKNOWN, &ch);
+                return newLexeme(UNKNOWN, NULL);
             }
     }
-    return newLexeme(BAD_CHARACTER, &ch);
+    char *chStr = malloc(sizeof(char) * 2);
+    chStr[0] = ch;
+    chStr[1] = '\0';
+    return newLexeme(BAD_CHARACTER, chStr);
 }
 
 int getLexerLineNumber(void) {
@@ -214,7 +217,12 @@ Lexeme *lexNumber(FILE *fp) {
             // if a dot has not yet been encountered,
             // set isReal to true and continue, else return BAD_NUMBER Lexeme
             if (!isReal) isReal = true;
-            else return newLexeme(BAD_NUMBER, &ch);
+            else {
+                char *chStr = malloc(sizeof(char) * 2);
+                chStr[0] = ch;
+                chStr[1] = '\0';
+                return newLexeme(BAD_NUMBER, chStr);
+            }
         }
 
         // add character to token
