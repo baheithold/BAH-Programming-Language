@@ -12,6 +12,7 @@ The `types` module contains definitions for keywords, types, operators, punctuat
 A `lexeme` is a simple data structure holds the token type and its value.
 
 ## Lexer
+At the base of the lexical analyzer is the `lexer` module. The lexer accepts a file of characters as input and attempts to convert those characters into appropriate lexemes.
 
 ## Scanner
 The `scanner` repeatedly calls the `lex` function from the `lexer` and displays the resulting lexemes.
