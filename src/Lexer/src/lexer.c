@@ -42,104 +42,117 @@ bool isValidCharacterForID(char);
 Lexeme *lex(FILE *fp) {
     skipWhiteSpace(fp);
     char ch = fgetc(fp);
+    Lexeme *resultLexeme = newLexeme(NULL, NULL);
+    setLexemeLineNumber(resultLexeme, currentLine);
     if (ch == EOF) {
-        return newLexeme(END_OF_INPUT, NULL);
+        setLexemeType(resultLexeme, END_OF_INPUT);
+        return resultLexeme;
     }
     switch (ch) {
-        case '(': return newLexeme(OPAREN, NULL);
-        case ')': return newLexeme(CPAREN, NULL);
-        case '{': return newLexeme(OBRACE, NULL);
-        case '}': return newLexeme(CBRACE, NULL);
-        case ',': return newLexeme(COMMA, NULL);
-        case ';': return newLexeme(SEMICOLON, NULL);
-        case ':': return newLexeme(COLON, NULL);
+        case '(': setLexemeType(resultLexeme, OPAREN); return resultLexeme;
+        case ')': setLexemeType(resultLexeme, CPAREN); return resultLexeme;
+        case '{': setLexemeType(resultLexeme, OBRACE); return resultLexeme;
+        case '}': setLexemeType(resultLexeme, CBRACE); return resultLexeme;
+        case ',': setLexemeType(resultLexeme, COMMA); return resultLexeme;
+        case ';': setLexemeType(resultLexeme, SEMICOLON); return resultLexeme;
+        case ':': setLexemeType(resultLexeme, COLON); return resultLexeme;
         case '.':
             if (isdigit(peek(fp))) {
                 ungetc(ch, fp);
                 return lexNumber(fp);
             }
-            else return newLexeme(DOT_BINARY, NULL);
+            else { setLexemeType(resultLexeme, DOT_BINARY); return resultLexeme; }
         case '+':
             ch = fgetc(fp);
             switch (ch) {
-                case '+': return newLexeme(INCREMENT_UNARY, NULL);
-                case '=': return newLexeme(PLUS_ASSIGN_BINARY, NULL);
+                case '+': setLexemeType(resultLexeme, INCREMENT_UNARY); return resultLexeme;
+                case '=': setLexemeType(resultLexeme, PLUS_ASSIGN_BINARY); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(PLUS_BINARY, NULL);
+                    setLexemeType(resultLexeme, PLUS_BINARY);
+                    return resultLexeme;
             }
         case '-':
             ch = fgetc(fp);
             switch (ch) {
-                case '-': return newLexeme(DECREMENT_UNARY, NULL);
-                case '=': return newLexeme(MINUS_ASSIGN_BINARY, NULL);
+                case '-': setLexemeType(resultLexeme, DECREMENT_UNARY); return resultLexeme;
+                case '=': setLexemeType(resultLexeme, MINUS_ASSIGN_BINARY); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(MINUS_BINARY, NULL);
+                    setLexemeType(resultLexeme, MINUS_BINARY);
+                    return resultLexeme;
             }
         case '*':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(TIMES_ASSIGN_BINARY, NULL);
+                case '=': setLexemeType(resultLexeme, TIMES_ASSIGN_BINARY); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(TIMES_BINARY, NULL);
+                    setLexemeType(resultLexeme, TIMES_BINARY);
+                    return resultLexeme;
             }
         case '/':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(DIVIDE_ASSIGN_BINARY, NULL);
+                case '=': setLexemeType(resultLexeme, DIVIDE_ASSIGN_BINARY); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(DIVIDE_BINARY, NULL);
+                    setLexemeType(resultLexeme, DIVIDE_BINARY);
+                    return resultLexeme;
             }
         case '^':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(POW_ASSIGN_BINARY, NULL);
+                case '=': setLexemeType(resultLexeme, POW_ASSIGN_BINARY); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(POW_BINARY, NULL);
+                    setLexemeType(resultLexeme, POW_BINARY);
+                    return resultLexeme;
             }
         case '%':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(MODULO_ASSIGN_BINARY, NULL);
+                case '=': setLexemeType(resultLexeme, MODULO_ASSIGN_BINARY); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(MODULO_BINARY, NULL);
+                    setLexemeType(resultLexeme, MODULO_BINARY);
+                    return resultLexeme;
             }
         case '<':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(LESSER_EQUALS_COMPARATOR, NULL);
+                case '=': setLexemeType(resultLexeme, LESSER_EQUALS_COMPARATOR); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(LESSER_THAN_COMPARATOR, NULL);
+                    setLexemeType(resultLexeme, LESSER_THAN_COMPARATOR);
+                    return resultLexeme;
             }
         case '>':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(GREATER_EQUALS_COMPARATOR, NULL);
+                case '=': setLexemeType(resultLexeme, GREATER_EQUALS_COMPARATOR); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(GREATER_THAN_COMPARATOR, NULL);
+                    setLexemeType(resultLexeme, GREATER_THAN_COMPARATOR);
+                    return resultLexeme;
             }
         case '=':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(EQUALS_COMPARATOR, NULL);
+                case '=': setLexemeType(resultLexeme, EQUALS_COMPARATOR); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(ASSIGN_BINARY, NULL);
+                    setLexemeType(resultLexeme, ASSIGN_BINARY);
+                    return resultLexeme;
             }
         case '!':
             ch = fgetc(fp);
             switch (ch) {
-                case '=': return newLexeme(NOT_EQUALS_COMPARATOR, NULL);
+                case '=': setLexemeType(resultLexeme, NOT_EQUALS_COMPARATOR); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    return newLexeme(NEGATE_UNARY, NULL);
+                    setLexemeType(resultLexeme, NEGATE_UNARY);
+                    return resultLexeme;
             }
         default:
             if (isdigit(ch)) {
@@ -154,13 +167,21 @@ Lexeme *lex(FILE *fp) {
                 return lexString(fp);
             }
             else {
-                return newLexeme(UNKNOWN, NULL);
+                char *chStr = malloc(sizeof(char) * 2);
+                chStr[0] = ch;
+                chStr[1] = '\0';
+                setLexemeType(resultLexeme, UNKNOWN);
+                setLexemeValue(resultLexeme, chStr);
+                return resultLexeme;
             }
     }
     char *chStr = malloc(sizeof(char) * 2);
     chStr[0] = ch;
     chStr[1] = '\0';
-    return newLexeme(BAD_CHARACTER, chStr);
+    setLexemeType(resultLexeme, BAD_CHARACTER);
+    setLexemeValue(resultLexeme, chStr);
+    setLexemeLineNumber(resultLexeme, currentLine);
+    return resultLexeme;
 }
 
 int getLexerLineNumber(void) {
@@ -188,6 +209,7 @@ void skipComment(FILE *fp) {
     while (ch != '\n') {
         ch = fgetc(fp);
     }
+    currentLine++;
 }
 
 bool commentPending(char ch) {
@@ -211,6 +233,8 @@ Lexeme *lexNumber(FILE *fp) {
     assert(token != NULL);
     bool isReal = false;
 
+    Lexeme *resultLexeme = newLexeme(NULL, NULL);
+
     char ch = fgetc(fp);
     while (!feof(fp) && (isdigit(ch) || ch == '.')) {
         if (ch == '.') {
@@ -221,7 +245,9 @@ Lexeme *lexNumber(FILE *fp) {
                 char *chStr = malloc(sizeof(char) * 2);
                 chStr[0] = ch;
                 chStr[1] = '\0';
-                return newLexeme(BAD_NUMBER, chStr);
+                setLexemeType(resultLexeme, BAD_NUMBER);
+                setLexemeLineNumber(resultLexeme, currentLine);
+                return resultLexeme;
             }
         }
 
@@ -249,7 +275,10 @@ Lexeme *lexNumber(FILE *fp) {
     assert(token != NULL);
 
     // return appropriate Lexeme
-    return isReal ? newLexeme(REAL_TYPE, token) : newLexeme(INTEGER_TYPE, token);
+    setLexemeType(resultLexeme, isReal ? REAL_TYPE : INTEGER_TYPE);
+    setLexemeValue(resultLexeme, token);
+    setLexemeLineNumber(resultLexeme, currentLine);
+    return resultLexeme;
 }
 
 Lexeme *lexString(FILE *fp) {
@@ -258,11 +287,15 @@ Lexeme *lexString(FILE *fp) {
     char *str = malloc(sizeof(char) * length);
     assert(str != NULL);
 
+    Lexeme *resultLexeme = newLexeme(NULL, NULL);
+    setLexemeLineNumber(resultLexeme, currentLine);
+
     char ch = fgetc(fp);
     while (ch != '\"') {
         if (ch == EOF) {
             ungetc(ch, fp);
-            return newLexeme(BAD_STRING, NULL);
+            setLexemeType(resultLexeme, BAD_STRING);
+            return resultLexeme;
         }
         else if (ch == '\\') {
             // handle escape character
@@ -283,7 +316,9 @@ Lexeme *lexString(FILE *fp) {
     str = realloc(str, sizeof(char) * (index + 1));
     assert(str != NULL);
 
-    return newLexeme(STRING_TYPE, str);
+    setLexemeType(resultLexeme, STRING_TYPE);
+    setLexemeValue(resultLexeme, str);
+    return resultLexeme;
 }
 
 Lexeme *lexKeywordOrID(FILE *fp) {
@@ -313,25 +348,31 @@ Lexeme *lexKeywordOrID(FILE *fp) {
     assert(token != NULL);
 
     // return appropriate Lexeme
-    if (strcmp(token, "if") == 0) return newLexeme(IF, token);
-    else if (strcmp(token, "else") == 0) return newLexeme(ELSE, token);
-    else if (strcmp(token, "for") == 0) return newLexeme(FOR, token);
-    else if (strcmp(token, "while") == 0) return newLexeme(WHILE, token);
-    else if (strcmp(token, "function") == 0) return newLexeme(FUNCTION, token);
-    else if (strcmp(token, "var") == 0) return newLexeme(VAR, token);
-    else if (strcmp(token, "return") == 0) return newLexeme(RETURN, token);
-    else if (strcmp(token, "break") == 0) return newLexeme(BREAK, token);
-    else if (strcmp(token, "continue") == 0) return newLexeme(CONTINUE, token);
-    else if (strcmp(token, "class") == 0) return newLexeme(CLASS, token);
-    else if (strcmp(token, "lambda") == 0) return newLexeme(LAMBDA, token);
-    else if (strcmp(token, "void") == 0) return newLexeme(VOID, token);
-    else if (strcmp(token, "true") == 0) return newLexeme(BOOLEAN_TYPE, token);
-    else if (strcmp(token, "false") == 0) return newLexeme(BOOLEAN_TYPE, token);
-    else if (strcmp(token, "null") == 0) return newLexeme(NULL_TYPE, token);
-    else if (strcmp(token, "and") == 0) return newLexeme(AND, token);
-    else if (strcmp(token, "or") == 0) return newLexeme(OR, token);
-    else if (strcmp(token, "xor") == 0) return newLexeme(XOR, token);
-    else return newLexeme(ID_TYPE, token);
+    Lexeme *resultLexeme = newLexeme(NULL, NULL);
+    setLexemeLineNumber(resultLexeme, currentLine);
+    if (strcmp(token, "if") == 0) setLexemeType(resultLexeme, IF);
+    else if (strcmp(token, "else") == 0) setLexemeType(resultLexeme, ELSE);
+    else if (strcmp(token, "for") == 0) setLexemeType(resultLexeme, FOR);
+    else if (strcmp(token, "while") == 0) setLexemeType(resultLexeme, WHILE);
+    else if (strcmp(token, "function") == 0) setLexemeType(resultLexeme, FUNCTION);
+    else if (strcmp(token, "var") == 0) setLexemeType(resultLexeme, VAR);
+    else if (strcmp(token, "return") == 0) setLexemeType(resultLexeme, RETURN);
+    else if (strcmp(token, "break") == 0) setLexemeType(resultLexeme, BREAK);
+    else if (strcmp(token, "continue") == 0) setLexemeType(resultLexeme, CONTINUE);
+    else if (strcmp(token, "class") == 0) setLexemeType(resultLexeme, CLASS);
+    else if (strcmp(token, "lambda") == 0) setLexemeType(resultLexeme, LAMBDA);
+    else if (strcmp(token, "void") == 0) setLexemeType(resultLexeme, VOID);
+    else if (strcmp(token, "true") == 0) setLexemeType(resultLexeme, BOOLEAN_TYPE);
+    else if (strcmp(token, "false") == 0) setLexemeType(resultLexeme, BOOLEAN_TYPE);
+    else if (strcmp(token, "null") == 0) setLexemeType(resultLexeme, NULL_TYPE);
+    else if (strcmp(token, "and") == 0) setLexemeType(resultLexeme, AND);
+    else if (strcmp(token, "or") == 0) setLexemeType(resultLexeme, OR);
+    else if (strcmp(token, "xor") == 0) setLexemeType(resultLexeme, XOR);
+    else {
+        setLexemeType(resultLexeme, ID_TYPE);
+        setLexemeValue(resultLexeme, token);
+    }
+    return resultLexeme;
 }
 
 bool isValidSymbol(char ch) {
