@@ -1,0 +1,18 @@
+# This file tests valid keywords
+
+
+if
+else
+for
+while
+function
+var
+return
+break
+continue
+class
+lambda
+void
+true
+false
+null
