@@ -13,3 +13,4 @@ The `types` module contains definitions for keywords, types, operators, punctuat
 ## Lexer
 
 ## Scanner
+The `scanner` repeatedly calls the `lex` function from the `lexer` and displays the resulting lexemes.
