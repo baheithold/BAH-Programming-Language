@@ -1,0 +1,8 @@
+# This file tests valid lambda
+
+
+function f() {
+    return lambda(x, y) {
+        x + y;
+    };
+}
