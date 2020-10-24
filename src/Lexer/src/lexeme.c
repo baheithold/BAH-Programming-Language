@@ -29,16 +29,7 @@ Lexeme *newLexeme(char *type, char *value) {
     assert(type != NULL);
     Lexeme *result = malloc(sizeof(Lexeme));
     assert(result != NULL);
-    result->type = type;
-    if (type == INTEGER_TYPE) {
-        result->integerValue = atoi(value);
-    }
-    else if (type == REAL_TYPE) {
-        result->realValue = atof(value);
-    }
-    else {
-        result->stringValue = value;
-    }
+    setLexemeValue(result, value);
     result->lineNumber = 0;
     return result;
 }
@@ -72,9 +63,11 @@ char *getLexemeStringValue(Lexeme *lexeme) {
     return lexeme->stringValue;
 }
 
-void setLexemeStringValue(Lexeme *lexeme, char *str) {
+void setLexemeValue(Lexeme *lexeme, char *str) {
     assert(lexeme != NULL);
-    lexeme->stringValue = str;
+    if (lexeme->type == INTEGER_TYPE) lexeme->integerValue = atoi(str);
+    else if (lexeme->type == REAL_TYPE) lexeme->realValue = atof(str);
+    else lexeme->stringValue = str;
 }
 
 
