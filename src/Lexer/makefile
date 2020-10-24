@@ -106,6 +106,13 @@ test-punctuation : scanner
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
+test-types : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
+
+
 rebuild : all
 	@echo Rebuilding scanner...
 	@make clean -s
