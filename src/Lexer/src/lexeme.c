@@ -14,6 +14,10 @@
 #include <stdlib.h>
 
 
+/********** Global Constants **********/
+#define DEBUG 0
+
+
 struct Lexeme {
     char    *type;
     char    *stringValue;
@@ -85,6 +89,11 @@ void setLexemeLineNumber(Lexeme *lexeme, int line) {
 
 void printLexeme(FILE *fp, Lexeme *lexeme) {
     assert(lexeme != NULL);
+
+    // Change the DEBUG constant at the top of this file to enable
+    if (DEBUG) {
+        fprintf(fp, "Line %d: ", lexeme->lineNumber);
+    }
 
     if (lexeme->type == INTEGER_TYPE) {
         // Print INTEGER_TYPE Lexeme
