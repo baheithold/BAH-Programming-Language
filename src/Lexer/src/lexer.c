@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexer.c
  *  Created:        10/21/2020
- *  Last Revised:   10/23/2020
+ *  Last Revised:   10/24/2020
  */
 
 
