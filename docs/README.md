@@ -2,9 +2,9 @@
 This is the Barely Acceptable and Hideous programming language. The BAH programming language is a dynamically typed, imperative programming language with similarities to C and Javascript.
 
 ### Todo
-* [ ] Grammar
-* [ ] Lexeme Tokens
-* [ ] Lexer
+* [x] Grammar
+* [x] Lexeme Tokens
+* [x] Lexer
 * [ ] Recognizer
 * [ ] Parser
 * [ ] Environments
