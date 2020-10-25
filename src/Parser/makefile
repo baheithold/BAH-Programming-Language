@@ -47,7 +47,13 @@ $(OBJDIR)/lexer.o : $(LEXERPATH)/$(SRCDIR)/lexer.c $(LEXERPATH)/$(HEADERDIR)/lex
 test : recognizer
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@./recognizer test.bah > $(ACTUALPATH)/$@.out
+
+
+test-bad-filename : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 
 
 rebuild : all
