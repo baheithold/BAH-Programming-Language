@@ -127,6 +127,27 @@ test-types-string-error : scanner
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
+test-full : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+
+
+test-all : scanner
+	@make test-variables -s
+	@make test-functions -s
+	@make test-conditionals -s
+	@make test-loops -s
+	@make test-lambda -s
+	@make test-class -s
+	@make test-operators -s
+	@make test-keywords -s
+	@make test-punctuation -s
+	@make test-types -s
+	@make test-types-real-error -s
+	@make test-types-string-error -s
+
+
 rebuild : all
 	@echo Rebuilding scanner...
 	@make clean -s
