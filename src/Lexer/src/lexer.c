@@ -288,19 +288,19 @@ Lexeme *lexString(FILE *fp) {
     assert(str != NULL);
 
     Lexeme *resultLexeme = newLexeme(NULL, NULL);
-    setLexemeLineNumber(resultLexeme, currentLine);
 
     char ch = fgetc(fp);
     while (ch != '\"') {
         if (ch == EOF) {
-            ungetc(ch, fp);
             setLexemeType(resultLexeme, BAD_STRING);
+            setLexemeLineNumber(resultLexeme, currentLine);
             return resultLexeme;
         }
         else if (ch == '\\') {
             // handle escape character
             ch = fgetc(fp);
         }
+        else if (ch == '\n') currentLine++;
         str[index++] = ch;
         if (index >= length) {
             length *= 2;
@@ -318,6 +318,7 @@ Lexeme *lexString(FILE *fp) {
 
     setLexemeType(resultLexeme, STRING_TYPE);
     setLexemeValue(resultLexeme, str);
+    setLexemeLineNumber(resultLexeme, currentLine);
     return resultLexeme;
 }
 
