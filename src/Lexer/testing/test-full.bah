@@ -1,0 +1,150 @@
+#
+# Author:       Brett Heithold
+# File:         test-full.bah
+# Created on:   1/6/2020
+# Last Revised: 10/22/2020
+#
+
+import "fileToImport.bah"
+
+
+# Single-line comments
+
+
+#### Variable Examples ###
+
+var v;
+var x = v;
+v = 7;
+
+
+### Function Examples ###
+
+function sumXY(x, y) {
+    return x + y;
+}
+
+function myFunc(void) {
+    println("This is a test!");
+}
+
+
+### Class Examples ###
+
+class Rectangle {
+    var width;
+    var length;
+
+    function getWidth(void) {
+        return this.width;
+    }
+
+    function getLength(void) {
+        return this.length;
+    }
+
+    function getArea(void) {
+        return this.width * this.length;
+    }
+
+    function isSquare?(void) {
+        return this.width == length;
+    }
+}
+
+var rect = Rectangle(w, l);
+var area = rect.getArea();
+var square? = rect.isSquare?();
+
+class Pet {
+    var name;
+    var weight;
+    var numberOfLegs;
+}
+
+class Bird : Pet {
+    var wingLength;
+
+    function getName(void) {
+        return this.name;
+    }
+
+    function setName(name) {
+        return this.name = name;
+    }
+
+    function getWeight(void) {
+        return this.weight;
+    }
+
+    function getNumberOfLegs(void) {
+        return this.numberOfLegs;
+    }
+}
+
+
+### Loops ###
+
+for (var i = 0; i < 10; i++) {
+    println("i = " + i);
+}
+
+var i = 0;
+while (i < 10) {
+    println("i = " + i);
+    i++;
+}
+
+while (true) {
+    println("Always true!");
+    if (i >= 100) {
+        break;
+    }
+    else {
+        i++;
+    }
+}
+
+
+### if statements ###
+
+if (x > y) {
+    println("x > y");
+}
+else if (x < y) {
+    println("x < y");
+}
+else {
+    println("x == y, value: " + x);
+}
+
+if (x > y or x == y) {
+    println("x >= y");
+}
+else if (x > y and (x % 2) == 0) {
+    println("x > y and x is even");
+}
+else if ((x % 2) == 0 xor (y % 2) == 0) {
+    println("Either x or y is even but not both");
+}
+
+if (x > 0) {
+    if (x % 2 == 0) {
+        println("x is positive and even");
+    }
+    else {
+        println("x is positive and odd");
+    }
+}
+
+
+### Lambdas ###
+
+function line(m, b) {
+    return lambda (x) {
+        (m * x) + b;
+    }
+}
+
+var line_m2b3 = line(2, 3);
+var y = line_m2b3(1);

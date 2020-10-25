@@ -1,0 +1,12 @@
+# This file tests valid conditionals
+
+
+if (num == 0) {
+    return 0;
+}
+else if (isOdd?(num)) {
+    return 1;
+}
+else {
+    return 2;
+}
