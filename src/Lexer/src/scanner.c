@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           scanner.c
  *  Created:        10/22/2020
- *  Last Revised:   10/23/2020
+ *  Last Revised:   10/24/2020
  */
 
 
