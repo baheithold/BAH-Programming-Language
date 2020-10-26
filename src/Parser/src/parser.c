@@ -31,7 +31,7 @@ void advance(void) {
 
 Lexeme *match(char *type) {
     assert(type != NULL);
-    matchNoAdvance();
+    matchNoAdvance(type);
     advance();
     return currentLexeme;
 }

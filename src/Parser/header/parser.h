@@ -16,7 +16,7 @@
 
 /********** Lexer Interface Function Prototypes **********/
 extern void      advance(void);
-extern Lexeme   *match(void);
+extern Lexeme   *match(char *);
 extern void      matchNoAdvance(char *);
 extern bool      check(char *);
 
