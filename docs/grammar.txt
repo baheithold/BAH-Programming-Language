@@ -48,8 +48,8 @@ optInit : ASSIGN expression
 		
 		
 varExpression : ID
-			  | ID OPAREN optExpressionList CPAREN
-			  | ID OBRACKET optExpressionList CBRACKET
+	      | ID OPAREN optExpressionList CPAREN
+	      | ID OBRACKET optExpressionList CBRACKET
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
