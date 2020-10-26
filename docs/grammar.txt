@@ -1,7 +1,9 @@
 /*
  *  GRAMMAR
- *  Author: Brett Heithold
- *  Last Revised: 10/21/2020
+ *  Author: 		Brett Heithold
+ *  File: 		grammar.txt
+ *  Created on: 	1/6/2020
+ *  Last revision: 	10/26/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -9,13 +11,14 @@
 
 
 program : import program
-        | optStatementList
+        | statementList program
+        | *EMPTY*
 
 
 import : IMPORT QUOTE ID DOT ID QUOTE
 
 
-statement : definition SEMI
+statement : definition
           | expression SEMI
           | loop
           | ifStatement
@@ -36,9 +39,17 @@ definition : variableDefinition
            | classDefinition
 
 
-variableDefinition : VAR ID
-                   | VAR ID EQUAL expression
-                   | ID EQUAL expression
+variableDefinition : VAR ID optInit SEMICOLON
+                   | ID ASSIGN expression
+
+
+optInit : ASSIGN expression
+        | *EMPTY*
+		
+		
+variableExpression : ID
+	      	   | ID OPAREN optExpressionList CPAREN
+	      	   | ID OBRACKET optExpressionList CBRACKET
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
@@ -50,9 +61,6 @@ classDefinition : CLASS ID optInheritance block
 
 optInheritance : COLON ID
                | *EMPTY*
-
-
-functionCall : ID OPAREN optExpressionList CPAREN
 
 
 parameterList : ID
@@ -81,12 +89,9 @@ optExpressionList : expressionList
                   | *EMPTY*
 
 
-unary : ID
-      | functionCall
-      | ID OBRACKET optExpressionList CBRACKET
+unary : variableExpression
       | INTEGER
       | REAL
-      | CHAR
       | STRING
       | BOOLEAN
       | MINUS unary

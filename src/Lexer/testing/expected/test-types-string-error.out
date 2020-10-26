@@ -1,0 +1,4 @@
+STRING_TYPE "   this is a string   "
+STRING_TYPE "this is a string
+"
+ERROR, line 12: BAD_STRING

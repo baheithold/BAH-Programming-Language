@@ -1,10 +1,10 @@
 # BAH Programming Language
-This is the Barely Acceptable and Hideous programming language. The BAH programming language is a dynamically typed, imperative programming language with similarities to C and Javascript.
+This is the `Barely Acceptable and Hideous programming language`. The BAH programming language is a dynamically typed, imperative programming language with similarities to C and JavaScript.
 
-### Todo
-* [ ] Grammar
-* [ ] Lexeme Tokens
-* [ ] Lexer
+## Todo
+* [x] Grammar
+* [x] Lexeme Tokens
+* [x] Lexer
 * [ ] Recognizer
 * [ ] Parser
 * [ ] Environments
@@ -15,7 +15,7 @@ This is the Barely Acceptable and Hideous programming language. The BAH programm
     * [ ] print
     * [ ] println
 
-### Ideas
+## Ideas
 * Host Language: C
 * Source File Extension: .bah
 * C/C++ like syntax
