@@ -87,7 +87,6 @@ unary : ID
       | ID OBRACKET optExpressionList CBRACKET
       | INTEGER
       | REAL
-      | CHAR
       | STRING
       | BOOLEAN
       | MINUS unary
