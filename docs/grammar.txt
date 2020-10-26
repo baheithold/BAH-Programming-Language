@@ -1,7 +1,7 @@
 /*
  *  GRAMMAR
  *  Author: 		Brett Heithold
- *  File: 			grammar.txt
+ *  File: 		grammar.txt
  *  Created on: 	1/6/2020
  *  Last revision: 	10/26/2020
  *
