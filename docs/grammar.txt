@@ -16,7 +16,7 @@ program : import program
 import : IMPORT QUOTE ID DOT ID QUOTE
 
 
-statement : definition SEMI
+statement : definition
           | expression SEMI
           | loop
           | ifStatement
@@ -32,7 +32,7 @@ optStatementList : statementList
                  | *EMPTY*
 
 
-definition : variableDefinition
+definition : variableDefinition SEMICOLON
            | functionDefinition
            | classDefinition
 
