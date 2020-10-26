@@ -1,7 +1,8 @@
 /*
  *  GRAMMAR
- *  Author: Brett Heithold
- *  Last Revised: 10/26/2020
+ *  Author: 		Brett Heithold
+ * 	Created on:
+ *  Last revision: 	10/26/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -43,6 +44,11 @@ variableDefinition : VAR ID optInit SEMICOLON
 
 optInit : ASSIGN expression
         | *EMPTY*
+		
+		
+varExpression : ID
+			  | ID OPAREN optExpressionList CPAREN
+			  | ID OBRACKET optExpressionList CBRACKET
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
@@ -54,9 +60,6 @@ classDefinition : CLASS ID optInheritance block
 
 optInheritance : COLON ID
                | *EMPTY*
-
-
-functionCall : ID OPAREN optExpressionList CPAREN
 
 
 parameterList : ID
@@ -85,9 +88,7 @@ optExpressionList : expressionList
                   | *EMPTY*
 
 
-unary : ID
-      | functionCall
-      | ID OBRACKET optExpressionList CBRACKET
+unary : varExpression
       | INTEGER
       | REAL
       | STRING
