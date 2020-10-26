@@ -63,7 +63,7 @@ void program(void) {
 }
 
 
-/********** Grammar Function Definitions **********/
+/********** Predicate Function Definitions **********/
 
 bool programPending(void) {
     return importPending() || statementListPending();
@@ -92,6 +92,10 @@ bool variableDefinitionPending(void) {
     return check(VAR) || check(ID);
 }
 
+bool variableExpressionPending(void) {
+    return check(ID);
+}
+
 bool functionDefinitionPending(void) {
     return check(FUNCTION);
 }
@@ -109,11 +113,11 @@ bool expressionPending(void) {
 }
 
 bool expressionListPending(void) {
-    return expressiongPending();
+    return expressionPending();
 }
 
 bool unaryPending(void) {
-    return check(ID_TYPE) || functionCallPending() || check(INTEGER_TYPE)
+    return variableExpressionPending() || check(INTEGER_TYPE)
         || check(REAL_TYPE) || check(STRING_TYPE) || check(BOOLEAN_TYPE)
         || check(MINUS_BINARY) || check(OPAREN) || lambdaDefinitionPending()
         || check(PRINT) || check(NULL_TYPE);
