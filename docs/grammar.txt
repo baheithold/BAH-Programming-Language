@@ -1,7 +1,7 @@
 /*
  *  GRAMMAR
  *  Author: Brett Heithold
- *  Last Revised: 10/21/2020
+ *  Last Revised: 10/25/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -9,7 +9,8 @@
 
 
 program : import program
-        | optStatementList
+        | statementList
+        | *EMPTY*
 
 
 import : IMPORT QUOTE ID DOT ID QUOTE
