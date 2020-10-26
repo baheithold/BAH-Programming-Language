@@ -89,7 +89,7 @@ optExpressionList : expressionList
                   | *EMPTY*
 
 
-unary : varExpression
+unary : variableExpression
       | INTEGER
       | REAL
       | STRING
