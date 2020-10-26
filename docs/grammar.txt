@@ -32,14 +32,17 @@ optStatementList : statementList
                  | *EMPTY*
 
 
-definition : variableDefinition SEMICOLON
+definition : variableDefinition
            | functionDefinition
            | classDefinition
 
 
-variableDefinition : VAR ID
-                   | VAR ID EQUAL expression
-                   | ID EQUAL expression
+variableDefinition : VAR ID optInit SEMICOLON
+                   | ID ASSIGN expression
+
+
+optInit : ASSIGN expression
+        | *EMPTY*
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
