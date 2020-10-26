@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexer.c
  *  Created:        10/21/2020
- *  Last Revised:   10/24/2020
+ *  Last Revised:   10/25/2020
  */
 
 
@@ -20,6 +20,7 @@
 
 /********** Global Variables **********/
 
+static FILE *fp;
 static int currentLine = 1;
 
 
@@ -39,7 +40,11 @@ bool isValidCharacterForID(char);
 
 /********** Public Function Definitions **********/
 
-Lexeme *lex(FILE *fp) {
+void initLexer(FILE *input) {
+    fp = input;
+}
+
+Lexeme *lex(void) {
     skipWhiteSpace(fp);
     char ch = fgetc(fp);
     Lexeme *resultLexeme = newLexeme(NULL, NULL);
