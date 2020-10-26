@@ -1,7 +1,7 @@
 /*
  *  GRAMMAR
  *  Author: Brett Heithold
- *  Last Revised: 10/25/2020
+ *  Last Revised: 10/26/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -9,7 +9,7 @@
 
 
 program : import program
-        | statementList
+        | statementList program
         | *EMPTY*
 
 
