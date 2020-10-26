@@ -6,7 +6,7 @@ LEXERPATH 	 = ../Lexer
 TESTDIR 	 = testing
 EXPECTEDPATH = $(TESTDIR)/expected
 ACTUALPATH 	 = $(TESTDIR)/actual
-OBJS  	  	 = $(OBJDIR)/recognizer.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o $(OBJDIR)/lexer.o
+OBJS  	  	 = $(OBJDIR)/recognizer.o $(OBJDIR)/parser.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o $(OBJDIR)/lexer.o
 OOPTS 		 = -Wall -Wextra -g -c
 LOPTS 		 = -Wall -Wextra -g
 
@@ -42,6 +42,12 @@ $(OBJDIR)/lexer.o : $(LEXERPATH)/$(SRCDIR)/lexer.c $(LEXERPATH)/$(HEADERDIR)/lex
 	@echo Compiling lexer...
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(OOPTS) $(LEXERPATH)/$(SRCDIR)/lexer.c -o $@
+
+
+$(OBJDIR)/parser.o : $(SRCDIR)/parser.c $(LEXERPATH)/$(HEADERDIR)/lexer.h $(LEXERPATH)/$(HEADERDIR)/lexeme.h $(LEXERPATH)/$(HEADERDIR)/types.h
+	@echo Compiling parser...
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(OOPTS) $(SRCDIR)/parser.c -o $@
 
 
 test : recognizer
