@@ -9,7 +9,7 @@
 #define __PARSER_H__
 
 
-#include "../../Lexer/header/Lexeme.h"
+#include "../../Lexer/header/lexeme.h"
 
 #include <stdbool.h>
 
@@ -18,7 +18,7 @@
 extern void      advance(void);
 extern Lexeme   *match(void);
 extern void      matchNoAdvance(char *);
-extern int       check(char *);
+extern bool      check(char *);
 
 
 /********** Grammar Function Prototypes **********/

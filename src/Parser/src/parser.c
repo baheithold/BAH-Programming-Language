@@ -8,9 +8,11 @@
 
 #include "../header/parser.h"
 #include "../../Lexer/header/lexeme.h"
+#include "../../Lexer/header/lexer.h"
 #include "../../Lexer/header/types.h"
 
 #include <assert.h>
+#include <stdlib.h>
 
 
 /********** Global Variables **********/
@@ -19,7 +21,7 @@ static Lexeme *currentLexeme;
 
 /********** Grammar Function Definitions **********/
 
-void check(char *type) {
+bool check(char *type) {
     return getLexemeType(currentLexeme) == type;
 }
 
@@ -89,11 +91,11 @@ bool definitionPending(void) {
 }
 
 bool variableDefinitionPending(void) {
-    return check(VAR) || check(ID);
+    return check(VAR) || check(ID_TYPE);
 }
 
 bool variableExpressionPending(void) {
-    return check(ID);
+    return check(ID_TYPE);
 }
 
 bool functionDefinitionPending(void) {
@@ -156,7 +158,7 @@ bool elseStatementPending(void) {
 }
 
 bool unaryOperatorPending(void) {
-    return check(NOT) || check(NEGATE_UNARY) || check(INCREMENT_UNARY)
+    return check(NEGATE_UNARY) || check(INCREMENT_UNARY)
         || check(DECREMENT_UNARY);
 }
 
