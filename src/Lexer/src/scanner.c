@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           scanner.c
  *  Created:        10/22/2020
- *  Last Revised:   10/24/2020
+ *  Last Revised:   10/25/2020
  */
 
 
@@ -28,8 +28,11 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    // Initialize Lexer with source file
+    initLexer(fp);
+
     // Lexically analyze the provided file
-    Lexeme *lexeme = lex(fp);
+    Lexeme *lexeme = lex();
     char *type = getLexemeType(lexeme);
     while (type != END_OF_INPUT) {
         if (type != BAD_NUMBER && type != BAD_CHARACTER && type != BAD_STRING) {
@@ -42,7 +45,7 @@ int main(int argc, char **argv) {
             fprintf(stdout, "\n");
             return 0;
         }
-        lexeme = lex(fp);
+        lexeme = lex();
         type = getLexemeType(lexeme);
     }
     printLexeme(stdout, lexeme);
