@@ -47,9 +47,9 @@ optInit : ASSIGN expression
         | *EMPTY*
 		
 		
-varExpression : ID
-	      | ID OPAREN optExpressionList CPAREN
-	      | ID OBRACKET optExpressionList CBRACKET
+variableExpression : ID
+	      	   | ID OPAREN optExpressionList CPAREN
+	      	   | ID OBRACKET optExpressionList CBRACKET
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
