@@ -9,6 +9,9 @@
 #define __PARSER_H__
 
 
+#include "Lexeme.h"
+
+
 extern void      advance(void);
 extern Lexeme   *match(void);
 extern void      matchNoAdvance(char *);
