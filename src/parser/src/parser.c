@@ -261,7 +261,7 @@ void unary(void) {
         match(CPAREN);
     }
     else if (lambdaDefinitionPending()) {
-        lambdaDef();
+        lambdaDefinition();
     }
     else if (check(PRINT)) {
         match(PRINT);
