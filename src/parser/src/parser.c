@@ -320,6 +320,14 @@ void forLoop(void) {
     block();
 }
 
+void whileLoop(void) {
+    match(WHILE);
+    match(OPAREN);
+    expression();
+    match(CPAREN);
+    block();
+}
+
 
 /********** Predicate Function Definitions **********/
 
