@@ -141,6 +141,20 @@ void optInit(void) {
     }
 }
 
+void variableExpression(void) {
+    match(ID_TYPE);
+    if (check(OPAREN)) {
+        match(OPAREN);
+        optExpressionList();
+        match(CPAREN);
+    }
+    else {
+        match(OBRACKET);
+        optExpressionList();
+        match(CBRACKET);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
