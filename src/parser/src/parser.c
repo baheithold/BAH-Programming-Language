@@ -353,6 +353,11 @@ void optElseStatement(void) {
     }
 }
 
+void returnStatement(void) {
+    match(RETURN);
+    optExpression();
+}
+
 
 /********** Predicate Function Definitions **********/
 
