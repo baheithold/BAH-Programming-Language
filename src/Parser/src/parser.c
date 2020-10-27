@@ -216,6 +216,12 @@ void expression(void) {
     }
 }
 
+void optExpression(void) {
+    if (expressionPending()) {
+        expression();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
