@@ -127,6 +127,11 @@ void variableDefinition(void) {
         optInit();
         match(SEMICOLON);
     }
+    else {
+        match(ID_TYPE);
+        match(ASSIGN_BINARY);
+        expression();
+    }
 }
 
 
