@@ -288,6 +288,12 @@ void lambdaDefinition(void) {
     block();
 }
 
+void block(void) {
+    match(OBRACE);
+    optStatementList();
+    match(CBRACE);
+}
+
 
 /********** Predicate Function Definitions **********/
 
