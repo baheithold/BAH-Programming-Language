@@ -1,4 +1,0 @@
-# This file tests valid import statement
-
-
-import "../this/is/a/file/path/filename.bah"
