@@ -122,15 +122,15 @@ whileLoop : WHILE OPAREN expression CPAREN block
 ifStatement : IF OPAREN expression CPAREN block optElseStatement
 
 
-returnStatement : RETURN optExpression
-
-
 elseStatement : ELSE block
               | ELSE ifStatement
 
 
 optElseStatement : elseStatement
                  | *EMPTY*
+
+
+returnStatement : RETURN optExpression
 
 
 unaryOperator : NOT
