@@ -23,6 +23,8 @@ extern char *OPAREN;
 extern char *CPAREN;
 extern char *OBRACE;
 extern char *CBRACE;
+extern char *OBRACKET;
+extern char *CBRACKET;
 extern char *COMMA;
 extern char *COLON;
 extern char *SEMICOLON;
