@@ -230,6 +230,12 @@ void expressionList(void) {
     }
 }
 
+void optExpressionList(void) {
+    if (expressionListPending()) {
+        expressionList();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
