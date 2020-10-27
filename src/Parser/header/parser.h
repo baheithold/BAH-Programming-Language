@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.h
  *  Created on:     10/25/2020
- *  Last revision:  10/26/2020
+ *  Last revision:  10/27/2020
  */
 
 #ifndef __PARSER_H__
@@ -29,6 +29,7 @@ extern void statementList(void);
 extern void optStatementList(void);
 extern void definition(void);
 extern void variableDefinition(void);
+extern void optInit(void);
 extern void variableExpression(void);
 extern void functionDefinition(void);
 extern void classDefinition(void);
