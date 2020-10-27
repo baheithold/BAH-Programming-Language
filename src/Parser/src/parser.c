@@ -236,6 +236,50 @@ void optExpressionList(void) {
     }
 }
 
+void unary(void) {
+    if (variableExpressionPending()) {
+        variableExpression();
+    }
+    else if (check(INTEGER_TYPE)) {
+        match(INTEGER_TYPE);
+    }
+    else if (check(REAL_TYPE)) {
+        match(REAL_TYPE);
+    }
+    else if (check(STRING_TYPE)) {
+        match(STRING_TYPE);
+    }
+    else if (check(BOOLEAN_TYPE)) {
+        match(BOOLEAN_TYPE);
+    }
+    else if (check(NEGATE_UNARY)) {
+        match(NEGATE_UNARY);
+        unary();
+    }
+    else if (check(OPAREN)) {
+        expression();
+        match(CPAREN);
+    }
+    else if (lambdaDefinitionPending()) {
+        lambdaDef();
+    }
+    else if (check(PRINT)) {
+        match(PRINT);
+        match(OPAREN);
+        expressionList();
+        match(CPAREN);
+    }
+    else if (check(PRINTLN)) {
+        match(PRINTLN);
+        match(OPAREN);
+        expressionList();
+        match(CPAREN);
+    }
+    else if (check(NULL_TYPE)) {
+        match(NULL_TYPE);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
