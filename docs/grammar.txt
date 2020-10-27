@@ -133,10 +133,9 @@ optElseStatement : elseStatement
 returnStatement : RETURN optExpression
 
 
-unaryOperator : NOT
-              | UMINUS
-              | PLUS_PLUS
-              | MINUS_MINUS
+unaryOperator : NEGATE_UNARY
+              | INCREMENT_UNARY
+              | DECREMENT_UNARY
 
 
 binaryOperator : PLUS
@@ -160,9 +159,9 @@ logicalOperator : AND
                 | XOR
 
 
-comparator : LESS_THAN
-           | GREATER_THAN
-           | LESS_EQUAL
-           | GREATER_EQUAL
-           | DOUBLE_EQUAL
-           | NOT_EQUAL
+comparator : EQUALS_COMPARATOR
+           | NOT_EQUALS_COMPARATOR
+           | GREATER_THAN_COMPARATOR
+           | LESSER_THAN_COMPARATOR
+           | GREATER_EQUALS_COMPARATOR
+           | LESSER_EQUALS_COMPARATOR
