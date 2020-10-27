@@ -16,3 +16,6 @@ void
 true
 false
 null
+import
+print
+println
