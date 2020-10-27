@@ -113,16 +113,13 @@ loop : forLoop
 
 
 forLoop : FOR OPAREN variableDefinition SEMI expression SEMI expression CPAREN block
-        | FOR OPAREN ID SEMI expression SEMI expression CPAREN black
+        | FOR OPAREN ID SEMI expression SEMI expression CPAREN block
 
 
 whileLoop : WHILE OPAREN expression CPAREN block
 
 
 ifStatement : IF OPAREN expression CPAREN block optElseStatement
-
-
-returnStatement : RETURN optExpression
 
 
 elseStatement : ELSE block
@@ -133,10 +130,12 @@ optElseStatement : elseStatement
                  | *EMPTY*
 
 
-unaryOperator : NOT
-              | UMINUS
-              | PLUS_PLUS
-              | MINUS_MINUS
+returnStatement : RETURN optExpression
+
+
+unaryOperator : NEGATE_UNARY
+              | INCREMENT_UNARY
+              | DECREMENT_UNARY
 
 
 binaryOperator : PLUS
@@ -160,9 +159,9 @@ logicalOperator : AND
                 | XOR
 
 
-comparator : LESS_THAN
-           | GREATER_THAN
-           | LESS_EQUAL
-           | GREATER_EQUAL
-           | DOUBLE_EQUAL
-           | NOT_EQUAL
+comparator : EQUALS_COMPARATOR
+           | NOT_EQUALS_COMPARATOR
+           | GREATER_THAN_COMPARATOR
+           | LESSER_THAN_COMPARATOR
+           | GREATER_EQUALS_COMPARATOR
+           | LESSER_EQUALS_COMPARATOR
