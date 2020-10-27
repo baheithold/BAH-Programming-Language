@@ -41,7 +41,7 @@ extern void optExpression(void);
 extern void expressionList(void);
 extern void optExpressionList(void);
 extern void unary(void);
-extern void lambdaDef(void);
+extern void lambdaDefinition(void);
 extern void block(void);
 extern void loop(void);
 extern void forLoop(void);
