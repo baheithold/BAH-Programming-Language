@@ -193,6 +193,12 @@ void parameterList(void) {
     }
 }
 
+void optParameterList(void) {
+    if (parameterListPending()) {
+        parameterList();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
