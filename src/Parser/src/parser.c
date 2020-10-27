@@ -69,6 +69,32 @@ void import(void) {
     match(STRING_TYPE);
 }
 
+void statement(void) {
+    if (definitionPending()) {
+        definition();
+    }
+    else if (expressionPending()) {
+        expression();
+    }
+    else if (loopPending()) {
+        loop();
+    }
+    else if (ifStatementPending()) {
+        ifStatement();
+    }
+    else if (returnStatementPending()) {
+        returnStatement();
+    }
+    else if (check(CONTINUE)) {
+        match(CONTINUE);
+        match(SEMICOLON);
+    }
+    else if (check(BREAK)) {
+        match(BREAK);
+        match(SEMICOLON);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
