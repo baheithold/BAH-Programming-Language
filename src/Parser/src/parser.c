@@ -108,6 +108,18 @@ void optStatementList(void) {
     }
 }
 
+void definition(void) {
+    if (variableDefinitionPending()) {
+        variableDefinition();
+    }
+    else if (functionDefinitionPending()) {
+        functionDefinition();
+    }
+    else if (classDefinitionPending()) {
+        classDefinition();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
