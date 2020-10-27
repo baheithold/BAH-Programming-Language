@@ -155,6 +155,22 @@ void variableExpression(void) {
     }
 }
 
+void functionDefinition(void) {
+    match(FUNCTION);
+    match(ID_TYPE);
+    match(OPAREN);
+    if (parameterListPending()) {
+        parameterList();
+        match(CPAREN);
+        block();
+    }
+    else {
+        match(VOID);
+        match(CPAREN);
+        block();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
