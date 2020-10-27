@@ -294,6 +294,15 @@ void block(void) {
     match(CBRACE);
 }
 
+void loop(void) {
+    if (forLoopPending()) {
+        forLoop();
+    }
+    else {
+        whileLoop();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
