@@ -113,6 +113,13 @@ test-types : scanner
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
+test-import : scanner
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
+
+
 test-types-real-error : scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
@@ -144,6 +151,7 @@ test-all : scanner
 	@make test-keywords -s
 	@make test-punctuation -s
 	@make test-types -s
+	@make test-import -s
 	@make test-types-real-error -s
 	@make test-types-string-error -s
 
