@@ -358,6 +358,18 @@ void returnStatement(void) {
     optExpression();
 }
 
+void unaryOperator(void) {
+    if (check(NEGATE_UNARY)) {
+        match(NEGATE_UNARY);
+    }
+    else if (check(INCREMENT_UNARY)) {
+        match(INCREMENT_UNARY);
+    }
+    else {
+        match(DECREMENT_UNARY);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
