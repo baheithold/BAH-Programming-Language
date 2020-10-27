@@ -280,6 +280,14 @@ void unary(void) {
     }
 }
 
+void lambdaDefinition(void) {
+    match(LAMBDA);
+    match(OPAREN);
+    optParameterList();
+    match(CPAREN);
+    block();
+}
+
 
 /********** Predicate Function Definitions **********/
 
