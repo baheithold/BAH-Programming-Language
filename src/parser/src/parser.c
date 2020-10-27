@@ -328,6 +328,15 @@ void whileLoop(void) {
     block();
 }
 
+void ifStatement(void) {
+    match(IF);
+    match(OPAREN);
+    expression();
+    match(CPAREN);
+    block();
+    optElseStatement();
+}
+
 
 /********** Predicate Function Definitions **********/
 
