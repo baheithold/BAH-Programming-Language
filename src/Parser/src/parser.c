@@ -171,6 +171,13 @@ void functionDefinition(void) {
     }
 }
 
+void classDefinition(void) {
+    match(CLASS);
+    match(ID_TYPE);
+    optInheritance();
+    block();
+}
+
 
 /********** Predicate Function Definitions **********/
 
