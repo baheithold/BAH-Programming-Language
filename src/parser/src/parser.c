@@ -415,6 +415,18 @@ void binaryOperator(void) {
     }
 }
 
+void logicalOperator(void) {
+    if (check(AND)) {
+        match(AND);
+    }
+    else if (check(OR)) {
+        match(OR);
+    }
+    else {
+        match(XOR);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
