@@ -75,6 +75,8 @@ char *CLASS = "CLASS_KEYWORD";
 char *LAMBDA = "LAMBDA_KEYWORD";
 char *VOID = "VOID_KEYWORD";
 char *IMPORT = "IMPORT";
+char *PRINT = "PRINT";
+char *PRINTLN = "PRINTLN";
 
 /* Other */
 char *UNKNOWN = "UNKNOWN";
