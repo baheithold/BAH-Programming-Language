@@ -1,1 +1,1 @@
-# Syntactic Analysis
+# Syntactical Analysis
