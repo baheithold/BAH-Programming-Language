@@ -1,0 +1,7 @@
+IMPORT
+STRING_TYPE "this/is/a/path/filename.bah"
+IMPORT
+STRING_TYPE "filename.bah"
+IMPORT
+STRING_TYPE "another.bah"
+END_OF_INPUT
