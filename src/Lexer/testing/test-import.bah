@@ -1,0 +1,3 @@
+import "this/is/a/path/filename.bah"
+import "filename.bah"
+import "another.bah"
