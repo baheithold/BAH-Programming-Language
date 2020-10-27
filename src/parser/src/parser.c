@@ -427,6 +427,27 @@ void logicalOperator(void) {
     }
 }
 
+void comparator(void) {
+    if (check(EQUALS_COMPARATOR)) {
+        match(EQUALS_COMPARATOR);
+    }
+    else if (check(NOT_EQUALS_COMPARATOR)) {
+        match(NOT_EQUALS_COMPARATOR);
+    }
+    else if (check(GREATER_THAN_COMPARATOR)) {
+        match(GREATER_THAN_COMPARATOR);
+    }
+    else if (check(LESSER_THAN_COMPARATOR)) {
+        match(LESSER_THAN_COMPARATOR);
+    }
+    else if (check(GREATER_EQUALS_COMPARATOR)) {
+        match(GREATER_EQUALS_COMPARATOR);
+    }
+    else if (check(LESSER_EQUALS_COMPARATOR)) {
+        match(LESSER_EQUALS_COMPARATOR);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
