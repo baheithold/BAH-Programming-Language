@@ -347,6 +347,12 @@ void elseStatement(void) {
     }
 }
 
+void optElseStatement(void) {
+    if (elseStatementPending()) {
+        elseStatement();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
