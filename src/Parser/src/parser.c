@@ -199,6 +199,23 @@ void optParameterList(void) {
     }
 }
 
+void expression(void) {
+    if (unaryPending()) {
+        unary();
+        if (binaryOperatorPending()) {
+            binaryOperator();
+            expression();
+        }
+        else if (unaryOperatorPending()) {
+            unaryOperator();
+        }
+    }
+    else {
+        unaryOperator();
+        unary();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
