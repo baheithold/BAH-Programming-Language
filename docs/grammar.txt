@@ -98,6 +98,7 @@ unary : variableExpression
       | OPAREN expression CPAREN
       | lambdaDef
       | PRINT OPAREN expressionList CPAREN
+      | PRINTLN OPAREN expressionList CPAREN
       | NULL
 
 
