@@ -222,6 +222,14 @@ void optExpression(void) {
     }
 }
 
+void expressionList(void) {
+    expression();
+    if (check(COMMA)) {
+        match(COMMA);
+        expressionList();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
