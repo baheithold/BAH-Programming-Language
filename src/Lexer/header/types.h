@@ -85,6 +85,7 @@ extern char *VARIABLE_DEFINITION;
 extern char *FUNCTION_DEFINITION;
 extern char *FUNCTION_CALL;
 extern char *CLASS_DEFINITION;
+extern char *IMPORT
 
 
 #endif // !__TYPES_H__
