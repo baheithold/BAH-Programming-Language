@@ -58,6 +58,8 @@ Lexeme *lex(void) {
         case ')': setLexemeType(resultLexeme, CPAREN); return resultLexeme;
         case '{': setLexemeType(resultLexeme, OBRACE); return resultLexeme;
         case '}': setLexemeType(resultLexeme, CBRACE); return resultLexeme;
+        case '[': setLexemeType(resultLexeme, OBRACKET); return resultLexeme;
+        case ']': setLexemeType(resultLexeme, CBRACKET); return resultLexeme;
         case ',': setLexemeType(resultLexeme, COMMA); return resultLexeme;
         case ';': setLexemeType(resultLexeme, SEMICOLON); return resultLexeme;
         case ':': setLexemeType(resultLexeme, COLON); return resultLexeme;
