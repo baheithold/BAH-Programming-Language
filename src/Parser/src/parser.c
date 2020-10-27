@@ -120,6 +120,15 @@ void definition(void) {
     }
 }
 
+void variableDefinition(void) {
+    if (check(VARIABLE_TYPE)) {
+        match(VARIABLE_TYPE);
+        match(ID_TYPE);
+        optInit();
+        match(SEMICOLON);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
