@@ -337,6 +337,16 @@ void ifStatement(void) {
     optElseStatement();
 }
 
+void elseStatement(void) {
+    match(ELSE);
+    if (blockPending()) {
+        block();
+    }
+    else {
+        ifStatement();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
