@@ -303,6 +303,23 @@ void loop(void) {
     }
 }
 
+void forLoop(void) {
+    match(FOR);
+    match(OPAREN);
+    if (variableDefinitionPending()) {
+        variableDefinition();
+    }
+    else {
+        match(ID_TYPE);
+    }
+    match(SEMICOLON);
+    expression();
+    match(SEMICOLON);
+    expression();
+    match(CPAREN);
+    block();
+}
+
 
 /********** Predicate Function Definitions **********/
 
