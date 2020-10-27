@@ -95,6 +95,13 @@ void statement(void) {
     }
 }
 
+void statementList(void) {
+    if (statementPending()) {
+        statement();
+        optStatementList();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
