@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  10/26/2020
+ *  Last revision:  10/27/2020
  */
 
 
@@ -64,6 +64,11 @@ void program(void) {
     }
 }
 
+void import(void) {
+    match(IMPORT);
+    match(STRING_TYPE);
+}
+
 
 /********** Predicate Function Definitions **********/
 
@@ -122,7 +127,7 @@ bool unaryPending(void) {
     return variableExpressionPending() || check(INTEGER_TYPE)
         || check(REAL_TYPE) || check(STRING_TYPE) || check(BOOLEAN_TYPE)
         || check(MINUS_BINARY) || check(OPAREN) || lambdaDefinitionPending()
-        || check(PRINT) || check(NULL_TYPE);
+        || check(PRINT) || check(PRINTLN) || check(NULL_TYPE);
 }
 
 bool lambdaDefinitionPending(void) {
