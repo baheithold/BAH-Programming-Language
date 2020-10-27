@@ -75,6 +75,8 @@ extern char *CLASS;
 extern char *LAMBDA;
 extern char *VOID;
 extern char *IMPORT;
+extern char *PRINT;
+extern char *PRINTLN;
 
 /* Other */
 extern char *UNKNOWN;

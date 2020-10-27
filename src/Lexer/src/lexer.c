@@ -375,6 +375,8 @@ Lexeme *lexKeywordOrID(FILE *fp) {
     else if (strcmp(token, "or") == 0) setLexemeType(resultLexeme, OR);
     else if (strcmp(token, "xor") == 0) setLexemeType(resultLexeme, XOR);
     else if (strcmp(token, "import") == 0) setLexemeType(resultLexeme, IMPORT);
+    else if (strcmp(token, "print") == 0) setLexemeType(resultLexeme, PRINT);
+    else if (strcmp(token, "println") == 0) setLexemeType(resultLexeme, PRINTLN);
     else {
         setLexemeType(resultLexeme, ID_TYPE);
         setLexemeValue(resultLexeme, token);
