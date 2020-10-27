@@ -370,6 +370,51 @@ void unaryOperator(void) {
     }
 }
 
+void binaryOperator(void) {
+    if (check(PLUS_BINARY)) {
+        match(PLUS_BINARY);
+    }
+    else if (check(MINUS_BINARY)) {
+        match(MINUS_BINARY);
+    }
+    else if (check(TIMES_BINARY)) {
+        match(TIMES_BINARY);
+    }
+    else if (check(DIVIDE_BINARY)) {
+        match(DIVIDE_BINARY);
+    }
+    else if (check(POW_BINARY)) {
+        match(POW_BINARY);
+    }
+    else if (check(MODULO_BINARY)) {
+        match(MODULO_BINARY);
+    }
+    else if (check(ASSIGN_BINARY)) {
+        match(ASSIGN_BINARY);
+    }
+    else if (check(PLUS_ASSIGN_BINARY)) {
+        match(PLUS_ASSIGN_BINARY);
+    }
+    else if (check(MINUS_ASSIGN_BINARY)) {
+        match(MINUS_ASSIGN_BINARY);
+    }
+    else if (check(TIMES_ASSIGN_BINARY)) {
+        match(TIMES_ASSIGN_BINARY);
+    }
+    else if (check(DIVIDE_ASSIGN_BINARY)) {
+        match(DIVIDE_ASSIGN_BINARY);
+    }
+    else if (check(POW_ASSIGN_BINARY)) {
+        match(POW_ASSIGN_BINARY);
+    }
+    else if (check(MODULO_ASSIGN_BINARY)) {
+        match(MODULO_ASSIGN_BINARY);
+    }
+    else {
+        match(DOT_BINARY);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
