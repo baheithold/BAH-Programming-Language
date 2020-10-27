@@ -185,6 +185,14 @@ void optInheritance(void) {
     }
 }
 
+void parameterList(void) {
+    match(ID_TYPE);
+    if (check(COMMA)) {
+        match(COMMA);
+        parameterList();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
