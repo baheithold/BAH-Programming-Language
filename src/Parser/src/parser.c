@@ -134,6 +134,13 @@ void variableDefinition(void) {
     }
 }
 
+void optInit(void) {
+    if (check(ASSIGN_BINARY)) {
+        match(ASSIGN_BINARY);
+        expression();
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
