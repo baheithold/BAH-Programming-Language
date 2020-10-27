@@ -7,9 +7,9 @@
 
 
 #include "../header/parser.h"
-#include "../../Lexer/header/lexeme.h"
-#include "../../Lexer/header/lexer.h"
-#include "../../Lexer/header/types.h"
+#include "../../lexer/header/lexeme.h"
+#include "../../lexer/header/lexer.h"
+#include "../../lexer/header/types.h"
 
 #include <assert.h>
 #include <stdlib.h>

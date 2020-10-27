@@ -9,7 +9,7 @@
 #define __PARSER_H__
 
 
-#include "../../Lexer/header/lexeme.h"
+#include "../../lexer/header/lexeme.h"
 
 #include <stdbool.h>
 
