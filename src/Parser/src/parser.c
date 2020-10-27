@@ -178,6 +178,13 @@ void classDefinition(void) {
     block();
 }
 
+void optInheritance(void) {
+    if (check(COLON)) {
+        match(COLON);
+        match(ID_TYPE);
+    }
+}
+
 
 /********** Predicate Function Definitions **********/
 
