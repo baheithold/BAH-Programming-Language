@@ -113,7 +113,7 @@ loop : forLoop
 
 
 forLoop : FOR OPAREN variableDefinition SEMI expression SEMI expression CPAREN block
-        | FOR OPAREN ID SEMI expression SEMI expression CPAREN black
+        | FOR OPAREN ID SEMI expression SEMI expression CPAREN block
 
 
 whileLoop : WHILE OPAREN expression CPAREN block
