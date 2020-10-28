@@ -39,3 +39,6 @@ function f(i) {
         return "i is NOT even";
     }
 }
+
+if (true and false or x != true and x != false) {
+}

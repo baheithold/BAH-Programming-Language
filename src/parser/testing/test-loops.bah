@@ -8,5 +8,12 @@ for (i = x; i >= floor; i--) {
     # Do a bunch of stuff?
 }
 
-while (!isEven? and !isDiv3?) {
+while (!isEven? and !isDiv3? or x) {
+    for (var i = 0; i < 100 and i > 0; i++) {
+        i /= 2;
+    }
+}
+
+while(true) {
+    # inifite loop
 }
