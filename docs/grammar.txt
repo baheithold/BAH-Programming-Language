@@ -50,6 +50,7 @@ optInit : ASSIGN expression
 variableExpression : ID
 	      	   | ID OPAREN optExpressionList CPAREN
 	      	   | ID OBRACKET optExpressionList CBRACKET
+		   | ID binaryOperator expression
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
