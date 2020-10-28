@@ -1,0 +1,41 @@
+# This file test valid conditional statements
+
+if (true) {
+    # Do this
+}
+else if (false) {
+    # Do this
+}
+
+
+if (i % 2 == 0) {
+    if (i % 3 == 0) {
+        println("i is even and divisible by 3");
+        return "i is even and divisible by 3";
+    }
+    else {
+        println("i is even");
+        return "i is even";
+    }
+}
+else {
+    println("i is NOT even");
+    return "i is NOT even";
+}
+
+function f(i) {
+    if (i % 2 == 0) {
+        if (i % 3 == 0) {
+            println("i is even and divisible by 3");
+            return "i is even and divisible by 3";
+        }
+        else {
+            println("i is even");
+            return "i is even";
+        }
+    }
+    else {
+        println("i is NOT even");
+        return "i is NOT even";
+    }
+}
