@@ -1,0 +1,12 @@
+# This file tests valid loops
+
+for (i = 0; i < 10; i++) {
+    println(i);
+}
+
+for (i = x; i >= floor; i--) {
+    # Do a bunch of stuff?
+}
+
+while (!isEven? and !isDiv3?) {
+}
