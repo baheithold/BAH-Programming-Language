@@ -77,6 +77,20 @@ test-class : recognizer
 	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
 
 
+test-conditionals : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
 test-all : recognizer
 	@echo Testing $@...
 	@make test-variables
