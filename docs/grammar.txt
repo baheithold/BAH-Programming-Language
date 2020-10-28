@@ -34,12 +34,12 @@ optStatementList : statementList
                  | *EMPTY*
 
 
-definition : variableDefinition
+definition : variableDefinition SEMICOLON
            | functionDefinition
            | classDefinition
 
 
-variableDefinition : VAR ID optInit SEMICOLON
+variableDefinition : VAR ID optInit
                    | ID ASSIGN expression
 
 
@@ -50,6 +50,7 @@ optInit : ASSIGN expression
 variableExpression : ID
 	      	   | ID OPAREN optExpressionList CPAREN
 	      	   | ID OBRACKET optExpressionList CBRACKET
+		   | ID binaryOperator expression
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
@@ -71,10 +72,10 @@ optParameterList : parameterList
                  | *EMPTY*
 
 
-expression : unary SEMICOLON
-           | unary binaryOperator expression SEMICOLON
-           | unaryOperator unary SEMICOLON
-           | unary unaryOperator SEMICOLON
+expression : unary
+           | unary binaryOperator expression
+           | unaryOperator unary
+           | unary unaryOperator
 
 
 optExpression : expression
