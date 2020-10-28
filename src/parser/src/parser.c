@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  10/27/2020
+ *  Last revision:  10/28/2020
  */
 
 
@@ -285,6 +285,10 @@ void expressionList(void) {
         match(COMMA);
         expressionList();
     }
+    else if (logicalOperatorPending()){
+        logicalOperator();
+        expressionList();
+    }
 }
 
 void optExpressionList(void) {
@@ -385,7 +389,7 @@ void forLoop(void) {
         variableDefinition();
     }
     else {
-        match(ID_TYPE);
+        variableExpression();
     }
     match(SEMICOLON);
     expression();
@@ -401,7 +405,7 @@ void whileLoop(void) {
     }
     match(WHILE);
     match(OPAREN);
-    expression();
+    expressionList();
     match(CPAREN);
     block();
 }
