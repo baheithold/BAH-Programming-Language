@@ -15,6 +15,9 @@
 #include <stdlib.h>
 
 
+#define DEBUG false
+
+
 /********** Global Variables **********/
 static Lexeme *currentLexeme;
 
@@ -50,31 +53,36 @@ void matchNoAdvance(char *type) {
 /********** Grammar Function Definitions **********/
 
 void program(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: program\n");
+    }
     if (importPending()) {
         import();
-        if (programPending()) {
-            program();
-        }
+        program();
     }
     else if (statementListPending()) {
         statementList();
-        if (programPending()) {
-            program();
-        }
     }
 }
 
 void import(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: import\n");
+    }
     match(IMPORT);
     match(STRING_TYPE);
 }
 
 void statement(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: statement\n");
+    }
     if (definitionPending()) {
         definition();
     }
     else if (expressionPending()) {
         expression();
+        match(SEMICOLON);
     }
     else if (loopPending()) {
         loop();
@@ -84,6 +92,7 @@ void statement(void) {
     }
     else if (returnStatementPending()) {
         returnStatement();
+        match(SEMICOLON);
     }
     else if (check(CONTINUE)) {
         match(CONTINUE);
@@ -96,6 +105,9 @@ void statement(void) {
 }
 
 void statementList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: statementList\n");
+    }
     if (statementPending()) {
         statement();
         optStatementList();
@@ -103,14 +115,21 @@ void statementList(void) {
 }
 
 void optStatementList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optStatementList\n");
+    }
     if (statementListPending()) {
         statementList();
     }
 }
 
 void definition(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: definition\n");
+    }
     if (variableDefinitionPending()) {
         variableDefinition();
+        match(SEMICOLON);
     }
     else if (functionDefinitionPending()) {
         functionDefinition();
@@ -121,20 +140,18 @@ void definition(void) {
 }
 
 void variableDefinition(void) {
-    if (check(VARIABLE_TYPE)) {
-        match(VARIABLE_TYPE);
-        match(ID_TYPE);
-        optInit();
-        match(SEMICOLON);
+    if (DEBUG) {
+        fprintf(stdout, "CALL: variableDefinition\n");
     }
-    else {
-        match(ID_TYPE);
-        match(ASSIGN_BINARY);
-        expression();
-    }
+    match(VAR);
+    match(ID_TYPE);
+    optInit();
 }
 
 void optInit(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optInit\n");
+    }
     if (check(ASSIGN_BINARY)) {
         match(ASSIGN_BINARY);
         expression();
@@ -142,20 +159,30 @@ void optInit(void) {
 }
 
 void variableExpression(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: variableExpression\n");
+    }
     match(ID_TYPE);
     if (check(OPAREN)) {
         match(OPAREN);
         optExpressionList();
         match(CPAREN);
     }
-    else {
+    else if (check(OBRACKET)) {
         match(OBRACKET);
         optExpressionList();
         match(CBRACKET);
     }
+    else {
+        binaryOperator();
+        expression();
+    }
 }
 
 void functionDefinition(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: functionDefinition\n");
+    }
     match(FUNCTION);
     match(ID_TYPE);
     match(OPAREN);
@@ -172,6 +199,9 @@ void functionDefinition(void) {
 }
 
 void classDefinition(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: classDefinition\n");
+    }
     match(CLASS);
     match(ID_TYPE);
     optInheritance();
@@ -179,6 +209,9 @@ void classDefinition(void) {
 }
 
 void optInheritance(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: oprtInheritance\n");
+    }
     if (check(COLON)) {
         match(COLON);
         match(ID_TYPE);
@@ -186,6 +219,9 @@ void optInheritance(void) {
 }
 
 void parameterList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: parameterList\n");
+    }
     match(ID_TYPE);
     if (check(COMMA)) {
         match(COMMA);
@@ -194,12 +230,18 @@ void parameterList(void) {
 }
 
 void optParameterList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optParameterList\n");
+    }
     if (parameterListPending()) {
         parameterList();
     }
 }
 
 void expression(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: expression\n");
+    }
     if (unaryPending()) {
         unary();
         if (binaryOperatorPending()) {
@@ -209,20 +251,35 @@ void expression(void) {
         else if (unaryOperatorPending()) {
             unaryOperator();
         }
+        else if (logicalOperatorPending()) {
+            logicalOperator();
+            expression();
+        }
+        else if (comparatorPending()) {
+            comparator();
+            expression();
+        }
     }
     else {
+        // accounts for NEGATE_UNARY operator
         unaryOperator();
         unary();
     }
 }
 
 void optExpression(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optExpression\n");
+    }
     if (expressionPending()) {
         expression();
     }
 }
 
 void expressionList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: expressionList\n");
+    }
     expression();
     if (check(COMMA)) {
         match(COMMA);
@@ -231,12 +288,18 @@ void expressionList(void) {
 }
 
 void optExpressionList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optExpressionList\n");
+    }
     if (expressionListPending()) {
         expressionList();
     }
 }
 
 void unary(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: unary\n");
+    }
     if (variableExpressionPending()) {
         variableExpression();
     }
@@ -281,6 +344,9 @@ void unary(void) {
 }
 
 void lambdaDefinition(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: lambdaDefinition\n");
+    }
     match(LAMBDA);
     match(OPAREN);
     optParameterList();
@@ -289,12 +355,18 @@ void lambdaDefinition(void) {
 }
 
 void block(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: block\n");
+    }
     match(OBRACE);
     optStatementList();
     match(CBRACE);
 }
 
 void loop(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: loop\n");
+    }
     if (forLoopPending()) {
         forLoop();
     }
@@ -304,6 +376,9 @@ void loop(void) {
 }
 
 void forLoop(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: forLoop\n");
+    }
     match(FOR);
     match(OPAREN);
     if (variableDefinitionPending()) {
@@ -321,6 +396,9 @@ void forLoop(void) {
 }
 
 void whileLoop(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: whileLoop\n");
+    }
     match(WHILE);
     match(OPAREN);
     expression();
@@ -329,6 +407,9 @@ void whileLoop(void) {
 }
 
 void ifStatement(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: ifStatement\n");
+    }
     match(IF);
     match(OPAREN);
     expression();
@@ -338,6 +419,9 @@ void ifStatement(void) {
 }
 
 void elseStatement(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: elseStatement\n");
+    }
     match(ELSE);
     if (blockPending()) {
         block();
@@ -348,29 +432,41 @@ void elseStatement(void) {
 }
 
 void optElseStatement(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optElseStatement\n");
+    }
     if (elseStatementPending()) {
         elseStatement();
     }
 }
 
 void returnStatement(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: returnStatement\n");
+    }
     match(RETURN);
     optExpression();
 }
 
 void unaryOperator(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: unaryOperator\n");
+    }
     if (check(NEGATE_UNARY)) {
         match(NEGATE_UNARY);
     }
     else if (check(INCREMENT_UNARY)) {
         match(INCREMENT_UNARY);
     }
-    else {
+    else if (check(DECREMENT_UNARY)) {
         match(DECREMENT_UNARY);
     }
 }
 
 void binaryOperator(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: binaryOperator\n");
+    }
     if (check(PLUS_BINARY)) {
         match(PLUS_BINARY);
     }
@@ -410,12 +506,15 @@ void binaryOperator(void) {
     else if (check(MODULO_ASSIGN_BINARY)) {
         match(MODULO_ASSIGN_BINARY);
     }
-    else {
+    else if (check(DOT_BINARY)) {
         match(DOT_BINARY);
     }
 }
 
 void logicalOperator(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: logicalOperator\n");
+    }
     if (check(AND)) {
         match(AND);
     }
@@ -428,6 +527,9 @@ void logicalOperator(void) {
 }
 
 void comparator(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: comparator\n");
+    }
     if (check(EQUALS_COMPARATOR)) {
         match(EQUALS_COMPARATOR);
     }
@@ -452,57 +554,96 @@ void comparator(void) {
 /********** Predicate Function Definitions **********/
 
 bool programPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: programPending\n");
+    }
     return importPending() || statementListPending();
 }
 
 bool importPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: importPending\n");
+    }
     return check(IMPORT);
 }
 
 bool statementPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: statementPending\n");
+    }
     return definitionPending() || expressionPending() || loopPending()
         || ifStatementPending() || returnStatementPending() || check(CONTINUE)
         || check(BREAK);
 }
 
 bool statementListPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: statementListPending\n");
+    }
     return statementPending();
 }
 
 bool definitionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: definitionPending\n");
+    }
     return variableDefinitionPending() || functionDefinitionPending()
         || classDefinitionPending();
 }
 
 bool variableDefinitionPending(void) {
-    return check(VAR) || check(ID_TYPE);
+    if (DEBUG) {
+        fprintf(stdout, "CALL: variableDefinitionPending\n");
+    }
+    return check(VAR);
 }
 
 bool variableExpressionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: variableExpressionPending\n");
+    }
     return check(ID_TYPE);
 }
 
 bool functionDefinitionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: functionDefinitionPending\n");
+    }
     return check(FUNCTION);
 }
 
 bool classDefinitionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: classDefinitionPending\n");
+    }
     return check(CLASS);
 }
 
 bool parameterListPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: parameterListPending\n");
+    }
     return check(ID_TYPE);
 }
 
 bool expressionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: expressionPending\n");
+    }
     return unaryPending() || unaryOperatorPending();
 }
 
 bool expressionListPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: expressionListPending\n");
+    }
     return expressionPending();
 }
 
 bool unaryPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: unaryPending\n");
+    }
     return variableExpressionPending() || check(INTEGER_TYPE)
         || check(REAL_TYPE) || check(STRING_TYPE) || check(BOOLEAN_TYPE)
         || check(MINUS_BINARY) || check(OPAREN) || lambdaDefinitionPending()
@@ -510,43 +651,73 @@ bool unaryPending(void) {
 }
 
 bool lambdaDefinitionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: lambdaDefinitionPending\n");
+    }
     return check(LAMBDA);
 }
 
 bool blockPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: blockPending\n");
+    }
     return check(OBRACE);
 }
 
 bool loopPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: loopPending\n");
+    }
     return forLoopPending() || whileLoopPending();
 }
 
 bool forLoopPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: forLoopPending\n");
+    }
     return check(FOR);
 }
 
 bool whileLoopPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: whileLoopPending\n");
+    }
     return check(WHILE);
 }
 
 bool ifStatementPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: ifStatementPending\n");
+    }
     return check(IF);
 }
 
 bool returnStatementPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: returnStatementPending\n");
+    }
     return check(RETURN);
 }
 
 bool elseStatementPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: elseStatementPending\n");
+    }
     return check(ELSE);
 }
 
 bool unaryOperatorPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: unaryOperatorPending\n");
+    }
     return check(NEGATE_UNARY) || check(INCREMENT_UNARY)
         || check(DECREMENT_UNARY);
 }
 
 bool binaryOperatorPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: binaryOperatorPending\n");
+    }
     return check(PLUS_BINARY) || check(MINUS_BINARY) || check(TIMES_BINARY)
         || check(DIVIDE_BINARY) || check(POW_BINARY) || check(MODULO_BINARY)
         || check(ASSIGN_BINARY) || check(PLUS_ASSIGN_BINARY)
@@ -556,10 +727,16 @@ bool binaryOperatorPending(void) {
 }
 
 bool logicalOperatorPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: logicalOperatorPending\n");
+    }
     return check(AND) || check(OR) || check(XOR);
 }
 
 bool comparatorPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: comparatorPending\n");
+    }
     return check(LESSER_THAN_COMPARATOR) || check(GREATER_THAN_COMPARATOR)
         || check(LESSER_EQUALS_COMPARATOR) || check(GREATER_EQUALS_COMPARATOR)
         || check(EQUALS_COMPARATOR) || check(NOT_EQUALS_COMPARATOR);

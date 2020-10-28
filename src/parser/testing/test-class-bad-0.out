@@ -1,0 +1,6 @@
+#This file tests an invalid class definition
+
+class {
+    var width;
+    var height;
+}

@@ -2,13 +2,14 @@
  *  Author:         Brett Heithold
  *  File:           recognizer.c
  *  Created on:     10/25/2020
- *  Last Revision:  10/25/2020
+ *  Last Revision:  10/27/2020
  */
 
 
 #include "../../lexer/header/lexeme.h"
 #include "../../lexer/header/types.h"
 #include "../../lexer/header/lexer.h"
+#include "../header/parser.h"
 
 #include <assert.h>
 #include <stdbool.h>
@@ -38,6 +39,14 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
+
+    initLexer(fp);
+    advance();
+    program();
+    match(END_OF_INPUT);
+    fprintf(stdout, "legal\n");
+
+    fclose(fp);
 
     return 0;
 }

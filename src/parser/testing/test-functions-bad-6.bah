@@ -1,0 +1,5 @@
+# This file tests an invalid file
+
+function(voi) {
+
+}

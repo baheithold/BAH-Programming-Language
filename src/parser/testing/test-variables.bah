@@ -1,0 +1,25 @@
+# This file tests valid variables
+
+
+var x;
+x = 5;
+x = "this is a";
+
+var y = " string";
+x += y;
+
+
+var one = 1;
+var two = 2;
+var three = one + 2;
+var eight = two ^ three;
+var ~PI = 3.14159;
+var isEven? = true;
+var isOdd? = !isEven?;
+var lamb = lambda(x, y) {
+    x + y;
+};
+-one;
+x = 10;
+-x += -one;
+var negative5 = -5;

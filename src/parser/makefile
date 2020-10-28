@@ -50,16 +50,38 @@ $(OBJDIR)/parser.o : $(SRCDIR)/parser.c $(LEXERPATH)/$(HEADERDIR)/lexer.h $(LEXE
 	@$(CC) $(OOPTS) $(SRCDIR)/parser.c -o $@
 
 
-test : recognizer
-	@echo Running $@...
-	@mkdir -p $(ACTUALPATH)
-	@./recognizer test.bah > $(ACTUALPATH)/$@.out
-
-
 test-bad-filename : recognizer
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
 	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+
+
+test-variables : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-class : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-all : recognizer
+	@echo Testing $@...
+	@make test-variables
+	@make test-functions
+	@make test-class
 
 
 rebuild : all
