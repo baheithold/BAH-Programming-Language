@@ -85,6 +85,7 @@ optExpression : expression
 
 expressionList : expression
                | expression COMMA expressionList
+	       | expression logicalOperator expressionList
 
 
 optExpressionList : expressionList
@@ -118,7 +119,7 @@ forLoop : FOR OPAREN variableDefinition SEMI expression SEMI expression CPAREN b
         | FOR OPAREN variableExpression SEMI expression SEMI expression CPAREN black
 
 
-whileLoop : WHILE OPAREN expression CPAREN block
+whileLoop : WHILE OPAREN expressionList CPAREN block
 
 
 ifStatement : IF OPAREN expression CPAREN block optElseStatement
