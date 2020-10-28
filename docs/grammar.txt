@@ -40,7 +40,6 @@ definition : variableDefinition SEMICOLON
 
 
 variableDefinition : VAR ID optInit
-                   | ID ASSIGN expression
 
 
 optInit : ASSIGN expression
