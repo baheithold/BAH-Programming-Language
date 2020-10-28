@@ -75,6 +75,8 @@ expression : unary
            | unary binaryOperator expression
            | unaryOperator unary
            | unary unaryOperator
+	   | unary logicalOperator expression
+	   | unary comparator expression
 
 
 optExpression : expression
