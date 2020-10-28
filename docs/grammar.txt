@@ -71,10 +71,10 @@ optParameterList : parameterList
                  | *EMPTY*
 
 
-expression : unary
-           | unary binaryOperator expression
-           | unaryOperator unary
-           | unary unaryOperator
+expression : unary SEMICOLON
+           | unary binaryOperator expression SEMICOLON
+           | unaryOperator unary SEMICOLON
+           | unary unaryOperator SEMICOLON
 
 
 optExpression : expression
