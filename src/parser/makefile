@@ -91,11 +91,405 @@ test-loops : recognizer
 	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
 
 
+test-variables-bad-0 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-variables-bad-1 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-variables-bad-2 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-variables-bad-3 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-variables-bad-4 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-variables-bad-5 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-0 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-1 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-2 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-3 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-4 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-5 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-6 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-7 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-8 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-9 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-functions-bad-10 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-class-bad-0 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-class-bad-1 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-class-bad-2 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-conditionals-bad-0 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-conditionals-bad-1 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-conditionals-bad-2 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-conditionals-bad-3 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-conditionals-bad-4 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-conditionals-bad-5 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-0 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-1 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-2 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-3 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-4 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-5 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-6 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-7 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-8 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-9 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-10 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-11 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-12 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-13 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-14 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-15 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-16 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-17 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-18 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-19 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-20 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-21 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
+test-loops-bad-22 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
 test-all : recognizer
 	@echo Testing $@...
-	@make test-variables
-	@make test-functions
-	@make test-class
+	@make test-variables -s
+	@make test-functions -s
+	@make test-class -s
+	@make test-conditionals -s
+	@make test-loops -s
+	@make test-variables-bad-0 -s
+	@make test-variables-bad-1 -s
+	@make test-variables-bad-2 -s
+	@make test-variables-bad-3 -s
+	@make test-variables-bad-4 -s
+	@make test-variables-bad-5 -s
+	@make test-functions-bad-0 -s
+	@make test-functions-bad-1 -s
+	@make test-functions-bad-2 -s
+	@make test-functions-bad-3 -s
+	@make test-functions-bad-4 -s
+	@make test-functions-bad-5 -s
+	@make test-functions-bad-6 -s
+	@make test-functions-bad-7 -s
+	@make test-functions-bad-8 -s
+	@make test-functions-bad-9 -s
+	@make test-functions-bad-10 -s
+	@make test-class-bad-0 -s
+	@make test-class-bad-1 -s
+	@make test-class-bad-2 -s
+	@make test-conditionals-bad-0 -s
+	@make test-conditionals-bad-1 -s
+	@make test-conditionals-bad-2 -s
+	@make test-conditionals-bad-3 -s
+	@make test-conditionals-bad-4 -s
+	@make test-conditionals-bad-5 -s
+	@make test-loops-bad-0 -s
+	@make test-loops-bad-1 -s
+	@make test-loops-bad-2 -s
+	@make test-loops-bad-3 -s
+	@make test-loops-bad-4 -s
+	@make test-loops-bad-5 -s
+	@make test-loops-bad-6 -s
+	@make test-loops-bad-7 -s
+	@make test-loops-bad-8 -s
+	@make test-loops-bad-9 -s
+	@make test-loops-bad-10 -s
+	@make test-loops-bad-11 -s
+	@make test-loops-bad-12 -s
+	@make test-loops-bad-13 -s
+	@make test-loops-bad-14 -s
+	@make test-loops-bad-15 -s
+	@make test-loops-bad-16 -s
+	@make test-loops-bad-17 -s
+	@make test-loops-bad-18 -s
+	@make test-loops-bad-19 -s
+	@make test-loops-bad-20 -s
+	@make test-loops-bad-21 -s
+	@make test-loops-bad-22 -s
 
 
 rebuild : all

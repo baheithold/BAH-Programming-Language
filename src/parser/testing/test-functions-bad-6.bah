@@ -1,4 +1,4 @@
-# This file tests an invalid file
+# This file tests an invalid function
 
 function(voi) {
 

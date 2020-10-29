@@ -1,0 +1,6 @@
+#This file tests an invalid conditional statement
+
+
+if var(i % 2 == 0) {
+
+}
