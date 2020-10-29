@@ -45,7 +45,7 @@ void matchNoAdvance(char *type) {
     if (!check(type)) {
         fprintf(stdout, "ERROR, line %d: ", getLexemeLineNumber(currentLexeme));
         fprintf(stdout, "expected %s, but encountered %s\n", type, getLexemeType(currentLexeme));
-        exit(1);
+        exit(0);
     }
 }
 
