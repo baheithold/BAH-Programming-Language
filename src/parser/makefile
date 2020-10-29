@@ -91,6 +91,12 @@ test-loops : recognizer
 	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
 
 
+test-arrays : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
 test-variables-bad-0 : recognizer
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
@@ -441,6 +447,7 @@ test-all : recognizer
 	@make test-class -s
 	@make test-conditionals -s
 	@make test-loops -s
+	@make test-arrays -s
 	@make test-variables-bad-0 -s
 	@make test-variables-bad-1 -s
 	@make test-variables-bad-2 -s
