@@ -99,6 +99,7 @@ unary : variableExpression
       | BOOLEAN
       | MINUS unary
       | OPAREN expression CPAREN
+      | OBRACKET optExpressionList CBRACKET
       | lambdaDef
       | PRINT OPAREN expressionList CPAREN
       | PRINTLN OPAREN expressionList CPAREN
