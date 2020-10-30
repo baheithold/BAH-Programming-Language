@@ -120,14 +120,14 @@ loop : forLoop
      | whileLoop
 
 
-forLoop : FOR OPAREN variableDefinition SEMI expression SEMI expression CPAREN block
-        | FOR OPAREN variableExpression SEMI expression SEMI expression CPAREN black
+forLoop : FOR OPAREN variableDefinition SEMI conditionalExpressionList SEMI expression CPAREN block
+        | FOR OPAREN variableExpression SEMI conditionalExpressionList SEMI expression CPAREN black
 
 
 whileLoop : WHILE OPAREN conditionalExpressionList CPAREN block
 
 
-ifStatement : IF OPAREN expression CPAREN block optElseStatement
+ifStatement : IF OPAREN conditionalExpressionList CPAREN block optElseStatement
 
 
 returnStatement : RETURN optExpression
