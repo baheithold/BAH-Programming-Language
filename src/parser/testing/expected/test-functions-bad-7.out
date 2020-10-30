@@ -1,1 +1,1 @@
-ERROR, line 3: expected CPAREN, but encountered VOID_KEYWORD
+ERROR, line 3: expected SEMICOLON, but encountered ID_TYPE

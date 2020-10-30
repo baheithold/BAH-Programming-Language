@@ -1,1 +1,1 @@
-ERROR, line 4: expected ID_TYPE, but encountered SEMICOLON
+ERROR, line 3: expected expression, but encountered CPAREN
