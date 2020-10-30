@@ -1,5 +1,5 @@
 #This file tests an invalid loop
 
 
-for (x;;) {
+for (;x;) {
 

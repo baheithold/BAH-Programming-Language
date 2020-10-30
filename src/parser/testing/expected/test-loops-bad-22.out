@@ -1,1 +1,1 @@
-ERROR, line 4: expected CPAREN, but encountered LESSER_EQUALS_COMPARATOR
+ERROR, line 4: expected CPAREN, but encountered ID_TYPE

@@ -1,1 +1,1 @@
-ERROR, line 6: expected OBRACE, but encountered CBRACE
+ERROR, line 4: expected expression, but encountered CPAREN
