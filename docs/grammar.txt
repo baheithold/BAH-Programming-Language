@@ -48,7 +48,7 @@ optInit : ASSIGN expression
 
 variableExpression : ID
 	      	   | ID OPAREN optExpressionList CPAREN
-	      	   | ID OBRACKET optExpressionList CBRACKET
+	      	   | ID dimensionList
 		   | ID binaryOperator expression
 
 
@@ -61,6 +61,13 @@ classDefinition : CLASS ID optInheritance block
 
 optInheritance : COLON ID
                | *EMPTY*
+	       
+	       
+dimension : OBRACKET optExpressionList CBRACKET
+
+
+dimensionList : dimension
+	      | dimension dimensionList
 
 
 parameterList : ID
