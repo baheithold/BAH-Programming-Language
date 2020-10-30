@@ -154,7 +154,12 @@ void optInit(void) {
     }
     if (check(ASSIGN_BINARY)) {
         match(ASSIGN_BINARY);
-        expression();
+        if (expressionPending()) {
+            expression();
+        }
+        else {
+            matchNoAdvance("expression");
+        }
     }
 }
 
@@ -173,9 +178,14 @@ void variableExpression(void) {
         optExpressionList();
         match(CBRACKET);
     }
-    else {
+    else if (binaryOperatorPending()){
         binaryOperator();
-        expression();
+        if (expressionPending()) {
+            expression();
+        }
+        else {
+            matchNoAdvance("expression");
+        }
     }
 }
 
@@ -260,10 +270,13 @@ void expression(void) {
             expression();
         }
     }
-    else {
+    else if (unaryOperatorPending()) {
         // accounts for NEGATE_UNARY operator
         unaryOperator();
         unary();
+    }
+    else {
+        matchNoAdvance("expression");
     }
 }
 
@@ -283,11 +296,12 @@ void expressionList(void) {
     expression();
     if (check(COMMA)) {
         match(COMMA);
-        expressionList();
-    }
-    else if (logicalOperatorPending()){
-        logicalOperator();
-        expressionList();
+        if (expressionListPending()) {
+            expressionList();
+        }
+        else {
+            matchNoAdvance("expression");
+        }
     }
 }
 
@@ -297,6 +311,22 @@ void optExpressionList(void) {
     }
     if (expressionListPending()) {
         expressionList();
+    }
+}
+
+void conditionalExpressionList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: conditionalExpressionList\n");
+    }
+    expression();
+    if (logicalOperatorPending()) {
+        logicalOperator();
+        if (conditionalExpressionListPending()) {
+            conditionalExpressionList();
+        }
+        else {
+            matchNoAdvance("expression");
+        }
     }
 }
 
@@ -324,8 +354,14 @@ void unary(void) {
         unary();
     }
     else if (check(OPAREN)) {
+        match(OPAREN);
         expression();
         match(CPAREN);
+    }
+    else if (check(OBRACKET)) {
+        match(OBRACKET);
+        optExpressionList();
+        match(CBRACKET);
     }
     else if (lambdaDefinitionPending()) {
         lambdaDefinition();
@@ -392,7 +428,7 @@ void forLoop(void) {
         variableExpression();
     }
     match(SEMICOLON);
-    expression();
+    conditionalExpressionList();
     match(SEMICOLON);
     expression();
     match(CPAREN);
@@ -405,7 +441,7 @@ void whileLoop(void) {
     }
     match(WHILE);
     match(OPAREN);
-    expressionList();
+    conditionalExpressionList();
     match(CPAREN);
     block();
 }
@@ -416,7 +452,7 @@ void ifStatement(void) {
     }
     match(IF);
     match(OPAREN);
-    expression();
+    conditionalExpressionList();
     match(CPAREN);
     block();
     optElseStatement();
@@ -644,13 +680,20 @@ bool expressionListPending(void) {
     return expressionPending();
 }
 
+bool conditionalExpressionListPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: conditionalExpressionListPending\n");
+    }
+    return expressionPending();
+}
+
 bool unaryPending(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: unaryPending\n");
     }
     return variableExpressionPending() || check(INTEGER_TYPE)
         || check(REAL_TYPE) || check(STRING_TYPE) || check(BOOLEAN_TYPE)
-        || check(MINUS_BINARY) || check(OPAREN) || lambdaDefinitionPending()
+        || check(MINUS_BINARY) || check(OPAREN) || check(OBRACKET) || lambdaDefinitionPending()
         || check(PRINT) || check(PRINTLN) || check(NULL_TYPE);
 }
 
