@@ -42,3 +42,13 @@ function f(i) {
 
 if (true and false or x != true and x != false) {
 }
+
+if (x and y) {
+    if ((x and y) xor (z and w)) {
+        if (arr[x] < arr[y]) {
+            return true;
+        }
+        else {
+        }
+    }
+}
