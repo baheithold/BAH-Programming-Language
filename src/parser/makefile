@@ -440,6 +440,13 @@ test-loops-bad-22 : recognizer
 	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
 
 
+test-loops-bad-23 : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
 test-all : recognizer
 	@echo Testing $@...
 	@make test-variables -s
@@ -497,6 +504,7 @@ test-all : recognizer
 	@make test-loops-bad-20 -s
 	@make test-loops-bad-21 -s
 	@make test-loops-bad-22 -s
+	@make test-loops-bad-23 -s
 
 
 rebuild : all
