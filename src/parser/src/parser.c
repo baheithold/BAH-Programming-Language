@@ -163,6 +163,33 @@ void optInit(void) {
     }
 }
 
+void dimension(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: dimension\n");
+    }
+    match(OBRACKET);
+    optExpressionList();
+    match(CBRACKET);
+}
+
+
+void dimensionList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: dimensionList\n");
+    }
+    dimension();
+    optDimensionList();
+}
+
+void optDimensionList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optDimensionList\n");
+    }
+    if (dimensionListPending()) {
+        dimensionList();
+    }
+}
+
 void variableExpression(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: variableExpression\n");
@@ -173,10 +200,11 @@ void variableExpression(void) {
         optExpressionList();
         match(CPAREN);
     }
-    else if (check(OBRACKET)) {
-        match(OBRACKET);
-        optExpressionList();
-        match(CBRACKET);
+    else if (dimensionListPending()) {
+        dimensionList();
+        if (dimensionListPending()) {
+            dimensionList();
+        }
     }
     else if (binaryOperatorPending()){
         binaryOperator();
@@ -657,6 +685,20 @@ bool classDefinitionPending(void) {
         fprintf(stdout, "CALL: classDefinitionPending\n");
     }
     return check(CLASS);
+}
+
+bool dimensionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: dimensionPending\n");
+    }
+    return check(OBRACKET);
+}
+
+bool dimensionListPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: dimensionListPending\n");
+    }
+    return dimensionPending();
 }
 
 bool parameterListPending(void) {
