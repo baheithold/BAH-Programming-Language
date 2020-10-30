@@ -69,6 +69,7 @@ extern bool classDefinitionPending(void);
 extern bool parameterListPending(void);
 extern bool expressionPending(void);
 extern bool expressionListPending(void);
+extern bool conditionalExpressionListPending(void);
 extern bool unaryPending(void);
 extern bool lambdaDefinitionPending(void);
 extern bool blockPending(void);
