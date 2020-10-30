@@ -70,6 +70,10 @@ dimensionList : dimension
 	      | dimension dimensionList
 
 
+optDimensionList : dimensionList
+		 | *EMPTY*
+
+
 parameterList : ID
               | ID COMMA parameterList
 
