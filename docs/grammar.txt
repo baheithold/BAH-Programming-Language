@@ -66,8 +66,7 @@ optInheritance : COLON ID
 dimension : OBRACKET optExpressionList CBRACKET
 
 
-dimensionList : dimension
-	      | dimension dimensionList
+dimensionList : dimension optDimensionList
 
 
 optDimensionList : dimensionList
