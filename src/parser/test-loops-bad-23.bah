@@ -1,6 +1,0 @@
-#This file tests an invalid loop
-
-
-while (j  i) {
-
-}
