@@ -24,6 +24,8 @@ struct Lexeme {
     int      integerValue;
     double   realValue;
     int      lineNumber;
+    Lexeme  *leftChild;
+    Lexeme  *rightChild;
 };
 
 
@@ -35,6 +37,8 @@ Lexeme *newLexeme(char *type, char *value) {
     result->type = type;
     setLexemeValue(result, value);
     result->lineNumber = 0;
+    result->leftChild = NULL;
+    result->rightChild = NULL;
     return result;
 }
 
@@ -86,6 +90,29 @@ void setLexemeLineNumber(Lexeme *lexeme, int line) {
     lexeme->lineNumber = line;
 }
 
+
+Lexeme *getLexemeLeftChild(Lexeme *parent) {
+    assert(parent != NULL);
+    return parent->leftChild;
+}
+
+
+void setLexemeLeftChild(Lexeme *parent, Lexeme *child) {
+    assert(parent != NULL);
+    parent->leftChild = child;
+}
+
+
+Lexeme *getLexemeRightChild(Lexeme *parent) {
+    assert(parent != NULL);
+    return parent->rightChild;
+}
+
+
+void setLexemeRightChild(Lexeme *parent, Lexeme *child) {
+    assert(parent != NULL);
+    parent->rightChild = child;
+}
 
 void printLexeme(FILE *fp, Lexeme *lexeme) {
     assert(lexeme != NULL);
