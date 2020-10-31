@@ -47,9 +47,9 @@ optInit : ASSIGN expression
 
 
 variableExpression : ID
-	      	   | ID OPAREN optExpressionList CPAREN
-	      	   | ID dimensionList
-		       | ID binaryOperator expression
+	      	   	   | ID OPAREN optExpressionList CPAREN
+	      	   	   | ID dimensionList
+		       	   | ID binaryOperator expression
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
@@ -130,13 +130,8 @@ loop : forLoop
      | whileLoop
 
 
-<<<<<<< HEAD
-forLoop : FOR OPAREN variableDefinition SEMI conditionalExpressionList SEMI expression CPAREN block
-        | FOR OPAREN ID SEMI expression SEMI conditionalExpressionList CPAREN block
-=======
 forLoop : FOR OPAREN variableDefinition SEMI conditionalExpressionList SEMI expression CPAREN block
         | FOR OPAREN variableExpression SEMI conditionalExpressionList SEMI expression CPAREN black
->>>>>>> master
 
 
 whileLoop : WHILE OPAREN conditionalExpressionList CPAREN block
