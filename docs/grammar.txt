@@ -42,16 +42,6 @@ definition : variableDefinition SEMICOLON
 variableDefinition : VAR ID optInit
 
 
-optInit : ASSIGN expression
-        | *EMPTY*
-
-
-variableExpression : ID
-	      	   	   | ID OPAREN optExpressionList CPAREN
-	      	   	   | ID dimensionList
-		       	   | ID binaryOperator expression
-
-
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
                    | FUNCTION ID OPAREN VOID CPAREN block
 
@@ -61,6 +51,10 @@ classDefinition : CLASS ID optInheritance block
 
 optInheritance : COLON ID
                | *EMPTY*
+
+
+optInit : ASSIGN expression
+        | *EMPTY*
 
 
 dimension : OBRACKET optExpressionList CBRACKET
@@ -79,6 +73,12 @@ parameterList : ID
 
 optParameterList : parameterList
                  | *EMPTY*
+
+
+variableExpression : ID
+	      	   	   | ID OPAREN optExpressionList CPAREN
+	      	   	   | ID dimensionList
+		       	   | ID binaryOperator expression
 
 
 expression : unary
