@@ -1,7 +1,7 @@
 # Syntactical Analysis
 
 ## Introduction
-A recognizer is similar to a scanner. Like a scanner, a recognizer repeatedly calls the _lex_ function to parse through the data stream. The way in which a recognizer differs from a scanner is that a recognizer checks each lexeme produced by the _lex_ function against the grammar. Ultimately, a recognizer reports whether or not the entire text is syntactically correct. A recursive descent recognizer is composed of a set of functions, each of which corresponds to a rule in the grammar. A parser* is a special type of recognizer that also builds an abstract representation, called an abstract syntax tree, of the data stream.
+A `recognizer` is similar to a scanner. Like a scanner, a `recognizer` repeatedly calls the _lex_ function to parse through the data stream. The way in which a recognizer differs from a scanner is that a `recognizer` checks each lexeme produced by the _lex_ function against the grammar. Ultimately, a `recognizer` reports whether or not the entire text is syntactically correct. A recursive descent `recognizer` is composed of a set of functions, each of which corresponds to a rule in the grammar. A `parser*` is a special type of `recognizer` that also builds an abstract representation, called an abstract syntax tree, of the data stream.
 
 ## Transforming the grammar
 The process for transforming a grammar into a set of recursive descent functions is rather straightforward. Each rule in the grammar becomes a single function that implments that grammar rule. The terms _lhs_ and _rhs_ denote the left-hand side and the right-hand side of the grammar rule, respectively, with the colon serving as the line of demarcation.
