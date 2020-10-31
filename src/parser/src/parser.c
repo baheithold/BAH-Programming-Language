@@ -148,6 +148,45 @@ void variableDefinition(void) {
     optInit();
 }
 
+void functionDefinition(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: functionDefinition\n");
+    }
+    match(FUNCTION);
+    match(ID_TYPE);
+    match(OPAREN);
+    if (parameterListPending()) {
+        parameterList();
+        match(CPAREN);
+        block();
+    }
+    else {
+        match(VOID);
+        match(CPAREN);
+        block();
+    }
+}
+
+void classDefinition(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: classDefinition\n");
+    }
+    match(CLASS);
+    match(ID_TYPE);
+    optInheritance();
+    block();
+}
+
+void optInheritance(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: oprtInheritance\n");
+    }
+    if (check(COLON)) {
+        match(COLON);
+        match(ID_TYPE);
+    }
+}
+
 void optInit(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optInit\n");
@@ -190,6 +229,26 @@ void optDimensionList(void) {
     }
 }
 
+void parameterList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: parameterList\n");
+    }
+    match(ID_TYPE);
+    if (check(COMMA)) {
+        match(COMMA);
+        parameterList();
+    }
+}
+
+void optParameterList(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: optParameterList\n");
+    }
+    if (parameterListPending()) {
+        parameterList();
+    }
+}
+
 void variableExpression(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: variableExpression\n");
@@ -211,65 +270,6 @@ void variableExpression(void) {
         else {
             matchNoAdvance("expression");
         }
-    }
-}
-
-void functionDefinition(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: functionDefinition\n");
-    }
-    match(FUNCTION);
-    match(ID_TYPE);
-    match(OPAREN);
-    if (parameterListPending()) {
-        parameterList();
-        match(CPAREN);
-        block();
-    }
-    else {
-        match(VOID);
-        match(CPAREN);
-        block();
-    }
-}
-
-void classDefinition(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: classDefinition\n");
-    }
-    match(CLASS);
-    match(ID_TYPE);
-    optInheritance();
-    block();
-}
-
-void optInheritance(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: oprtInheritance\n");
-    }
-    if (check(COLON)) {
-        match(COLON);
-        match(ID_TYPE);
-    }
-}
-
-void parameterList(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: parameterList\n");
-    }
-    match(ID_TYPE);
-    if (check(COMMA)) {
-        match(COMMA);
-        parameterList();
-    }
-}
-
-void optParameterList(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: optParameterList\n");
-    }
-    if (parameterListPending()) {
-        parameterList();
     }
 }
 
@@ -663,13 +663,6 @@ bool variableDefinitionPending(void) {
     return check(VAR);
 }
 
-bool variableExpressionPending(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: variableExpressionPending\n");
-    }
-    return check(ID_TYPE);
-}
-
 bool functionDefinitionPending(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: functionDefinitionPending\n");
@@ -701,6 +694,13 @@ bool dimensionListPending(void) {
 bool parameterListPending(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: parameterListPending\n");
+    }
+    return check(ID_TYPE);
+}
+
+bool variableExpressionPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: variableExpressionPending\n");
     }
     return check(ID_TYPE);
 }
@@ -778,18 +778,18 @@ bool ifStatementPending(void) {
     return check(IF);
 }
 
-bool returnStatementPending(void) {
-    if (DEBUG) {
-        fprintf(stdout, "CALL: returnStatementPending\n");
-    }
-    return check(RETURN);
-}
-
 bool elseStatementPending(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: elseStatementPending\n");
     }
     return check(ELSE);
+}
+
+bool returnStatementPending(void) {
+    if (DEBUG) {
+        fprintf(stdout, "CALL: returnStatementPending\n");
+    }
+    return check(RETURN);
 }
 
 bool unaryOperatorPending(void) {

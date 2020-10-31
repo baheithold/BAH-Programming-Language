@@ -15,10 +15,10 @@
 
 
 /********** Lexer Interface Function Prototypes **********/
+extern bool      check(char *);
 extern void      advance(void);
 extern Lexeme   *match(char *);
 extern void      matchNoAdvance(char *);
-extern bool      check(char *);
 
 
 /********** Grammar Function Prototypes **********/
@@ -29,16 +29,16 @@ extern void statementList(void);
 extern void optStatementList(void);
 extern void definition(void);
 extern void variableDefinition(void);
+extern void functionDefinition(void);
+extern void classDefinition(void);
+extern void optInheritance(void);
 extern void optInit(void);
 extern void dimension(void);
 extern void dimensionList(void);
 extern void optDimensionList(void);
-extern void variableExpression(void);
-extern void functionDefinition(void);
-extern void classDefinition(void);
-extern void optInheritance(void);
 extern void parameterList(void);
 extern void optParameterList(void);
+extern void variableExpression(void);
 extern void expression(void);
 extern void optExpression(void);
 extern void expressionList(void);
@@ -66,12 +66,12 @@ extern bool statementPending(void);
 extern bool statementListPending(void);
 extern bool definitionPending(void);
 extern bool variableDefinitionPending(void);
-extern bool variableExpressionPending(void);
 extern bool functionDefinitionPending(void);
 extern bool classDefinitionPending(void);
 extern bool dimensionPending(void);
 extern bool dimensionListPending(void);
 extern bool parameterListPending(void);
+extern bool variableExpressionPending(void);
 extern bool expressionPending(void);
 extern bool expressionListPending(void);
 extern bool conditionalExpressionListPending(void);
@@ -82,8 +82,8 @@ extern bool loopPending(void);
 extern bool forLoopPending(void);
 extern bool whileLoopPending(void);
 extern bool ifStatementPending(void);
-extern bool returnStatementPending(void);
 extern bool elseStatementPending(void);
+extern bool returnStatementPending(void);
 extern bool unaryOperatorPending(void);
 extern bool binaryOperatorPending(void);
 extern bool logicalOperatorPending(void);
