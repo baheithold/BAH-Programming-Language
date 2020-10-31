@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexeme.c
  *  Created:        10/21/2020
- *  Last Revised:   10/24/2020
+ *  Last Revised:   10/31/2020
  */
 
 
@@ -24,6 +24,8 @@ struct Lexeme {
     int      integerValue;
     double   realValue;
     int      lineNumber;
+    Lexeme  *leftChild;
+    Lexeme  *rightChild;
 };
 
 
@@ -35,6 +37,8 @@ Lexeme *newLexeme(char *type, char *value) {
     result->type = type;
     setLexemeValue(result, value);
     result->lineNumber = 0;
+    result->leftChild = NULL;
+    result->rightChild = NULL;
     return result;
 }
 
@@ -84,6 +88,30 @@ int getLexemeLineNumber(Lexeme *lexeme) {
 void setLexemeLineNumber(Lexeme *lexeme, int line) {
     assert(lexeme != NULL);
     lexeme->lineNumber = line;
+}
+
+
+Lexeme *getLexemeLeftChild(Lexeme *parent) {
+    assert(parent != NULL);
+    return parent->leftChild;
+}
+
+
+void setLexemeLeftChild(Lexeme *parent, Lexeme *child) {
+    assert(parent != NULL);
+    parent->leftChild = child;
+}
+
+
+Lexeme *getLexemeRightChild(Lexeme *parent) {
+    assert(parent != NULL);
+    return parent->rightChild;
+}
+
+
+void setLexemeRightChild(Lexeme *parent, Lexeme *child) {
+    assert(parent != NULL);
+    parent->rightChild = child;
 }
 
 
