@@ -6,7 +6,7 @@ LEXERPATH 	 = ../lexer
 TESTDIR 	 = testing
 EXPECTEDPATH = $(TESTDIR)/expected
 ACTUALPATH 	 = $(TESTDIR)/actual
-OBJS  	  	 = $(OBJDIR)/recognizer.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o
+OBJS  	  	 = $(OBJDIR)/test-env.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o
 OOPTS 		 = -Wall -Wextra -g -c
 LOPTS 		 = -Wall -Wextra -g
 
@@ -23,7 +23,7 @@ test-env : $(OBJS)
 $(OBJDIR)/test-env.o : $(TESTDIR)/test-env.c $(LEXERPATH)/$(HEADERDIR)/types.h $(LEXERPATH)/$(HEADERDIR)/lexeme.h
 	@echo Compiling test-env...
 	@mkdir -p $(OBJDIR)
-	@$(CC) $(OOPTS) $(SRCDIR)/test-env.c -o $@
+	@$(CC) $(OOPTS) $(TESTDIR)/test-env.c -o $@
 
 
 $(OBJDIR)/types.o : $(LEXERPATH)/$(SRCDIR)/types.c $(LEXERPATH)/$(HEADERDIR)/types.h
@@ -41,16 +41,16 @@ $(OBJDIR)/lexeme.o : $(LEXERPATH)/$(SRCDIR)/lexeme.c $(LEXERPATH)/$(HEADERDIR)/l
 test : test-env
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
-	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+	@./test-env > $(ACTUALPATH)/test-env.out
+	@diff ./$(EXPECTEDPATH)/test-env.out ./$(ACTUALPATH)/test-env.out
 
 
 rebuild : all
-	@echo Rebuilding recognizer...
+	@echo Rebuilding test-env...
 	@make clean -s
 	@make -s
 
 
 clean :
 	@echo Cleaning...
-	@rm -rf $(OBJDIR) $(ACTUALPATH) recognizer
+	@rm -rf $(OBJDIR) $(ACTUALPATH) test-env
