@@ -3,7 +3,7 @@
  *  Author: 		Brett Heithold
  *  File: 		grammar.txt
  *  Created on: 	1/6/2020
- *  Last revision: 	10/27/2020
+ *  Last revision: 	10/30/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -34,13 +34,12 @@ optStatementList : statementList
                  | *EMPTY*
 
 
-definition : variableDefinition
+definition : variableDefinition SEMICOLON
            | functionDefinition
            | classDefinition
 
 
-variableDefinition : VAR ID optInit SEMICOLON
-                   | ID ASSIGN expression
+variableDefinition : VAR ID optInit
 
 
 optInit : ASSIGN expression
@@ -49,7 +48,8 @@ optInit : ASSIGN expression
 
 variableExpression : ID
 	      	   | ID OPAREN optExpressionList CPAREN
-	      	   | ID OBRACKET optExpressionList CBRACKET
+	      	   | ID dimensionList
+		       | ID binaryOperator expression
 
 
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
@@ -61,6 +61,16 @@ classDefinition : CLASS ID optInheritance block
 
 optInheritance : COLON ID
                | *EMPTY*
+
+
+dimension : OBRACKET optExpressionList CBRACKET
+
+
+dimensionList : dimension optDimensionList
+
+
+optDimensionList : dimensionList
+		         | *EMPTY*
 
 
 parameterList : ID
@@ -75,6 +85,8 @@ expression : unary
            | unary binaryOperator expression
            | unaryOperator unary
            | unary unaryOperator
+	       | unary logicalOperator expression
+	       | unary comparator expression
 
 
 optExpression : expression
@@ -83,6 +95,11 @@ optExpression : expression
 
 expressionList : expression
                | expression COMMA expressionList
+	           | expression logicalOperator expressionList
+
+
+conditionalExpressionList : expression
+			              | expression logicalOperator conditionalExpressionList
 
 
 optExpressionList : expressionList
@@ -96,6 +113,7 @@ unary : variableExpression
       | BOOLEAN
       | MINUS unary
       | OPAREN expression CPAREN
+      | OBRACKET optExpressionList CBRACKET
       | lambdaDef
       | PRINT OPAREN expressionList CPAREN
       | PRINTLN OPAREN expressionList CPAREN
@@ -112,14 +130,19 @@ loop : forLoop
      | whileLoop
 
 
-forLoop : FOR OPAREN variableDefinition SEMI expression SEMI expression CPAREN block
-        | FOR OPAREN ID SEMI expression SEMI expression CPAREN block
+<<<<<<< HEAD
+forLoop : FOR OPAREN variableDefinition SEMI conditionalExpressionList SEMI expression CPAREN block
+        | FOR OPAREN ID SEMI expression SEMI conditionalExpressionList CPAREN block
+=======
+forLoop : FOR OPAREN variableDefinition SEMI conditionalExpressionList SEMI expression CPAREN block
+        | FOR OPAREN variableExpression SEMI conditionalExpressionList SEMI expression CPAREN black
+>>>>>>> master
 
 
-whileLoop : WHILE OPAREN expression CPAREN block
+whileLoop : WHILE OPAREN conditionalExpressionList CPAREN block
 
 
-ifStatement : IF OPAREN expression CPAREN block optElseStatement
+ifStatement : IF OPAREN conditionalExpressionList CPAREN block optElseStatement
 
 
 elseStatement : ELSE block
