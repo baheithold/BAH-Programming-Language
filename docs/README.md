@@ -5,7 +5,7 @@ This is the `Barely Acceptable and Hideous programming language`. The BAH progra
 * [x] Grammar
 * [x] Lexeme Tokens
 * [x] Lexer
-* [ ] Recognizer
+* [x] Recognizer
 * [ ] Parser
 * [ ] Environments
 * [ ] Pretty Printing
