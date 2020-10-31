@@ -1,0 +1,5 @@
+#This file tests a invalid arrays
+
+
+var arr = [];
+arr = [][];

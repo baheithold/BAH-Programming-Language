@@ -3,7 +3,7 @@
 
 var arr = [];
 arr = null;
-arr[[[[[[[]]]]]]];
+arr = [[[[[[[null]]]]]]];
 arr[[5, 2, 3, 4, 5], [1, 2, 3, 4], "string", true, false];
 var five? = arr[0][0] == 5; # this should be true
 arr[0][1] = false;
