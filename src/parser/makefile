@@ -489,6 +489,13 @@ test-arrays-bad-5 : recognizer
 	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
 
 
+test-full : recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@./recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
 test-all : recognizer
 	@echo Testing $@...
 	@make test-variables -s
@@ -553,6 +560,7 @@ test-all : recognizer
 	@make test-arrays-bad-3 -s
 	@make test-arrays-bad-4 -s
 	@make test-arrays-bad-5 -s
+	@make test-full -s
 
 
 rebuild : all
