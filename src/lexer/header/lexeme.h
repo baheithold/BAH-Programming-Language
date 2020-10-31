@@ -23,10 +23,6 @@ extern char     *getLexemeStringValue(Lexeme *);
 extern void      setLexemeValue(Lexeme *, char *);
 extern int       getLexemeLineNumber(Lexeme *);
 extern void      setLexemeLineNumber(Lexeme *, int);
-extern Lexeme   *getLexemeLeftChild(Lexeme *);
-extern void      setLexemeLeftChild(Lexeme *, Lexeme *);
-extern Lexeme   *getLexemeRightChild(Lexeme *);
-extern void      setLexemeRightChild(Lexeme *, Lexeme *);
 extern void      printLexeme(FILE *, Lexeme *);
 
 #endif // !__LEXEME_H__
