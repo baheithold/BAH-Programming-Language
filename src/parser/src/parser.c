@@ -202,9 +202,6 @@ void variableExpression(void) {
     }
     else if (dimensionListPending()) {
         dimensionList();
-        if (dimensionListPending()) {
-            dimensionList();
-        }
     }
     else if (binaryOperatorPending()){
         binaryOperator();
