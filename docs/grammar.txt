@@ -3,7 +3,7 @@
  *  Author: 		Brett Heithold
  *  File: 		grammar.txt
  *  Created on: 	1/6/2020
- *  Last revision: 	10/28/2020
+ *  Last revision: 	10/30/2020
  *
  *  NOTES:
  *          + NO left-recursive rules
@@ -42,16 +42,6 @@ definition : variableDefinition SEMICOLON
 variableDefinition : VAR ID optInit
 
 
-optInit : ASSIGN expression
-        | *EMPTY*
-
-
-variableExpression : ID
-	      	   | ID OPAREN optExpressionList CPAREN
-	      	   | ID dimensionList
-		   | ID binaryOperator expression
-
-
 functionDefinition : FUNCTION ID OPAREN parameterList CPAREN block
                    | FUNCTION ID OPAREN VOID CPAREN block
 
@@ -61,8 +51,12 @@ classDefinition : CLASS ID optInheritance block
 
 optInheritance : COLON ID
                | *EMPTY*
-	       
-	       
+
+
+optInit : ASSIGN expression
+        | *EMPTY*
+
+
 dimension : OBRACKET optExpressionList CBRACKET
 
 
@@ -70,7 +64,7 @@ dimensionList : dimension optDimensionList
 
 
 optDimensionList : dimensionList
-		 | *EMPTY*
+		         | *EMPTY*
 
 
 parameterList : ID
@@ -81,12 +75,18 @@ optParameterList : parameterList
                  | *EMPTY*
 
 
+variableExpression : ID
+	      	   	   | ID OPAREN optExpressionList CPAREN
+	      	   	   | ID dimensionList
+		       	   | ID binaryOperator expression
+
+
 expression : unary
            | unary binaryOperator expression
            | unaryOperator unary
            | unary unaryOperator
-	   | unary logicalOperator expression
-	   | unary comparator expression
+	       | unary logicalOperator expression
+	       | unary comparator expression
 
 
 optExpression : expression
@@ -95,11 +95,11 @@ optExpression : expression
 
 expressionList : expression
                | expression COMMA expressionList
-	       | expression logicalOperator expressionList
-	       
-	       
+	           | expression logicalOperator expressionList
+
+
 conditionalExpressionList : expression
-			  | expression logicalOperator conditionalExpressionList
+			              | expression logicalOperator conditionalExpressionList
 
 
 optExpressionList : expressionList
@@ -140,9 +140,6 @@ whileLoop : WHILE OPAREN conditionalExpressionList CPAREN block
 ifStatement : IF OPAREN conditionalExpressionList CPAREN block optElseStatement
 
 
-returnStatement : RETURN optExpression
-
-
 elseStatement : ELSE block
               | ELSE ifStatement
 
@@ -151,10 +148,12 @@ optElseStatement : elseStatement
                  | *EMPTY*
 
 
-unaryOperator : NOT
-              | UMINUS
-              | PLUS_PLUS
-              | MINUS_MINUS
+returnStatement : RETURN optExpression
+
+
+unaryOperator : NEGATE_UNARY
+              | INCREMENT_UNARY
+              | DECREMENT_UNARY
 
 
 binaryOperator : PLUS
@@ -178,9 +177,9 @@ logicalOperator : AND
                 | XOR
 
 
-comparator : LESS_THAN
-           | GREATER_THAN
-           | LESS_EQUAL
-           | GREATER_EQUAL
-           | DOUBLE_EQUAL
-           | NOT_EQUAL
+comparator : EQUALS_COMPARATOR
+           | NOT_EQUALS_COMPARATOR
+           | GREATER_THAN_COMPARATOR
+           | LESSER_THAN_COMPARATOR
+           | GREATER_EQUALS_COMPARATOR
+           | LESSER_EQUALS_COMPARATOR

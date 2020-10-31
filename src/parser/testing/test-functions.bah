@@ -1,0 +1,25 @@
+# This file tests valid functions and function calls
+
+
+function f(void) {
+    return;
+}
+
+function sum(x, y) {
+    return x + y;
+}
+
+function isEven(num) {
+    return num % 2 == 0;
+}
+
+function lamb(void) {
+    return lambda(x, y) {
+        x + y;
+    };
+}
+
+var lamb = lamb();
+println(lamb(1, 2));
+
+var three = sum(2, 1);

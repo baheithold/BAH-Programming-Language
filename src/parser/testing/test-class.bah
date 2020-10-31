@@ -1,0 +1,11 @@
+# This file tests valid class definitions
+
+
+class Rectangle {
+    var width;
+    var height;
+}
+
+class Dog : Pet {
+    #...
+}
