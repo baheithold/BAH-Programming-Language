@@ -38,7 +38,11 @@ int main(void) {
     Lexeme *four = newLexeme(INTEGER_TYPE, "4");
     Lexeme *u = newLexeme(ID_TYPE, "u");
     Lexeme *hello = newLexeme(STRING_TYPE, "hello");
-    Lexeme *local0 = extendEnvironment();
+    Lexeme *envLocal_01 = extendEnvironment(NULL, NULL, global);
+    insertEnvironment(w, four, envLocal_01);
+    insertEnvironment(u, hello, envLocal_01);
+    printEnvironment(stdout, envLocal_01, true);
+    printEnvironment(stdout, envLocal_01, false);
 
     return 0;
 }
