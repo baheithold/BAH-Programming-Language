@@ -9,7 +9,7 @@
 #define __ENVIRONMENT_H__
 
 
-#include "../../lexer/lexeme.h"
+#include "../../lexer/header/lexeme.h"
 
 #include <stdio.h>
 
