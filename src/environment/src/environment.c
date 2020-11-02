@@ -19,13 +19,13 @@
 
 
 /********** Private Function Prototypes **********/
-Lexeme *cons(char *, Lexeme *, Lexeme *);
-Lexeme *car(Lexeme *);
-Lexeme *cdr(Lexeme *);
-Lexeme *cadr(Lexeme *);
-Lexeme *set_car(Lexeme *, Lexeme *);
-Lexeme *set_cdr(Lexeme *, Lexeme *);
-bool    isSameVariable(Lexeme *, Lexeme *);
+static Lexeme *cons(char *, Lexeme *, Lexeme *);
+static Lexeme *car(Lexeme *);
+static Lexeme *cdr(Lexeme *);
+static Lexeme *cadr(Lexeme *);
+static Lexeme *set_car(Lexeme *, Lexeme *);
+static Lexeme *set_cdr(Lexeme *, Lexeme *);
+static bool    isSameVariable(Lexeme *, Lexeme *);
 
 
 /********** Public Function Definitions **********/
