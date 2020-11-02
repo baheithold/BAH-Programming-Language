@@ -82,6 +82,36 @@ Lexeme *extendEnvironment(Lexeme *variables, Lexeme *values, Lexeme *environment
     return cons(ENVIRONMENT, variables, cons(ENVIRONMENT, values, environment));
 }
 
+void printEnvironment(FILE *fp, Lexeme *environment, bool local) {
+    assert(environment != NULL);
+
+    int scopeLevel = 0;
+
+    if (local) {
+        fprintf(fp, "The local environment is:\n");
+    }
+    else {
+        fprintf(fp, "The environment is:\n");
+    }
+
+    while (environment != NULL) {
+        fprintf(fp, "Scope Level: %d\n", scopeLevel);
+        Lexeme *vars = car(environment);
+        Lexeme *vals = cadr(environment);
+        while (vars != NULL) {
+            fprintf("%s : ", getLexemeStringValue(car(vars)));
+            printLexeme(fp, car(vals));
+            fprintf(fp, "\n");
+            vars = cdr(vars);
+            vals = cdr(vals);
+        }
+        if (local) break;
+        scopeLevel++;
+        environment = cdr(cdr(environment));
+    }
+    fprintf(fp, "\n");
+}
+
 
 /********** Private Function Definitions **********/
 
