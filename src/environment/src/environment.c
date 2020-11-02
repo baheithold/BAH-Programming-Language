@@ -8,6 +8,11 @@
 
 #include "../header/environment.h"
 #include "../../lexer/header/lexeme.h"
+#include "../../lexer/header/types.h"
+
+#include <assert.h>
+#include <stdbool.h>
+#include <string.h>
 
 
 #define DEBUG false
@@ -18,9 +23,9 @@ Lexeme *cons(char *, Lexeme *, Lexeme *);
 Lexeme *car(Lexeme *);
 Lexeme *cdr(Lexeme *);
 Lexeme *cadr(Lexeme *);
-void    set_car(Lexeme *, Lexeme *);
-void    set_cdr(Lexeme *, Lexeme *);
-bool    sameVariable(Lexeme *, Lexeme *);
+Lexeme *set_car(Lexeme *, Lexeme *);
+Lexeme *set_cdr(Lexeme *, Lexeme *);
+bool    isSameVariable(Lexeme *, Lexeme *);
 
 
 /********** Public Function Definitions **********/
@@ -29,7 +34,7 @@ Lexeme *createEnvironment(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: createEnvironment\n");
     }
-    return extend(NULL, NULL, NULL);
+    return extendEnvironment(NULL, NULL, NULL);
 }
 
 Lexeme *lookupEnvironment(Lexeme *variable, Lexeme *environment) {
@@ -51,7 +56,7 @@ Lexeme *lookupEnvironment(Lexeme *variable, Lexeme *environment) {
         }
         environment = cdr(cdr(environment));
     }
-    fprintf(stdout, "%s is undefined\n", variable);
+    fprintf(stdout, "%s is undefined\n", getLexemeStringValue(variable));
     return NULL;
 }
 
@@ -76,7 +81,7 @@ Lexeme *updateEnvironment(Lexeme *variable, Lexeme *value, Lexeme *environment) 
         }
         environment = cdr(cdr(environment));
     }
-    fprintf(stdout, "%s is undefined\n", variable);
+    fprintf(stdout, "%s is undefined\n", getLexemeStringValue(variable));
     return NULL;
 }
 
@@ -89,16 +94,12 @@ Lexeme *insertEnvironment(Lexeme *variable, Lexeme *value, Lexeme *environment) 
         fprintf(stdout, "CALL: insertEnvironment\n");
     }
 
-    set_car(environment, cons(JOIN, variable, car(env)));
-    set_car(cdr(env), cons(JOIN, value, cadr(env)));
+    set_car(environment, cons(JOIN, variable, car(environment)));
+    set_car(cdr(environment), cons(JOIN, value, cadr(environment)));
     return value;
 }
 
 Lexeme *extendEnvironment(Lexeme *variables, Lexeme *values, Lexeme *environment) {
-    assert(variables != NULL);
-    assert(values != NULL);
-    assert(environment != NULL);
-
     if (DEBUG) {
         fprintf(stdout, "CALL: extendEnvironment\n");
     }
@@ -127,7 +128,7 @@ void printEnvironment(FILE *fp, Lexeme *environment, bool local) {
         Lexeme *vars = car(environment);
         Lexeme *vals = cadr(environment);
         while (vars != NULL) {
-            fprintf("%s : ", getLexemeStringValue(car(vars)));
+            fprintf(fp, "%s : ", getLexemeStringValue(car(vars)));
             printLexeme(fp, car(vals));
             fprintf(fp, "\n");
             vars = cdr(vars);
@@ -186,7 +187,7 @@ Lexeme *cadr(Lexeme *lexeme) {
     return car(cdr(lexeme));
 }
 
-void set_car(Lexeme *parent, Lexeme *child) {
+Lexeme *set_car(Lexeme *parent, Lexeme *child) {
     assert(parent != NULL);
 
     if (DEBUG) {
@@ -194,9 +195,10 @@ void set_car(Lexeme *parent, Lexeme *child) {
     }
 
     setLexemeLeftChild(parent, child);
+    return getLexemeLeftChild(parent);
 }
 
-void set_cdr(Lexeme *parent, Lexeme *child) {
+Lexeme *set_cdr(Lexeme *parent, Lexeme *child) {
     assert(parent != NULL);
 
     if (DEBUG) {
@@ -204,14 +206,19 @@ void set_cdr(Lexeme *parent, Lexeme *child) {
     }
 
     setLexemeRightChild(parent, child);
+    return getLexemeRightChild(parent);
 }
 
 bool isSameVariable(Lexeme *var1, Lexeme *var2) {
-    assert(var1 != NULL)
-    assert(var2 != NULL)
+    assert(var1 != NULL);
+    assert(var2 != NULL);
 
     if (DEBUG) {
         fprintf(stdout, "CALL: isSameVariable\n");
     }
 
+    if (strcmp(getLexemeStringValue(var1), getLexemeStringValue(var2)) == 0) {
+        return true;
+    }
+    return false;
 }
