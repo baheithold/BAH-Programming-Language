@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           types.h
  *  Created:        10/21/2020
- *  Last Revised:   10/27/2020
+ *  Last Revised:   11/1/2020
  */
 
 #ifndef __TYPES_H__
