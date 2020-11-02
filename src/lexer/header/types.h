@@ -90,6 +90,8 @@ extern char *VARIABLE_DEFINITION;
 extern char *FUNCTION_DEFINITION;
 extern char *FUNCTION_CALL;
 extern char *CLASS_DEFINITION;
+extern char *ENVIRONMENT;
+extern char *JOIN;
 
 
 #endif // !__TYPES_H__
