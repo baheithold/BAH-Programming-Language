@@ -6,7 +6,7 @@ LEXERPATH 	 = ../lexer
 TESTDIR 	 = testing
 EXPECTEDPATH = $(TESTDIR)/expected
 ACTUALPATH 	 = $(TESTDIR)/actual
-OBJS  	  	 = $(OBJDIR)/test-env.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o
+OBJS  	  	 = $(OBJDIR)/test-env.o $(OBJDIR)/environment.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o
 OOPTS 		 = -Wall -Wextra -g -c
 LOPTS 		 = -Wall -Wextra -g
 
@@ -20,7 +20,7 @@ test-env : $(OBJS)
 	@echo Done.
 
 
-$(OBJDIR)/test-env.o : $(TESTDIR)/test-env.c $(LEXERPATH)/$(HEADERDIR)/types.h $(LEXERPATH)/$(HEADERDIR)/lexeme.h
+$(OBJDIR)/test-env.o : $(TESTDIR)/test-env.c $(HEADERDIR)/environment.h $(LEXERPATH)/$(HEADERDIR)/types.h $(LEXERPATH)/$(HEADERDIR)/lexeme.h
 	@echo Compiling test-env...
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(OOPTS) $(TESTDIR)/test-env.c -o $@
@@ -37,6 +37,10 @@ $(OBJDIR)/lexeme.o : $(LEXERPATH)/$(SRCDIR)/lexeme.c $(LEXERPATH)/$(HEADERDIR)/l
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(OOPTS) $(LEXERPATH)/$(SRCDIR)/lexeme.c -o $@
 
+$(OBJDIR)/environment.o : $(SRCDIR)/environment.c $(HEADERDIR)/environment.h $(LEXERPATH)/$(HEADERDIR)/lexeme.h $(LEXERPATH)/$(HEADERDIR)/types.h
+	@echo Compiling environment...
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(OOPTS) $(SRCDIR)/environment.c -o $@
 
 test : test-env
 	@echo Running $@...
