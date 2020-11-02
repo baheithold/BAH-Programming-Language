@@ -45,8 +45,7 @@ $(OBJDIR)/environment.o : $(SRCDIR)/environment.c $(HEADERDIR)/environment.h $(L
 test : test-env
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./test-env > $(ACTUALPATH)/test-env.out
-	@diff ./$(EXPECTEDPATH)/test-env.out ./$(ACTUALPATH)/test-env.out
+	@./test-env
 
 
 rebuild : all
