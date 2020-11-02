@@ -15,12 +15,12 @@
 #include <stdio.h>
 
 
-Lexeme *createEnvironment(void);
-Lexeme *lookupEnvironment(Lexeme *, Lexeme *);
-Lexeme *updateEnvironment(Lexeme *, Lexeme *, Lexeme *);
-Lexeme *insertEnvironment(Lexeme *, Lexeme *, Lexeme *);
-Lexeme *extendEnvironment(Lexeme *, Lexeme *, Lexeme *);
-void    printEnvironment(FILE *, Lexeme *, bool);
+extern Lexeme *createEnvironment(void);
+extern Lexeme *lookupEnvironment(Lexeme *, Lexeme *);
+extern Lexeme *updateEnvironment(Lexeme *, Lexeme *, Lexeme *);
+extern Lexeme *insertEnvironment(Lexeme *, Lexeme *, Lexeme *);
+extern Lexeme *extendEnvironment(Lexeme *, Lexeme *, Lexeme *);
+extern void    printEnvironment(FILE *, Lexeme *, bool);
 
 
 #endif // !__ENVIRONMENT_H__
