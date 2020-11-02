@@ -11,6 +11,7 @@
 
 #include "../../lexer/header/lexeme.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 
 
@@ -19,7 +20,7 @@ Lexeme *lookupEnvironment(Lexeme *, Lexeme *);
 Lexeme *updateEnvironment(Lexeme *, Lexeme *, Lexeme *);
 Lexeme *insertEnvironment(Lexeme *, Lexeme *, Lexeme *);
 Lexeme *extendEnvironment(Lexeme *, Lexeme *, Lexeme *);
-void    printEnvironment(FILE *, Lexeme *);
+void    printEnvironment(FILE *, Lexeme *, bool);
 
 
 #endif // !__ENVIRONMENT_H__
