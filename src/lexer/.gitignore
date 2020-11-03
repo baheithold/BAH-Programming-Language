@@ -1,5 +1,4 @@
-# Object files (directory)
+# Directories
+actual
 obj
-
-# Executables
-scanner
+bin

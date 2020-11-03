@@ -3,6 +3,7 @@ SRCDIR 		 = src
 HEADERDIR 	 = header
 OBJDIR 		 = obj
 TESTDIR 	 = testing
+BINDIR 		 = bin
 EXPECTEDPATH = $(TESTDIR)/expected
 ACTUALPATH 	 = $(TESTDIR)/actual
 OBJS  	  	 = $(OBJDIR)/scanner.o $(OBJDIR)/types.o $(OBJDIR)/lexeme.o $(OBJDIR)/lexer.o
@@ -10,12 +11,13 @@ OOPTS 		 = -Wall -Wextra -g -c
 LOPTS 		 = -Wall -Wextra -g
 
 
-all : scanner
+all : $(BINDIR)/scanner
 
 
-scanner : $(OBJS)
+$(BINDIR)/scanner : $(OBJS)
 	@echo Creating scanner executable...
-	@$(CC) $(LOPTS) $(OBJDIR)/* -o scanner
+	@mkdir -p $(BINDIR)
+	@$(CC) $(LOPTS) $(OBJDIR)/* -o $(BINDIR)/scanner
 	@echo Done.
 
 
@@ -43,104 +45,104 @@ $(OBJDIR)/lexer.o : $(SRCDIR)/lexer.c $(HEADERDIR)/lexer.h $(HEADERDIR)/lexeme.h
 	@$(CC) $(OOPTS) $(SRCDIR)/lexer.c -o $@
 
 
-test-variables : scanner
+test-variables : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-functions : scanner
+test-functions : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-conditionals : scanner
+test-conditionals : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-loops : scanner
+test-loops : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-lambda : scanner
+test-lambda : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-class : scanner
+test-class : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-operators : scanner
+test-operators : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-keywords : scanner
+test-keywords : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-punctuation : scanner
+test-punctuation : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-types : scanner
+test-types : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-import : scanner
+test-import : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-types-real-error : scanner
+test-types-real-error : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-types-string-error : scanner
+test-types-string-error : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff $(EXPECTEDPATH)/$@.out $(ACTUALPATH)/$@.out
 
 
-test-full : scanner
+test-full : $(BINDIR)/scanner
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
-	@./scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@$(BINDIR)/scanner ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 
 
-test-all : scanner
+test-all : $(BINDIR)/scanner
 	@make test-variables -s
 	@make test-functions -s
 	@make test-conditionals -s
@@ -164,4 +166,4 @@ rebuild : all
 
 clean :
 	@echo Cleaning...
-	@rm -rf $(OBJDIR) $(ACTUALPATH) scanner
+	@rm -rf $(OBJDIR) $(BINDIR) $(ACTUALPATH)
