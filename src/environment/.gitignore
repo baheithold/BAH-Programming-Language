@@ -1,8 +1,4 @@
-# Object files (directory)
-obj
-
-# Executables
-test-env
-
 # Directories
 actual
+obj
+bin
