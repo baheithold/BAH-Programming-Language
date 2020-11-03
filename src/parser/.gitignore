@@ -1,8 +1,4 @@
-# Object files (directory)
-obj
-
-# Executables
-recognizer
-
 # Directories
 actual
+obj
+bin
