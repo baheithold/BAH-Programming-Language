@@ -26,16 +26,16 @@ static int currentLine = 1;
 
 /********** Private Function Prototypes **********/
 
-void skipWhiteSpace(FILE *);
-void skipComment(FILE *);
-bool commentPending(char);
-bool numberPending(char);
-char peek(FILE *);
-Lexeme *lexNumber(FILE *);
-Lexeme *lexString(FILE *);
-Lexeme *lexKeywordOrID(FILE *);
-bool isValidSymbol(char);
-bool isValidCharacterForID(char);
+static void skipWhiteSpace(FILE *);
+static void skipComment(FILE *);
+static bool commentPending(char);
+static bool numberPending(char);
+static char peek(FILE *);
+static Lexeme *lexNumber(FILE *);
+static Lexeme *lexString(FILE *);
+static Lexeme *lexKeywordOrID(FILE *);
+static bool isValidSymbol(char);
+static bool isValidCharacterForID(char);
 
 
 /********** Public Function Definitions **********/
