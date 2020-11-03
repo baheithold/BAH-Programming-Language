@@ -12,10 +12,10 @@ OOPTS 		 = -Wall -Wextra -g -c
 LOPTS 		 = -Wall -Wextra -g
 
 
-all : test-env
+all : $(BINDIR)/test-env
 
 
-test-env : $(OBJS)
+$(BINDIR)/test-env : $(OBJS)
 	@echo Creating test-env executable...
 	@mkdir -p $(BINDIR)
 	@$(CC) $(LOPTS) $(OBJDIR)/* -o $(BINDIR)/test-env
@@ -46,7 +46,7 @@ $(OBJDIR)/environment.o : $(SRCDIR)/environment.c $(HEADERDIR)/environment.h $(L
 	@$(CC) $(OOPTS) $(SRCDIR)/environment.c -o $@
 
 
-test : test-env
+test : $(BINDIR)/test-env
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
 	@$(BINDIR)/test-env > $(ACTUALPATH)/test-env.out
