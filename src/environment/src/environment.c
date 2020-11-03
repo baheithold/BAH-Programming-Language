@@ -56,7 +56,7 @@ Lexeme *lookupEnvironment(Lexeme *variable, Lexeme *environment) {
         }
         environment = cdr(cdr(environment));
     }
-    fprintf(stdout, "%s is undefined\n", getLexemeStringValue(variable));
+    fprintf(stdout, "ERROR: %s is undefined\n", getLexemeStringValue(variable));
     return NULL;
 }
 
@@ -81,7 +81,7 @@ Lexeme *updateEnvironment(Lexeme *variable, Lexeme *value, Lexeme *environment) 
         }
         environment = cdr(cdr(environment));
     }
-    fprintf(stdout, "%s is undefined\n", getLexemeStringValue(variable));
+    fprintf(stdout, "ERROR: %s is undefined\n", getLexemeStringValue(variable));
     return NULL;
 }
 
