@@ -1,7 +1,7 @@
 # Environments
 
 ## Implementing environments and scope
-The purpose of an environment is two fold: to hold the bindings between variables and their values and to implement scope. The `environment` structure is simply a list of parallel lists. A new environment is created using the `createEnvironment` function. The new environment created by `createEnvironment` has no bindings and is represented internally as two empty lists in a list.
+The purpose of an environment is two fold: to hold the bindings between variables and their values and to implement scope. The environment is implemented internally using a list of parallel lists. A new environment is created using the `createEnvironment` function. The new environment created by `createEnvironment` has no bindings and is represented internally as two empty lists in a list.
 
 ** The use of `table` in this document refers to the list of parallel lists used in the environment structure to store the bindings between identifiers and values;
 
