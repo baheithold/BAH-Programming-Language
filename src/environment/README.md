@@ -19,5 +19,6 @@ Looking up the value of an identifier is as simple as finding the identifier/val
 Updating the value of an identifier works in the same way as looking up a value except that the value is changed in the update function.
 
 ## Inserting a new variable
+A new identifier and value binding is inserted into the most local environment at the time of definition. Internally, the most local environment is the first table (the first two lists) in the environments list. The new binding is added to the head of the parallel lists. An advantage of adding new bindings to the head of the parallel lists, is that this placement allows for redefinitions of identifiers to shadow previous definitions within the same scope.
 
 ## Extending an environment
