@@ -3,6 +3,8 @@
 ## Implementing environments and scope
 The purpose of an environment is two fold: to hold the bindings between variables and their values and to implement scope. The `environment` structure is simply a list of parallel lists. A new environment is created using the `createEnvironment` function. The new environment created by `createEnvironment` has no bindings and is represented internally as two empty lists in a list.
 
+** The use of `table` in this document refers to the list of parallel lists used in the environment structure to store the bindings between identifiers and values;
+
 The environment subsystem provides six basic operation:
 * `createEnvironment` creates and returns an empty environment. The new empty environment consists of one empty table in the list of tables.
 * `lookupEnvironment` searches for a variable starting from the most local table and proceeding to the most outer table. The value of the first occurrence of the queried variable is returned.
@@ -12,6 +14,9 @@ The environment subsystem provides six basic operation:
 * `printEnvironment` prints the environment to a file pointer. A flag parameter is provided that allows the caller to set whether the function only prints the local environment or prints the entired enclosing environment.
 
 ## Looking up and updating variables
+Looking up the value of an identifier is as simple as finding the identifier/value binds within the tables. The tables are searched for the corresponding identifier from the most local table to the most outer table. If no identifier is found, then an undefined identifier error is thrown.
+
+Updating the value of an identifier works in the same way as looking up a value except that the value is changed in the update function.
 
 ## Inserting a new variable
 
