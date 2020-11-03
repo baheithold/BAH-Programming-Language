@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexer.c
  *  Created:        10/21/2020
- *  Last Revised:   10/27/2020
+ *  Last Revised:   11/2/2020
  */
 
 
@@ -29,7 +29,6 @@ static int currentLine = 1;
 static void skipWhiteSpace(FILE *);
 static void skipComment(FILE *);
 static bool commentPending(char);
-static bool numberPending(char);
 static char peek(FILE *);
 static Lexeme *lexNumber(FILE *);
 static Lexeme *lexString(FILE *);
@@ -221,10 +220,6 @@ void skipComment(FILE *fp) {
 
 bool commentPending(char ch) {
     return ch == '#';
-}
-
-bool numberPending(char ch) {
-    return isdigit(ch);
 }
 
 char peek(FILE *fp) {
