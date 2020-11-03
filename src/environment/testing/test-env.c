@@ -64,5 +64,11 @@ int main(void) {
     printLexeme(stdout, lookupEnvironment(u, envLocal_02));
     fprintf(stdout, "\n");
 
+    // Extend global environment
+    Lexeme *envError = extendEnvironment(NULL, NULL, global);
+
+    // Try to access out-of-scope identifier
+    lookupEnvironment(u, envError);
+
     return 0;
 }

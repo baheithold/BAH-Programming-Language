@@ -41,3 +41,4 @@ y : INTEGER_TYPE 2
 x : INTEGER_TYPE 1
 
 The updated value of hello is: STRING_TYPE "THIS IS THE NEW VALUE, YAY!"
+ERROR: u is undefined
