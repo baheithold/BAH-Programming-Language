@@ -44,5 +44,25 @@ int main(void) {
     printEnvironment(stdout, envLocal_01, true);
     printEnvironment(stdout, envLocal_01, false);
 
+    // Nest another environment inside envLocal_01
+    Lexeme *i = newLexeme(ID_TYPE, "i");
+    Lexeme *iVal = newLexeme(INTEGER_TYPE, "3");
+    Lexeme *j = newLexeme(ID_TYPE, "j");
+    Lexeme *jVal = newLexeme(INTEGER_TYPE, "9");
+    Lexeme *envLocal_02 = extendEnvironment(NULL, NULL, envLocal_01);
+    insertEnvironment(i, iVal, envLocal_02);
+    insertEnvironment(j, jVal, envLocal_02);
+    printEnvironment(stdout, envLocal_02, true);
+    printEnvironment(stdout, envLocal_02, false);
+
+    // Update a value in a global variable
+    Lexeme *newVal = newLexeme(STRING_TYPE, "THIS IS THE NEW VALUE, YAY!");
+    updateEnvironment(u, newVal, envLocal_02);
+
+    // Lookup the new value
+    fprintf(stdout, "The updated value of hello is: ");
+    printLexeme(stdout, lookupEnvironment(u, envLocal_02));
+    fprintf(stdout, "\n");
+
     return 0;
 }

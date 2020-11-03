@@ -1,0 +1,43 @@
+Creating new environment...
+Adding variable x with value 1
+Adding variable y with value 2
+Adding variable z with value 3
+The environment is:
+Scope Level: 0
+z : INTEGER_TYPE 3
+y : INTEGER_TYPE 2
+x : INTEGER_TYPE 1
+
+Extending the environment with w:4 and u:"hello"
+The local environment is:
+Scope Level: 0
+u : STRING_TYPE "hello"
+w : INTEGER_TYPE 4
+
+The environment is:
+Scope Level: 0
+u : STRING_TYPE "hello"
+w : INTEGER_TYPE 4
+Scope Level: 1
+z : INTEGER_TYPE 3
+y : INTEGER_TYPE 2
+x : INTEGER_TYPE 1
+
+The local environment is:
+Scope Level: 0
+j : INTEGER_TYPE 9
+i : INTEGER_TYPE 3
+
+The environment is:
+Scope Level: 0
+j : INTEGER_TYPE 9
+i : INTEGER_TYPE 3
+Scope Level: 1
+u : STRING_TYPE "hello"
+w : INTEGER_TYPE 4
+Scope Level: 2
+z : INTEGER_TYPE 3
+y : INTEGER_TYPE 2
+x : INTEGER_TYPE 1
+
+The updated value of hello is: STRING_TYPE "THIS IS THE NEW VALUE, YAY!"
