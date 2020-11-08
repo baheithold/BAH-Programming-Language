@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           environment.c
  *  created on:     10/31/2020
- *  Last Revision:  11/2/2020
+ *  Last Revision:  11/7/2020
  */
 
 
@@ -19,12 +19,6 @@
 
 
 /********** Private Function Prototypes **********/
-static Lexeme *cons(char *, Lexeme *, Lexeme *);
-static Lexeme *car(Lexeme *);
-static Lexeme *cdr(Lexeme *);
-static Lexeme *cadr(Lexeme *);
-static Lexeme *set_car(Lexeme *, Lexeme *);
-static Lexeme *set_cdr(Lexeme *, Lexeme *);
 static bool    isSameVariable(Lexeme *, Lexeme *);
 
 
@@ -143,71 +137,6 @@ void printEnvironment(FILE *fp, Lexeme *environment, bool local) {
 
 
 /********** Private Function Definitions **********/
-
-Lexeme *cons(char *type, Lexeme *left, Lexeme *right) {
-    assert(type != NULL);
-
-    if (DEBUG) {
-        fprintf(stdout, "CALL: cons\n");
-    }
-
-    Lexeme *result = newLexeme(type, NULL);
-    set_car(result, left);
-    set_cdr(result, right);
-    return result;
-}
-
-Lexeme *car(Lexeme *lexeme) {
-    assert(lexeme != NULL);
-
-    if (DEBUG) {
-        fprintf(stdout, "CALL: car\n");
-    }
-
-    return getLexemeLeftChild(lexeme);
-}
-
-Lexeme *cdr(Lexeme *lexeme) {
-    assert(lexeme != NULL);
-
-    if (DEBUG) {
-        fprintf(stdout, "CALL: cdr\n");
-    }
-
-    return getLexemeRightChild(lexeme);
-}
-
-Lexeme *cadr(Lexeme *lexeme) {
-    assert(lexeme != NULL);
-
-    if (DEBUG) {
-        fprintf(stdout, "CALL: cadr\n");
-    }
-
-    return car(cdr(lexeme));
-}
-
-Lexeme *set_car(Lexeme *parent, Lexeme *child) {
-    assert(parent != NULL);
-
-    if (DEBUG) {
-        fprintf(stdout, "CALL: set_car\n");
-    }
-
-    setLexemeLeftChild(parent, child);
-    return getLexemeLeftChild(parent);
-}
-
-Lexeme *set_cdr(Lexeme *parent, Lexeme *child) {
-    assert(parent != NULL);
-
-    if (DEBUG) {
-        fprintf(stdout, "CALL: set_cdr\n");
-    }
-
-    setLexemeRightChild(parent, child);
-    return getLexemeRightChild(parent);
-}
 
 bool isSameVariable(Lexeme *var1, Lexeme *var2) {
     assert(var1 != NULL);

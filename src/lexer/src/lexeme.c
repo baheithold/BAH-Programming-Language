@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexeme.c
  *  Created:        10/21/2020
- *  Last Revised:   10/31/2020
+ *  Last Revised:   11/7/2020
  */
 
 
@@ -91,27 +91,44 @@ void setLexemeLineNumber(Lexeme *lexeme, int line) {
 }
 
 
-Lexeme *getLexemeLeftChild(Lexeme *parent) {
+Lexeme *cons(char *type, Lexeme *left, Lexeme *right) {
+    assert(type != NULL);
+    Lexeme *result = newLexeme(type, NULL);
+    set_car(result, left);
+    set_cdr(result, right);
+    return result;
+}
+
+
+Lexeme *car(Lexeme *lexeme) {
+    assert(lexeme != NULL);
+    return lexeme->leftChild;
+}
+
+
+Lexeme *cdr(Lexeme *lexeme) {
+    assert(lexeme != NULL);
+    return lexeme->rightChild;
+}
+
+
+Lexeme *cadr(Lexeme *lexeme) {
+    assert(lexeme != NULL);
+    return car(cdr(lexeme));
+}
+
+
+Lexeme *set_car(Lexeme *parent, Lexeme *child) {
     assert(parent != NULL);
+    parent->leftChild = child;
     return parent->leftChild;
 }
 
 
-void setLexemeLeftChild(Lexeme *parent, Lexeme *child) {
-    assert(parent != NULL);
-    parent->leftChild = child;
-}
-
-
-Lexeme *getLexemeRightChild(Lexeme *parent) {
-    assert(parent != NULL);
-    return parent->rightChild;
-}
-
-
-void setLexemeRightChild(Lexeme *parent, Lexeme *child) {
+Lexeme *set_cdr(Lexeme *parent, Lexeme *child) {
     assert(parent != NULL);
     parent->rightChild = child;
+    return parent->rightChild;
 }
 
 
