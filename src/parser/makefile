@@ -99,6 +99,14 @@ test-arrays : $(BINDIR)/recognizer
 	@$(BINDIR)/recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
 	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
 
+
+test-imports : $(BINDIR)/recognizer
+	@echo Running $@...
+	@mkdir -p $(ACTUALPATH)
+	@$(BINDIR)/recognizer ./$(TESTDIR)/$@.bah > $(ACTUALPATH)/$@.out
+	@diff ./$(EXPECTEDPATH)/$@.out ./$(ACTUALPATH)/$@.out
+
+
 test-variables-bad-0 : $(BINDIR)/recognizer
 	@echo Running $@...
 	@mkdir -p $(ACTUALPATH)
@@ -507,6 +515,7 @@ test-all : $(BINDIR)/recognizer
 	@make test-conditionals -s
 	@make test-loops -s
 	@make test-arrays -s
+	@make test-imports -s
 	@make test-variables-bad-0 -s
 	@make test-variables-bad-1 -s
 	@make test-variables-bad-2 -s
