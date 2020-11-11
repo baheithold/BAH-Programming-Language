@@ -106,7 +106,6 @@ extern char *VARIABLE_EXPRESSION;
 extern char *EXPRESSION;
 extern char *EXPRESSION_LIST;
 extern char *CONDITIONAL_EXPRESSION_LIST;
-extern char *CONDITIONAL_EXPRESSION_LIST;
 extern char *UNARY;
 extern char *LAMBDA_DEFINITION;
 extern char *BLOCK;
