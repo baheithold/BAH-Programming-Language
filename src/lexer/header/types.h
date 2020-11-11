@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           types.h
  *  Created:        10/21/2020
- *  Last Revised:   11/1/2020
+ *  Last Revised:   11/11/2020
  */
 
 #ifndef __TYPES_H__
@@ -86,12 +86,37 @@ extern char *BAD_NUMBER;
 extern char *BAD_CHARACTER;
 extern char *BAD_STRING;
 extern char *END_OF_INPUT;
-extern char *VARIABLE_DEFINITION;
-extern char *FUNCTION_DEFINITION;
-extern char *FUNCTION_CALL;
-extern char *CLASS_DEFINITION;
 extern char *ENVIRONMENT;
 extern char *JOIN;
+
+/********** Grammar Function Types **********/
+extern char *PROGRAM;
+extern char *STATEMENT;
+extern char *STATEMENT_LIST;
+extern char *DEFINITION;
+extern char *VARIABLE_DEFINITION;
+extern char *FUNCTION_DEFINITION;
+extern char *CLASS_DEFINITION;
+extern char *FUNCTION_CALL;
+extern char *INHERITANCE;
+extern char *INIT;
+extern char *DIMENSION;
+extern char *DIMENSION_LIST;
+extern char *PARAMETER_LIST;
+extern char *VARIABLE_EXPRESSION;
+extern char *EXPRESSION;
+extern char *EXPRESSION_LIST;
+extern char *CONDITIONAL_EXPRESSION_LIST;
+extern char *CONDITIONAL_EXPRESSION_LIST;
+extern char *UNARY;
+extern char *LAMBDA_DEFINITION;
+extern char *BLOCK;
+extern char *LOOP;
+extern char *FOR_LOOP;
+extern char *WHILE_LOOP;
+extern char *IF_STATEMENT;
+extern char *ELSE_STATEMENT;
+extern char *RETURN_STATEMENT;
 
 
 #endif // !__TYPES_H__
