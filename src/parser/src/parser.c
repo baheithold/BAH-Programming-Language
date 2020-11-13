@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  10/31/2020
+ *  Last revision:  11/13/2020
  */
 
 
@@ -35,8 +35,9 @@ void advance(void) {
 Lexeme *match(char *type) {
     assert(type != NULL);
     matchNoAdvance(type);
+    Lexeme *result = currentLexeme;
     advance();
-    return currentLexeme;
+    return result;
 }
 
 void matchNoAdvance(char *type) {
@@ -52,113 +53,122 @@ void matchNoAdvance(char *type) {
 
 /********** Grammar Function Definitions **********/
 
-void program(void) {
+Lexeme *program(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: program\n");
     }
     if (importPending()) {
-        import();
-        program();
+        Lexeme *i = import();
+        Lexeme *tree = program();
+        return cons(IMPORT, i, tree);
     }
     else if (statementListPending()) {
-        statementList();
+        return statementList();
     }
 }
 
-void import(void) {
+Lexeme *import(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: import\n");
     }
     match(IMPORT);
-    match(STRING_TYPE);
+    return match(STRING_TYPE);
 }
 
-void statement(void) {
+Lexeme *statement(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: statement\n");
     }
     if (definitionPending()) {
-        definition();
+        return definition();
     }
     else if (expressionPending()) {
-        expression();
+        return expression();
         match(SEMICOLON);
     }
     else if (loopPending()) {
-        loop();
+        return loop();
     }
     else if (ifStatementPending()) {
-        ifStatement();
+        return ifStatement();
     }
     else if (returnStatementPending()) {
-        returnStatement();
+        return returnStatement();
         match(SEMICOLON);
     }
     else if (check(CONTINUE)) {
-        match(CONTINUE);
+        return match(CONTINUE);
         match(SEMICOLON);
     }
     else if (check(BREAK)) {
-        match(BREAK);
+        return match(BREAK);
         match(SEMICOLON);
     }
+    return NULL;
 }
 
-void statementList(void) {
+Lexeme *statementList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: statementList\n");
     }
     if (statementPending()) {
-        statement();
-        optStatementList();
+        Lexeme *s = statement();
+        Lexeme *sList = optStatementList();
+        return cons(STATEMENT_LIST, s, sList);
     }
+    return NULL;
 }
 
-void optStatementList(void) {
+Lexeme *optStatementList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optStatementList\n");
     }
     if (statementListPending()) {
-        statementList();
+        return statementList();
     }
+    return NULL;
 }
 
-void definition(void) {
+Lexeme *definition(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: definition\n");
     }
     if (variableDefinitionPending()) {
-        variableDefinition();
+        Lexeme *vdef = variableDefinition();
         match(SEMICOLON);
+        return vdef;
     }
     else if (functionDefinitionPending()) {
-        functionDefinition();
+        return functionDefinition();
     }
     else if (classDefinitionPending()) {
-        classDefinition();
+        return classDefinition();
     }
+    return NULL;
 }
 
-void variableDefinition(void) {
+Lexeme *variableDefinition(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: variableDefinition\n");
     }
     match(VAR);
-    match(ID_TYPE);
-    optInit();
+    Lexeme *id = match(ID_TYPE);
+    Lexeme *tree = optInit();
+    return cons(VARIABLE_DEFINITION, id, tree);
 }
 
-void functionDefinition(void) {
+Lexeme *functionDefinition(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: functionDefinition\n");
     }
     match(FUNCTION);
-    match(ID_TYPE);
+    Lexeme *id = match(ID_TYPE);
     match(OPAREN);
     if (parameterListPending()) {
-        parameterList();
+        Lexeme *pList = parameterList();
         match(CPAREN);
-        block();
+        Lexeme *b = block();
+        return cons(FUNCTION_DEFINITION, id, cons(JOIN, pList, b));
     }
     else {
         match(VOID);
@@ -167,7 +177,7 @@ void functionDefinition(void) {
     }
 }
 
-void classDefinition(void) {
+Lexeme *classDefinition(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: classDefinition\n");
     }
@@ -177,7 +187,7 @@ void classDefinition(void) {
     block();
 }
 
-void optInheritance(void) {
+Lexeme *optInheritance(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: oprtInheritance\n");
     }
@@ -187,7 +197,7 @@ void optInheritance(void) {
     }
 }
 
-void optInit(void) {
+Lexeme *optInit(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optInit\n");
     }
@@ -202,7 +212,7 @@ void optInit(void) {
     }
 }
 
-void dimension(void) {
+Lexeme *dimension(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: dimension\n");
     }
@@ -212,7 +222,7 @@ void dimension(void) {
 }
 
 
-void dimensionList(void) {
+Lexeme *dimensionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: dimensionList\n");
     }
@@ -220,7 +230,7 @@ void dimensionList(void) {
     optDimensionList();
 }
 
-void optDimensionList(void) {
+Lexeme *optDimensionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optDimensionList\n");
     }
@@ -229,7 +239,7 @@ void optDimensionList(void) {
     }
 }
 
-void parameterList(void) {
+Lexeme *parameterList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: parameterList\n");
     }
@@ -240,7 +250,7 @@ void parameterList(void) {
     }
 }
 
-void optParameterList(void) {
+Lexeme *optParameterList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optParameterList\n");
     }
@@ -249,7 +259,7 @@ void optParameterList(void) {
     }
 }
 
-void variableExpression(void) {
+Lexeme *variableExpression(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: variableExpression\n");
     }
@@ -273,7 +283,7 @@ void variableExpression(void) {
     }
 }
 
-void expression(void) {
+Lexeme *expression(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: expression\n");
     }
@@ -305,7 +315,7 @@ void expression(void) {
     }
 }
 
-void optExpression(void) {
+Lexeme *optExpression(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optExpression\n");
     }
@@ -314,7 +324,7 @@ void optExpression(void) {
     }
 }
 
-void expressionList(void) {
+Lexeme *expressionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: expressionList\n");
     }
@@ -330,7 +340,7 @@ void expressionList(void) {
     }
 }
 
-void optExpressionList(void) {
+Lexeme *optExpressionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optExpressionList\n");
     }
@@ -339,7 +349,7 @@ void optExpressionList(void) {
     }
 }
 
-void conditionalExpressionList(void) {
+Lexeme *conditionalExpressionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: conditionalExpressionList\n");
     }
@@ -355,7 +365,7 @@ void conditionalExpressionList(void) {
     }
 }
 
-void unary(void) {
+Lexeme *unary(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: unary\n");
     }
@@ -408,7 +418,7 @@ void unary(void) {
     }
 }
 
-void lambdaDefinition(void) {
+Lexeme *lambdaDefinition(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: lambdaDefinition\n");
     }
@@ -419,7 +429,7 @@ void lambdaDefinition(void) {
     block();
 }
 
-void block(void) {
+Lexeme *block(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: block\n");
     }
@@ -428,7 +438,7 @@ void block(void) {
     match(CBRACE);
 }
 
-void loop(void) {
+Lexeme *loop(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: loop\n");
     }
@@ -440,7 +450,7 @@ void loop(void) {
     }
 }
 
-void forLoop(void) {
+Lexeme *forLoop(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: forLoop\n");
     }
@@ -460,7 +470,7 @@ void forLoop(void) {
     block();
 }
 
-void whileLoop(void) {
+Lexeme *whileLoop(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: whileLoop\n");
     }
@@ -471,7 +481,7 @@ void whileLoop(void) {
     block();
 }
 
-void ifStatement(void) {
+Lexeme *ifStatement(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: ifStatement\n");
     }
@@ -483,7 +493,7 @@ void ifStatement(void) {
     optElseStatement();
 }
 
-void elseStatement(void) {
+Lexeme *elseStatement(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: elseStatement\n");
     }
@@ -496,7 +506,7 @@ void elseStatement(void) {
     }
 }
 
-void optElseStatement(void) {
+Lexeme *optElseStatement(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optElseStatement\n");
     }
@@ -505,7 +515,7 @@ void optElseStatement(void) {
     }
 }
 
-void returnStatement(void) {
+Lexeme *returnStatement(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: returnStatement\n");
     }
@@ -513,7 +523,7 @@ void returnStatement(void) {
     optExpression();
 }
 
-void unaryOperator(void) {
+Lexeme *unaryOperator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: unaryOperator\n");
     }
@@ -528,7 +538,7 @@ void unaryOperator(void) {
     }
 }
 
-void binaryOperator(void) {
+Lexeme *binaryOperator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: binaryOperator\n");
     }
@@ -576,7 +586,7 @@ void binaryOperator(void) {
     }
 }
 
-void logicalOperator(void) {
+Lexeme *logicalOperator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: logicalOperator\n");
     }
@@ -591,7 +601,7 @@ void logicalOperator(void) {
     }
 }
 
-void comparator(void) {
+Lexeme *comparator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: comparator\n");
     }
