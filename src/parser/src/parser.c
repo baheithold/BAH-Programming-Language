@@ -60,10 +60,10 @@ Lexeme *program(void) {
     if (importPending()) {
         Lexeme *i = import();
         Lexeme *tree = program();
-        return cons(IMPORT, i, tree);
+        return cons(PROGRAM, cons(IMPORT, i, NULL), tree);
     }
     else if (statementListPending()) {
-        return statementList();
+        return cons(PROGRAM, NULL, statementList());
     }
 }
 
