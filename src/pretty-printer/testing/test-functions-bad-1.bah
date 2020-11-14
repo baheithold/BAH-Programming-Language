@@ -1,0 +1,5 @@
+# This file tests an invalid function
+
+
+function f() {
+}

@@ -1,0 +1,6 @@
+#This file tests an invalid loop
+
+
+while (and and and) {
+
+}

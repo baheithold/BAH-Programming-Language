@@ -1,0 +1,12 @@
+# This file tests an invalid function
+
+function classes(students) {
+
+}
+
+function Class(students) {
+}
+
+# This should fail because of the use of a keyword
+function class(x, y) {
+}

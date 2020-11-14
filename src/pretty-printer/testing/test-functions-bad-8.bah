@@ -1,0 +1,7 @@
+# This file tests an invalid function
+
+function sum(x, y) {
+    return x + y;
+}
+
+var three = sum(37 - 36 2 ^ 1);

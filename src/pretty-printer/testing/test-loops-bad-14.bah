@@ -1,0 +1,7 @@
+#This file tests an invalid loop
+
+
+while (i < 10)
+
+}
+

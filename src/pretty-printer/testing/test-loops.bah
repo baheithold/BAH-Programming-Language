@@ -1,0 +1,28 @@
+# This file tests valid loops
+
+
+import "this/is/a/valid/filepath/filename0.bah"
+import "this/is/a/valid/filepath/filename1.bah"
+import "this/is/a/valid/filepath/filename2.bah"
+import "~/this/is/a/valid/filepath/filename3.bah"
+import "./this/is/a/valid/filepath/filename4.bah"
+import "../this/is/a/valid/filepath/filename5.bah"
+
+
+for (i = 0; i < 10; i++) {
+    println(i);
+}
+
+for (i = x; i >= floor; i--) {
+    # Do a bunch of stuff?
+}
+
+while (!isEven? and !isDiv3? or x) {
+    for (var i = 0; i < 100 and i > 0; i++) {
+        i /= 2;
+    }
+}
+
+while(true) {
+    # inifite loop
+}
