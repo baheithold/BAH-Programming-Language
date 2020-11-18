@@ -152,6 +152,10 @@ void printLexeme(FILE *fp, Lexeme *lexeme) {
         // Print REAL_TYPE Lexeme
         fprintf(fp, "%s \"%s\"", lexeme->type, lexeme->stringValue);
     }
+    else if (lexeme->type == BOOLEAN_TYPE) {
+        // Print BOOLEAN_TYPE lexeme
+        fprintf(fp, "%s %s", lexeme->type, lexeme->stringValue);
+    }
     else {
         fprintf(fp, "%s", lexeme->type);
         if (lexeme->stringValue != NULL) {
