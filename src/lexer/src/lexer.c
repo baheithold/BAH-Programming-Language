@@ -365,8 +365,14 @@ Lexeme *lexKeywordOrID(FILE *fp) {
     else if (strcmp(token, "class") == 0) setLexemeType(resultLexeme, CLASS);
     else if (strcmp(token, "lambda") == 0) setLexemeType(resultLexeme, LAMBDA);
     else if (strcmp(token, "void") == 0) setLexemeType(resultLexeme, VOID);
-    else if (strcmp(token, "true") == 0) setLexemeType(resultLexeme, BOOLEAN_TYPE);
-    else if (strcmp(token, "false") == 0) setLexemeType(resultLexeme, BOOLEAN_TYPE);
+    else if (strcmp(token, "true") == 0) {
+        setLexemeType(resultLexeme, BOOLEAN_TYPE);
+        setLexemeValue(resultLexeme, "true");
+    }
+    else if (strcmp(token, "false") == 0) {
+        setLexemeType(resultLexeme, BOOLEAN_TYPE);
+        setLexemeValue(resultLexeme, "false");
+    }
     else if (strcmp(token, "null") == 0) setLexemeType(resultLexeme, NULL_TYPE);
     else if (strcmp(token, "and") == 0) setLexemeType(resultLexeme, AND);
     else if (strcmp(token, "or") == 0) setLexemeType(resultLexeme, OR);
