@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           types.h
  *  Created:        10/21/2020
- *  Last Revised:   11/11/2020
+ *  Last Revised:   11/19/2020
  */
 
 #ifndef __TYPES_H__
@@ -30,6 +30,7 @@ extern char *COLON;
 extern char *SEMICOLON;
 
 /* Binary Operators */
+extern char *BINARY_OPERATOR;
 extern char *PLUS_BINARY;
 extern char *MINUS_BINARY;
 extern char *TIMES_BINARY;
@@ -46,11 +47,13 @@ extern char *MODULO_ASSIGN_BINARY;
 extern char *DOT_BINARY;
 
 /* Unary Operators */
+extern char *UNARY_OPERATOR;
 extern char *INCREMENT_UNARY;
 extern char *DECREMENT_UNARY;
 extern char *NEGATE_UNARY;
 
 /* Comparators */
+extern char *COMPARATOR;
 extern char *EQUALS_COMPARATOR;
 extern char *NOT_EQUALS_COMPARATOR;
 extern char *GREATER_THAN_COMPARATOR;
@@ -59,6 +62,7 @@ extern char *GREATER_EQUALS_COMPARATOR;
 extern char *LESSER_EQUALS_COMPARATOR;
 
 /* Logical Operators */
+extern char *LOGICAL_OPERATOR;
 extern char *AND;
 extern char *OR;
 extern char *XOR;

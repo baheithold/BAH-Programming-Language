@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           types.c
  *  Created:        10/21/2020
- *  Last Revised:   11/11/2020
+ *  Last Revised:   11/18/2020
  */
 
 
@@ -30,6 +30,7 @@ char *COLON = "COLON";
 char *SEMICOLON = "SEMICOLON";
 
 /* Binary Operators */
+char *BINARY_OPERATOR = "BINARY_OPERATOR";
 char *PLUS_BINARY = "PLUS_BINARY";
 char *MINUS_BINARY = "MINUS_BINARY";
 char *TIMES_BINARY = "TIMES_BINARY";
@@ -46,11 +47,13 @@ char *MODULO_ASSIGN_BINARY = "MODULO_ASSIGN_BINARY";
 char *DOT_BINARY = "DOT_BINARY";
 
 /* Unary Operators */
+char *UNARY_OPERATOR = "UNARY_OPERATOR";
 char *INCREMENT_UNARY = "INCREMENT_UNARY";
 char *DECREMENT_UNARY = "DECREMENT_UNARY";
 char *NEGATE_UNARY = "NEGATE_UNARY";
 
 /* Comparators */
+char *COMPARATOR = "COMPARATOR";
 char *EQUALS_COMPARATOR = "EQUALS_COMPARATOR";
 char *NOT_EQUALS_COMPARATOR = "NOT_EQUALS_COMPARATOR";
 char *GREATER_THAN_COMPARATOR = "GREATER_THAN_COMPARATOR";
@@ -59,6 +62,7 @@ char *GREATER_EQUALS_COMPARATOR = "GREATER_EQUALS_COMPARATOR";
 char *LESSER_EQUALS_COMPARATOR = "LESSER_EQUALS_COMPARATOR";
 
 /* Logical Operators */
+char *LOGICAL_OPERATOR = "LOGICAL_OPERATOR";
 char *AND = "AND";
 char *OR = "OR";
 char *XOR = "XOR";

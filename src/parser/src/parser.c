@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  11/13/2020
+ *  Last revision:  11/19/2020
  */
 
 
@@ -80,29 +80,34 @@ Lexeme *statement(void) {
         fprintf(stdout, "CALL: statement\n");
     }
     if (definitionPending()) {
-        return definition();
+        Lexeme *d = definition();
+        return cons(STATEMENT, d, NULL);
     }
     else if (expressionPending()) {
-        return expression();
+        Lexeme *e = expression();
         match(SEMICOLON);
+        return cons(STATEMENT, e, NULL);
     }
     else if (loopPending()) {
-        return loop();
+        return cons(STATEMENT, loop(), NULL);
     }
     else if (ifStatementPending()) {
-        return ifStatement();
+        return cons(STATEMENT, ifStatement(), NULL);
     }
     else if (returnStatementPending()) {
-        return returnStatement();
+        Lexeme *rs = returnStatement();
         match(SEMICOLON);
+        return cons(STATEMENT, rs, NULL);
     }
     else if (check(CONTINUE)) {
-        return match(CONTINUE);
+        match(CONTINUE);
         match(SEMICOLON);
+        return cons(STATEMENT, newLexeme(CONTINUE, NULL), NULL);
     }
     else if (check(BREAK)) {
-        return match(BREAK);
+        match(BREAK);
         match(SEMICOLON);
+        return cons(STATEMENT, newLexeme(BREAK, NULL), NULL);
     }
     return NULL;
 }
@@ -204,12 +209,14 @@ Lexeme *optInit(void) {
     if (check(ASSIGN_BINARY)) {
         match(ASSIGN_BINARY);
         if (expressionPending()) {
-            expression();
+            Lexeme *e = expression();
+            return cons(INIT, e, NULL);
         }
         else {
             matchNoAdvance("expression");
         }
     }
+    return NULL;
 }
 
 Lexeme *dimension(void) {
@@ -263,24 +270,28 @@ Lexeme *variableExpression(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: variableExpression\n");
     }
-    match(ID_TYPE);
+    Lexeme *id = match(ID_TYPE);
     if (check(OPAREN)) {
         match(OPAREN);
-        optExpressionList();
+        Lexeme *eList = optExpressionList();
         match(CPAREN);
+        return cons(VARIABLE_EXPRESSION, id, eList);
     }
     else if (dimensionListPending()) {
-        dimensionList();
+        Lexeme *dList = dimensionList();
+        return cons(VARIABLE_EXPRESSION, id, dList);
     }
     else if (binaryOperatorPending()){
-        binaryOperator();
+        Lexeme * bop = binaryOperator();
         if (expressionPending()) {
-            expression();
+            Lexeme *e = expression();
+            return cons(VARIABLE_EXPRESSION, id, cons(JOIN, bop, e));
         }
         else {
             matchNoAdvance("expression");
         }
     }
+    return NULL;
 }
 
 Lexeme *expression(void) {
@@ -288,31 +299,40 @@ Lexeme *expression(void) {
         fprintf(stdout, "CALL: expression\n");
     }
     if (unaryPending()) {
-        unary();
+        Lexeme *u = unary();
         if (binaryOperatorPending()) {
-            binaryOperator();
-            expression();
+            Lexeme *bop = binaryOperator();
+            Lexeme *e = expression();
+            return cons(EXPRESSION, u, cons(JOIN, bop, e));
         }
         else if (unaryOperatorPending()) {
-            unaryOperator();
+            Lexeme *uop = unaryOperator();
+            return cons(EXPRESSION, u, uop);
         }
         else if (logicalOperatorPending()) {
-            logicalOperator();
-            expression();
+            Lexeme *lop = logicalOperator();
+            Lexeme *e = expression();
+            return cons(EXPRESSION, u, cons(JOIN, lop, e));
         }
         else if (comparatorPending()) {
-            comparator();
-            expression();
+            Lexeme *c = comparator();
+            Lexeme *e = expression();
+            return cons(EXPRESSION, u, cons(JOIN, c, e));
+        }
+        else {
+            return cons(EXPRESSION, u, NULL);
         }
     }
     else if (unaryOperatorPending()) {
         // accounts for NEGATE_UNARY operator
-        unaryOperator();
-        unary();
+        Lexeme *uop = unaryOperator();
+        Lexeme *u = unary();
+        return cons(EXPRESSION, uop, u);
     }
     else {
         matchNoAdvance("expression");
     }
+    return NULL;
 }
 
 Lexeme *optExpression(void) {
@@ -370,52 +390,65 @@ Lexeme *unary(void) {
         fprintf(stdout, "CALL: unary\n");
     }
     if (variableExpressionPending()) {
-        variableExpression();
+        Lexeme *ve = variableExpression();
+        return cons(UNARY, ve, NULL);
     }
     else if (check(INTEGER_TYPE)) {
-        match(INTEGER_TYPE);
+        Lexeme *i = match(INTEGER_TYPE);
+        return cons(UNARY, i, NULL);
     }
     else if (check(REAL_TYPE)) {
-        match(REAL_TYPE);
+        Lexeme *r = match(REAL_TYPE);
+        return cons(UNARY, r, NULL);
     }
     else if (check(STRING_TYPE)) {
-        match(STRING_TYPE);
+        Lexeme *s = match(STRING_TYPE);
+        return cons(UNARY, s, NULL);
     }
     else if (check(BOOLEAN_TYPE)) {
-        match(BOOLEAN_TYPE);
+        Lexeme *b = match(BOOLEAN_TYPE);
+        return cons(UNARY, b, NULL);
     }
     else if (check(NEGATE_UNARY)) {
-        match(NEGATE_UNARY);
-        unary();
+        Lexeme *neg = match(NEGATE_UNARY);
+        Lexeme *u = unary();
+        return cons(UNARY, neg, u);
     }
     else if (check(OPAREN)) {
         match(OPAREN);
-        expression();
+        Lexeme *e = expression();
         match(CPAREN);
+        return cons(UNARY, cons(OPAREN, e, NULL), NULL);
     }
     else if (check(OBRACKET)) {
         match(OBRACKET);
-        optExpressionList();
+        Lexeme *eList = optExpressionList();
         match(CBRACKET);
+        return cons(UNARY, cons(OBRACKET, eList, NULL), NULL);
     }
     else if (lambdaDefinitionPending()) {
-        lambdaDefinition();
+        Lexeme *lamb = lambdaDefinition();
+        return cons(UNARY, lamb, NULL);
     }
     else if (check(PRINT)) {
         match(PRINT);
         match(OPAREN);
-        expressionList();
+        Lexeme *eList = expressionList();
         match(CPAREN);
+        return cons(UNARY, cons(PRINT, NULL, eList), NULL);
     }
     else if (check(PRINTLN)) {
         match(PRINTLN);
         match(OPAREN);
-        expressionList();
+        Lexeme *eList = expressionList();
         match(CPAREN);
+        return cons(UNARY, cons(PRINTLN, NULL, eList), NULL);
     }
     else if (check(NULL_TYPE)) {
-        match(NULL_TYPE);
+        Lexeme *nuhll = match(NULL_TYPE);
+        return cons(UNARY, nuhll, NULL);
     }
+    return NULL;
 }
 
 Lexeme *lambdaDefinition(void) {
@@ -527,102 +560,148 @@ Lexeme *unaryOperator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: unaryOperator\n");
     }
+    Lexeme *op = NULL;
     if (check(NEGATE_UNARY)) {
-        match(NEGATE_UNARY);
+        op = match(NEGATE_UNARY);
+        setLexemeType(op, NEGATE_UNARY);
     }
     else if (check(INCREMENT_UNARY)) {
-        match(INCREMENT_UNARY);
+        op = match(INCREMENT_UNARY);
+        setLexemeType(op, INCREMENT_UNARY);
     }
     else if (check(DECREMENT_UNARY)) {
-        match(DECREMENT_UNARY);
+        op = match(DECREMENT_UNARY);
+        setLexemeType(op, DECREMENT_UNARY);
     }
+    else {
+        matchNoAdvance("unary operator");
+    }
+    return cons(UNARY_OPERATOR, op, NULL);
 }
 
 Lexeme *binaryOperator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: binaryOperator\n");
     }
+    Lexeme *op = NULL;
     if (check(PLUS_BINARY)) {
-        match(PLUS_BINARY);
+        op = match(PLUS_BINARY);
+        setLexemeType(op, PLUS_BINARY);
     }
     else if (check(MINUS_BINARY)) {
-        match(MINUS_BINARY);
+        op = match(MINUS_BINARY);
+        setLexemeType(op, MINUS_BINARY);
     }
     else if (check(TIMES_BINARY)) {
-        match(TIMES_BINARY);
+        op = match(TIMES_BINARY);
+        setLexemeType(op, TIMES_BINARY);
     }
     else if (check(DIVIDE_BINARY)) {
-        match(DIVIDE_BINARY);
+        op = match(DIVIDE_BINARY);
+        setLexemeType(op, DIVIDE_BINARY);
     }
     else if (check(POW_BINARY)) {
-        match(POW_BINARY);
+        op = match(POW_BINARY);
+        setLexemeType(op, POW_BINARY);
     }
     else if (check(MODULO_BINARY)) {
-        match(MODULO_BINARY);
+        op = match(MODULO_BINARY);
+        setLexemeType(op, MODULO_BINARY);
     }
     else if (check(ASSIGN_BINARY)) {
-        match(ASSIGN_BINARY);
+        op = match(ASSIGN_BINARY);
+        setLexemeType(op, ASSIGN_BINARY);
     }
     else if (check(PLUS_ASSIGN_BINARY)) {
-        match(PLUS_ASSIGN_BINARY);
+        op = match(PLUS_ASSIGN_BINARY);
+        setLexemeType(op, PLUS_ASSIGN_BINARY);
     }
     else if (check(MINUS_ASSIGN_BINARY)) {
-        match(MINUS_ASSIGN_BINARY);
+        op = match(MINUS_ASSIGN_BINARY);
+        setLexemeType(op, MINUS_ASSIGN_BINARY);
     }
     else if (check(TIMES_ASSIGN_BINARY)) {
-        match(TIMES_ASSIGN_BINARY);
+        op = match(TIMES_ASSIGN_BINARY);
+        setLexemeType(op, TIMES_ASSIGN_BINARY);
     }
     else if (check(DIVIDE_ASSIGN_BINARY)) {
-        match(DIVIDE_ASSIGN_BINARY);
+        op = match(DIVIDE_ASSIGN_BINARY);
+        setLexemeType(op, DIVIDE_ASSIGN_BINARY);
     }
     else if (check(POW_ASSIGN_BINARY)) {
-        match(POW_ASSIGN_BINARY);
+        op = match(POW_ASSIGN_BINARY);
+        setLexemeType(op, POW_ASSIGN_BINARY);
     }
     else if (check(MODULO_ASSIGN_BINARY)) {
-        match(MODULO_ASSIGN_BINARY);
+        op = match(MODULO_ASSIGN_BINARY);
+        setLexemeType(op, MODULO_ASSIGN_BINARY);
     }
     else if (check(DOT_BINARY)) {
-        match(DOT_BINARY);
+        op = match(DOT_BINARY);
+        setLexemeType(op, DOT_BINARY);
     }
+    else {
+        matchNoAdvance("binary operator");
+    }
+    return cons(BINARY_OPERATOR, op, NULL);
 }
 
 Lexeme *logicalOperator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: logicalOperator\n");
     }
+    Lexeme *op = NULL;
     if (check(AND)) {
-        match(AND);
+        op = match(AND);
+        setLexemeType(op, AND);
     }
     else if (check(OR)) {
-        match(OR);
+        op = match(OR);
+        setLexemeType(op, OR);
+    }
+    else if (check(XOR)) {
+        op = match(XOR);
+        setLexemeType(op, XOR);
     }
     else {
-        match(XOR);
+        matchNoAdvance("logical operator");
     }
+    return cons(LOGICAL_OPERATOR, op, NULL);
 }
 
 Lexeme *comparator(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: comparator\n");
     }
+    Lexeme *comp = NULL;
     if (check(EQUALS_COMPARATOR)) {
-        match(EQUALS_COMPARATOR);
+        comp = match(EQUALS_COMPARATOR);
+        setLexemeType(comp, EQUALS_COMPARATOR);
     }
     else if (check(NOT_EQUALS_COMPARATOR)) {
-        match(NOT_EQUALS_COMPARATOR);
+        comp = match(NOT_EQUALS_COMPARATOR);
+        setLexemeType(comp, NOT_EQUALS_COMPARATOR);
     }
     else if (check(GREATER_THAN_COMPARATOR)) {
-        match(GREATER_THAN_COMPARATOR);
+        comp = match(GREATER_THAN_COMPARATOR);
+        setLexemeType(comp, GREATER_THAN_COMPARATOR);
     }
     else if (check(LESSER_THAN_COMPARATOR)) {
-        match(LESSER_THAN_COMPARATOR);
+        comp = match(LESSER_THAN_COMPARATOR);
+        setLexemeType(comp, LESSER_THAN_COMPARATOR);
     }
     else if (check(GREATER_EQUALS_COMPARATOR)) {
-        match(GREATER_EQUALS_COMPARATOR);
+        comp = match(GREATER_EQUALS_COMPARATOR);
+        setLexemeType(comp, GREATER_EQUALS_COMPARATOR);
     }
     else if (check(LESSER_EQUALS_COMPARATOR)) {
-        match(LESSER_EQUALS_COMPARATOR);
+        comp = match(LESSER_EQUALS_COMPARATOR);
+        setLexemeType(comp, LESSER_EQUALS_COMPARATOR);
     }
+    else {
+        matchNoAdvance("comparator");
+    }
+    return cons(COMPARATOR, comp, NULL);
 }
 
 
