@@ -95,7 +95,7 @@ while (i < 10) {
     i++;
 }
 
-while (true) {
+while (true and !false) {
     println("Always true!");
     if (i >= 100) {
         break;

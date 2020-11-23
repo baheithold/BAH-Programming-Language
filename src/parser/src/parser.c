@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  11/19/2020
+ *  Last revision:  11/23/2020
  */
 
 
@@ -291,6 +291,10 @@ Lexeme *variableExpression(void) {
             matchNoAdvance("expression");
         }
     }
+    else {
+        // the variable expression was simply an ID
+        return cons(VARIABLE_EXPRESSION, id, NULL);
+    }
     return NULL;
 }
 
@@ -413,6 +417,11 @@ Lexeme *unary(void) {
         Lexeme *neg = match(NEGATE_UNARY);
         Lexeme *u = unary();
         return cons(UNARY, neg, u);
+    }
+    else if (check(NOT)) {
+        Lexeme *notOp = match(NOT);
+        Lexeme *u = unary();
+        return cons(UNARY, notOp, u);
     }
     else if (check(OPAREN)) {
         match(OPAREN);
@@ -821,7 +830,7 @@ bool unaryPending(void) {
     }
     return variableExpressionPending() || check(INTEGER_TYPE)
         || check(REAL_TYPE) || check(STRING_TYPE) || check(BOOLEAN_TYPE)
-        || check(MINUS_BINARY) || check(OPAREN) || check(OBRACKET) || lambdaDefinitionPending()
+        || check(MINUS_BINARY) || check(NOT) || check(OPAREN) || check(OBRACKET) || lambdaDefinitionPending()
         || check(PRINT) || check(PRINTLN) || check(NULL_TYPE);
 }
 
