@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           lexer.c
  *  Created:        10/21/2020
- *  Last Revised:   11/2/2020
+ *  Last Revised:   11/23/2020
  */
 
 
@@ -157,7 +157,7 @@ Lexeme *lex(void) {
                 case '=': setLexemeType(resultLexeme, NOT_EQUALS_COMPARATOR); return resultLexeme;
                 default:
                     ungetc(ch, fp);
-                    setLexemeType(resultLexeme, NEGATE_UNARY);
+                    setLexemeType(resultLexeme, NOT);
                     return resultLexeme;
             }
         default:

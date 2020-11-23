@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           types.c
  *  Created:        10/21/2020
- *  Last Revised:   11/18/2020
+ *  Last Revised:   11/23/2020
  */
 
 
@@ -66,6 +66,7 @@ char *LOGICAL_OPERATOR = "LOGICAL_OPERATOR";
 char *AND = "AND";
 char *OR = "OR";
 char *XOR = "XOR";
+char *NOT = "NOT";
 
 /* Keywords */
 char *IF = "IF_KEYWORD";

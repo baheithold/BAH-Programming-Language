@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           types.h
  *  Created:        10/21/2020
- *  Last Revised:   11/19/2020
+ *  Last Revised:   11/23/2020
  */
 
 #ifndef __TYPES_H__
@@ -66,6 +66,7 @@ extern char *LOGICAL_OPERATOR;
 extern char *AND;
 extern char *OR;
 extern char *XOR;
+extern char *NOT;
 
 /* Keywords */
 extern char *IF;

@@ -20,7 +20,7 @@
 # Unary operators
 ++
 --
-!
+-
 
 # Comparators
 ==
@@ -34,3 +34,4 @@
 and
 or
 xor
+!

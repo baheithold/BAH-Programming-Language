@@ -64,9 +64,15 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == IMPORT) prettyImport(fp, tree);
     else if (type == STATEMENT) prettyStatement(fp, tree);
     else if (type == STATEMENT_LIST) prettyStatementList(fp, tree);
-    else if (type == VARIABLE_DEFINITION) prettyVariableDefinition(fp, tree);
+    else if (type == VARIABLE_DEFINITION) {
+        prettyVariableDefinition(fp, tree);
+        fprintf(fp, ";");
+    }
     else if (type == VARIABLE_EXPRESSION) prettyVariableExpression(fp, tree);
-    else if (type == EXPRESSION) prettyExpression(fp, tree);
+    else if (type == EXPRESSION) {
+        prettyExpression(fp, tree);
+        fprintf(fp, ";");
+    }
     else if (type == UNARY) prettyUnary(fp, tree);
     else if (type == UNARY_OPERATOR) prettyUnaryOperator(fp, tree);
     else if (type == BINARY_OPERATOR) prettyBinaryOperator(fp, tree);
