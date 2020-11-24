@@ -224,8 +224,9 @@ Lexeme *dimension(void) {
         fprintf(stdout, "CALL: dimension\n");
     }
     match(OBRACKET);
-    optExpressionList();
+    Lexeme *eList = optExpressionList();
     match(CBRACKET);
+    return cons(DIMENSION, eList, NULL);
 }
 
 
@@ -233,28 +234,33 @@ Lexeme *dimensionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: dimensionList\n");
     }
-    dimension();
-    optDimensionList();
+    Lexeme *d = dimension();
+    Lexeme *dList = optDimensionList();
+    return cons(DIMENSION_LIST, d, dList);
 }
+
 
 Lexeme *optDimensionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: optDimensionList\n");
     }
     if (dimensionListPending()) {
-        dimensionList();
+        return dimensionList();
     }
+    return NULL;
 }
 
 Lexeme *parameterList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: parameterList\n");
     }
-    match(ID_TYPE);
+    Lexeme *id = match(ID_TYPE);
+    Lexeme *pList = NULL;
     if (check(COMMA)) {
         match(COMMA);
-        parameterList();
+        pList = parameterList();
     }
+    return cons(PARAMETER_LIST, id, pList);
 }
 
 Lexeme *optParameterList(void) {
@@ -262,8 +268,9 @@ Lexeme *optParameterList(void) {
         fprintf(stdout, "CALL: optParameterList\n");
     }
     if (parameterListPending()) {
-        parameterList();
+        return parameterList();
     }
+    return NULL;
 }
 
 Lexeme *variableExpression(void) {
@@ -344,24 +351,27 @@ Lexeme *optExpression(void) {
         fprintf(stdout, "CALL: optExpression\n");
     }
     if (expressionPending()) {
-        expression();
+        return expression();
     }
+    return NULL;
 }
 
 Lexeme *expressionList(void) {
     if (DEBUG) {
         fprintf(stdout, "CALL: expressionList\n");
     }
-    expression();
+    Lexeme *e = expression();
     if (check(COMMA)) {
         match(COMMA);
         if (expressionListPending()) {
-            expressionList();
+            Lexeme *eList = expressionList();
+            return cons(EXPRESSION_LIST, e, eList);
         }
         else {
             matchNoAdvance("expression");
         }
     }
+    return cons(EXPRESSION_LIST, e, NULL);
 }
 
 Lexeme *optExpressionList(void) {
@@ -369,8 +379,9 @@ Lexeme *optExpressionList(void) {
         fprintf(stdout, "CALL: optExpressionList\n");
     }
     if (expressionListPending()) {
-        expressionList();
+        return expressionList();
     }
+    return NULL;
 }
 
 Lexeme *conditionalExpressionList(void) {
@@ -430,10 +441,11 @@ Lexeme *unary(void) {
         return cons(UNARY, cons(OPAREN, e, NULL), NULL);
     }
     else if (check(OBRACKET)) {
+        printf("HERE");
         match(OBRACKET);
         Lexeme *eList = optExpressionList();
         match(CBRACKET);
-        return cons(UNARY, cons(OBRACKET, eList, NULL), NULL);
+        return cons(UNARY, cons(DIMENSION_LIST, eList, NULL), NULL);
     }
     else if (lambdaDefinitionPending()) {
         Lexeme *lamb = lambdaDefinition();
@@ -466,9 +478,10 @@ Lexeme *lambdaDefinition(void) {
     }
     match(LAMBDA);
     match(OPAREN);
-    optParameterList();
+    Lexeme *pList = optParameterList();
     match(CPAREN);
-    block();
+    Lexeme *b = block();
+    return cons(LAMBDA_DEFINITION, pList, b);
 }
 
 Lexeme *block(void) {
@@ -476,8 +489,9 @@ Lexeme *block(void) {
         fprintf(stdout, "CALL: block\n");
     }
     match(OBRACE);
-    optStatementList();
+    Lexeme *sList = optStatementList();
     match(CBRACE);
+    return cons(BLOCK, sList, NULL);
 }
 
 Lexeme *loop(void) {

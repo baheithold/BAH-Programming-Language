@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           prettyPrinter.c
  *  Created on:     11/11/2020
- *  Last revision:  11/19/2020
+ *  Last revision:  11/23/2020
  */
 
 
@@ -19,6 +19,7 @@ static void prettyInteger(FILE *, Lexeme *);
 static void prettyReal(FILE *, Lexeme *);
 static void prettyString(FILE *, Lexeme *);
 static void prettyBoolean(FILE *, Lexeme *);
+static void prettyID(FILE *, Lexeme *);
 static void prettyProgram(FILE *, Lexeme *);
 static void prettyImport(FILE *, Lexeme *);
 static void prettyStatement(FILE *, Lexeme *);
@@ -47,7 +48,10 @@ static void prettyReturnStatement(FILE *, Lexeme *);
 static void prettyUnaryOperator(FILE *, Lexeme *);
 static void prettyBinaryOperator(FILE *, Lexeme *);
 static void prettyLogicalOperator(FILE *, Lexeme *);
+static void prettyNot(FILE *, Lexeme *);
 static void prettyComparator(FILE *, Lexeme *);
+static void prettyJoin(FILE *, Lexeme *);
+static void prettyParenthesizedExpression(FILE *, Lexeme *);
 
 
 /********** prettyPrint definition **********/
@@ -59,25 +63,29 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == REAL_TYPE) prettyReal(fp, tree);
     else if (type == STRING_TYPE) prettyString(fp, tree);
     else if (type == BOOLEAN_TYPE) prettyBoolean(fp, tree);
+    else if (type == ID_TYPE) prettyID(fp ,tree);
     else if (type == NULL_TYPE) fprintf(fp, "null");
     else if (type == PROGRAM) prettyProgram(fp, tree);
     else if (type == IMPORT) prettyImport(fp, tree);
     else if (type == STATEMENT) prettyStatement(fp, tree);
     else if (type == STATEMENT_LIST) prettyStatementList(fp, tree);
-    else if (type == VARIABLE_DEFINITION) {
-        prettyVariableDefinition(fp, tree);
-        fprintf(fp, ";");
-    }
+    else if (type == VARIABLE_DEFINITION) prettyVariableDefinition(fp, tree);
+    else if (type == INIT) prettyInit(fp, tree);
+    else if (type == DIMENSION) prettyDimension(fp, tree);
+    else if (type == DIMENSION_LIST) prettyDimensionList(fp, tree);
+    else if (type == PARAMETER_LIST) prettyParameterList(fp, tree);
     else if (type == VARIABLE_EXPRESSION) prettyVariableExpression(fp, tree);
-    else if (type == EXPRESSION) {
-        prettyExpression(fp, tree);
-        fprintf(fp, ";");
-    }
+    else if (type == EXPRESSION) prettyExpression(fp, tree);
     else if (type == UNARY) prettyUnary(fp, tree);
+    else if (type == LAMBDA_DEFINITION) prettyLambdaDefinition(fp, tree);
+    else if (type == BLOCK) prettyBlock(fp, tree);
     else if (type == UNARY_OPERATOR) prettyUnaryOperator(fp, tree);
     else if (type == BINARY_OPERATOR) prettyBinaryOperator(fp, tree);
     else if (type == LOGICAL_OPERATOR) prettyLogicalOperator(fp, tree);
+    else if (type == NOT) prettyNot(fp, tree);
     else if (type == COMPARATOR) prettyComparator(fp, tree);
+    else if (type == JOIN) prettyJoin(fp, tree);
+    else if (type == OPAREN) prettyParenthesizedExpression(fp, tree);
     else {
         printLexeme(fp, tree);
         /* fprintf(fp, "ERROR: Bad expression"); */
@@ -111,6 +119,12 @@ void prettyBoolean(FILE *fp, Lexeme *tree) {
 }
 
 
+void prettyID(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "%s", getLexemeStringValue(tree));
+}
+
+
 void prettyProgram(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     if (car(tree) != NULL) prettyPrint(fp, car(tree)); // imports
@@ -129,6 +143,10 @@ void prettyImport(FILE *fp, Lexeme *tree) {
 void prettyStatement(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     prettyPrint(fp, car(tree));
+    char *type = getLexemeType(car(tree));
+    if (type == EXPRESSION || type == RETURN_STATEMENT || CONTINUE || BREAK) {
+        fprintf(fp, ";");
+    }
     printf("\n");
 }
 
@@ -149,23 +167,78 @@ void prettyVariableDefinition(FILE *fp, Lexeme *tree) {
 }
 
 
+void prettyInit(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "=");
+    prettyPrint(fp, car(tree));
+}
+
+
+void prettyDimension(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "[");
+    prettyPrint(fp, car(tree));
+    fprintf(fp, "]");
+}
+
+
+void prettyDimensionList(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    prettyPrint(fp, car(tree));
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyParameterList(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    // print the first id
+    prettyPrint(fp, car(tree));
+    // if there are more parameters, recursively print the remaining ids
+    if (cdr(tree) != NULL) {
+        fprintf(fp, ",");
+        prettyPrint(fp, cdr(tree));
+    }
+}
+
+
 void prettyVariableExpression(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     fprintf(fp, "%s", getLexemeStringValue(car(tree)));
-    prettyPrint(fp, cadr(tree));
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
 }
 
 
 void prettyExpression(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     if (car(tree) != NULL) prettyPrint(fp, car(tree));
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
 }
 
 
 void prettyUnary(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
-    prettyPrint(fp, car(tree));
+    if (car(tree) != NULL) prettyPrint(fp, car(tree));
     if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyLambdaDefinition(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "lambda(");
+    // print parameter list
+    prettyPrint(fp, car(tree));
+    fprintf(fp, ")");
+    // print block
+    prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyBlock(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, " {");
+    // print the statement list
+    if (car(tree) != NULL) prettyPrint(fp, car(tree));
+    fprintf(fp, "}");
 }
 
 
@@ -210,6 +283,12 @@ void prettyLogicalOperator(FILE *fp, Lexeme *tree) {
 }
 
 
+void prettyNot(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "!");
+}
+
+
 void prettyComparator(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     char *type = getLexemeType(tree);
@@ -220,4 +299,19 @@ void prettyComparator(FILE *fp, Lexeme *tree) {
     else if (type == GREATER_EQUALS_COMPARATOR) fprintf(fp, ">=");
     else if (type == LESSER_EQUALS_COMPARATOR) fprintf(fp, "<=");
     else fprintf(fp, "unknown comparator");
+}
+
+
+void prettyJoin(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    if (car(tree) != NULL) prettyPrint(fp, car(tree));
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyParenthesizedExpression(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "(");
+    prettyPrint(fp, car(tree));
+    fprintf(fp, ")");
 }
