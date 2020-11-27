@@ -346,7 +346,7 @@ void prettyBinaryOperator(FILE *fp, Lexeme *tree) {
 
 void prettyLogicalOperator(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
-    char *type = getLexemeType(tree);
+    char *type = getLexemeType(car(tree));
     if (type == AND) fprintf(fp, "and");
     else if (type == OR) fprintf(fp, "or");
     else if (type == XOR) fprintf(fp, "xor");
