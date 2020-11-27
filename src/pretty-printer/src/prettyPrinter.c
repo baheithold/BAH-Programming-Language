@@ -77,6 +77,7 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == PARAMETER_LIST) prettyParameterList(fp, tree);
     else if (type == VARIABLE_EXPRESSION) prettyVariableExpression(fp, tree);
     else if (type == EXPRESSION) prettyExpression(fp, tree);
+    else if (type == EXPRESSION_LIST) prettyExpressionList(fp, tree);
     else if (type == UNARY) prettyUnary(fp, tree);
     else if (type == LAMBDA_DEFINITION) prettyLambdaDefinition(fp, tree);
     else if (type == BLOCK) prettyBlock(fp, tree);
@@ -226,6 +227,18 @@ void prettyExpression(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     if (car(tree) != NULL) prettyPrint(fp, car(tree));
     if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyExpressionList(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    // print first expression in the list
+    prettyPrint(fp, car(tree));
+    // if there are more expressions, print a comma and continue printing
+    if (cdr(tree) != NULL) {
+        fprintf(fp, ",");
+        prettyPrint(fp, cdr(tree));
+    }
 }
 
 
