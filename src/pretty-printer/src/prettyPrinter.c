@@ -199,8 +199,12 @@ void prettyDimension(FILE *fp, Lexeme *tree) {
 
 void prettyDimensionList(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
+    fprintf(fp, "[");
+    // print first item in dimension list
     prettyPrint(fp, car(tree));
+    // print remaining items in dimension list
     if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+    fprintf(fp, "]");
 }
 
 
