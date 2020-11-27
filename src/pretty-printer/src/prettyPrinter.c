@@ -73,7 +73,9 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == STATEMENT_LIST) prettyStatementList(fp, tree);
     else if (type == VARIABLE_DEFINITION) prettyVariableDefinition(fp, tree);
     else if (type == FUNCTION_DEFINITION) prettyFunctionDefinition(fp, tree);
+    else if (type == CLASS_DEFINITION) prettyClassDefinition(fp, tree);
     else if (type == FUNCTION_CALL) prettyFunctionCall(fp, tree);
+    else if (type == INHERITANCE) prettyInheritance(fp, tree);
     else if (type == INIT) prettyInit(fp, tree);
     else if (type == DIMENSION) prettyDimension(fp, tree);
     else if (type == DIMENSION_LIST) prettyDimensionList(fp, tree);
@@ -196,6 +198,30 @@ void prettyFunctionDefinition(FILE *fp, Lexeme *tree) {
 
     // the block is NOT optional, print the block
     prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyClassDefinition(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+
+    // print class keyword
+    fprintf(fp, "class ");
+
+    // print ID
+    prettyPrint(fp, car(car(tree)));
+
+    // if there is inheritance, print the inheritance
+    if (cdr(car(tree)) != NULL) prettyPrint(fp, cdr(car(tree)));
+
+    // print the block
+    prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyInheritance(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, " : ");
+    prettyPrint(fp, car(tree));
 }
 
 
