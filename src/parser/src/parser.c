@@ -444,7 +444,6 @@ Lexeme *unary(void) {
         return cons(UNARY, cons(OPAREN, e, NULL), NULL);
     }
     else if (check(OBRACKET)) {
-        printf("HERE");
         match(OBRACKET);
         Lexeme *eList = optExpressionList();
         match(CBRACKET);
