@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  11/26/2020
+ *  Last revision:  11/27/2020
  */
 
 
@@ -580,7 +580,7 @@ Lexeme *returnStatement(void) {
         fprintf(stdout, "CALL: returnStatement\n");
     }
     match(RETURN);
-    optExpression();
+    return cons(RETURN_STATEMENT, optExpression(), NULL);
 }
 
 Lexeme *unaryOperator(void) {
