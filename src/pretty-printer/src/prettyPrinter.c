@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           prettyPrinter.c
  *  Created on:     11/11/2020
- *  Last revision:  11/26/2020
+ *  Last revision:  11/27/2020
  */
 
 
@@ -82,6 +82,7 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == UNARY) prettyUnary(fp, tree);
     else if (type == LAMBDA_DEFINITION) prettyLambdaDefinition(fp, tree);
     else if (type == BLOCK) prettyBlock(fp, tree);
+    else if (type == RETURN_STATEMENT) prettyReturnStatement(fp, tree);
     else if (type == UNARY_OPERATOR) prettyUnaryOperator(fp, tree);
     else if (type == BINARY_OPERATOR) prettyBinaryOperator(fp, tree);
     else if (type == LOGICAL_OPERATOR) prettyLogicalOperator(fp, tree);
@@ -172,6 +173,23 @@ void prettyVariableDefinition(FILE *fp, Lexeme *tree) {
 
 void prettyFunctionDefinition(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
+
+    // pretty print ID
+    prettyPrint(fp, car(car(tree)));
+
+    // if there is a parameter list, print the parameter list
+    // else print the void keyword
+    fprintf(fp, "(");
+    if (cdr(car(tree)) != NULL) {
+        prettyPrint(fp, cdr(car(tree)));
+    }
+    else {
+        fprintf(fp, "void");
+    }
+    fprintf(fp, ")");
+
+    // the block is NOT optional, print the block
+    prettyPrint(fp, cdr(tree));
 }
 
 
@@ -276,6 +294,22 @@ void prettyBlock(FILE *fp, Lexeme *tree) {
     // print the statement list
     if (car(tree) != NULL) prettyPrint(fp, car(tree));
     fprintf(fp, "}");
+}
+
+
+void prettyReturnStatement(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+
+    // print the return keyword
+    fprintf(fp, "return");
+
+    // print the return expression if it exists
+    if (car(tree) != NULL) {
+        // print space between return keyword and return expression
+        fprintf(fp, " ");
+        // print return expression
+        prettyPrint(fp, car(tree));
+    }
 }
 
 
