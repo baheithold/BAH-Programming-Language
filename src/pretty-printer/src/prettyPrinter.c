@@ -152,7 +152,7 @@ void prettyStatement(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     prettyPrint(fp, car(tree));
     char *type = getLexemeType(car(tree));
-    if (type == EXPRESSION || type == RETURN_STATEMENT || CONTINUE || BREAK) {
+    if (type == VARIABLE_DEFINITION || type == EXPRESSION || type == RETURN_STATEMENT || type == CONTINUE || type == BREAK) {
         fprintf(fp, ";");
     }
 }
@@ -176,6 +176,9 @@ void prettyVariableDefinition(FILE *fp, Lexeme *tree) {
 
 void prettyFunctionDefinition(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
+
+    // print function keyword
+    fprintf(fp, "function ");
 
     // pretty print ID
     prettyPrint(fp, car(car(tree)));
