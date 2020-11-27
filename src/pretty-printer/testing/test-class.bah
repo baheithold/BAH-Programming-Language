@@ -7,5 +7,19 @@ class Rectangle {
 }
 
 class Dog : Pet {
+    var name;
+
+    function set_name(n) {
+        name = n;
+    }
+
+    function get_name(void) {
+        return name;
+    }
+
+    function bark(void) {
+        print("bark bark");
+    }
+
     #...
 }
