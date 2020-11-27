@@ -30,8 +30,8 @@ nestedParens -= (nestedParens + 2) * -((10 / 2) ^ 2);
 var five = 1 + 1 + 2 + -(5 - 5) + 1;
 
 var m = myFunction();
-#var n = myFunction(x, y, negative5);
-#n = differentFunctionCall(x, y, [1, 2, 3]);
+var n = myFunction(x, y, negative5);
+n = differentFunctionCall(x, y, [1, 2, 3]);
 
 var arr = [1, 2, 3, 4, 5];
 var matrix = [[1, 2, 3], [4, 5, 6]];

@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  11/23/2020
+ *  Last revision:  11/25/2020
  */
 
 
@@ -279,16 +279,19 @@ Lexeme *variableExpression(void) {
     }
     Lexeme *id = match(ID_TYPE);
     if (check(OPAREN)) {
+        // function call
         match(OPAREN);
         Lexeme *eList = optExpressionList();
         match(CPAREN);
-        return cons(VARIABLE_EXPRESSION, id, eList);
+        return cons(FUNCTION_CALL, id, eList);
     }
     else if (dimensionListPending()) {
+        // array access
         Lexeme *dList = dimensionList();
         return cons(VARIABLE_EXPRESSION, id, dList);
     }
     else if (binaryOperatorPending()){
+        // binary operation
         Lexeme * bop = binaryOperator();
         if (expressionPending()) {
             Lexeme *e = expression();
@@ -299,7 +302,7 @@ Lexeme *variableExpression(void) {
         }
     }
     else {
-        // the variable expression was simply an ID
+        // the variable expression was simply a single ID
         return cons(VARIABLE_EXPRESSION, id, NULL);
     }
     return NULL;

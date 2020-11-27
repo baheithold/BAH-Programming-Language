@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           prettyPrinter.c
  *  Created on:     11/11/2020
- *  Last revision:  11/23/2020
+ *  Last revision:  11/26/2020
  */
 
 
@@ -70,6 +70,7 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == STATEMENT) prettyStatement(fp, tree);
     else if (type == STATEMENT_LIST) prettyStatementList(fp, tree);
     else if (type == VARIABLE_DEFINITION) prettyVariableDefinition(fp, tree);
+    else if (type == FUNCTION_CALL) prettyFunctionCall(fp, tree);
     else if (type == INIT) prettyInit(fp, tree);
     else if (type == DIMENSION) prettyDimension(fp, tree);
     else if (type == DIMENSION_LIST) prettyDimensionList(fp, tree);
@@ -164,6 +165,19 @@ void prettyVariableDefinition(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     fprintf(fp, "var %s", getLexemeStringValue(car(tree)));
     if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyFunctionCall(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    // print ID
+    fprintf(fp, "%s", getLexemeStringValue(car(tree)));
+    // print opening parantheses
+    fprintf(fp, "(");
+    // print expression list
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+    // print closing parantheses
+    fprintf(fp, ")");
 }
 
 
