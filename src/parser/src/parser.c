@@ -2,7 +2,7 @@
  *  Author:         Brett Heithold
  *  File:           parser.c
  *  Created on:     10/25/2020
- *  Last revision:  11/25/2020
+ *  Last revision:  11/26/2020
  */
 
 
@@ -169,17 +169,19 @@ Lexeme *functionDefinition(void) {
     match(FUNCTION);
     Lexeme *id = match(ID_TYPE);
     match(OPAREN);
+    Lexeme *pList = NULL;
+    Lexeme *b = NULL;
     if (parameterListPending()) {
-        Lexeme *pList = parameterList();
+        pList = parameterList();
         match(CPAREN);
-        Lexeme *b = block();
-        return cons(FUNCTION_DEFINITION, id, cons(JOIN, pList, b));
+        b = block();
     }
     else {
         match(VOID);
         match(CPAREN);
-        block();
+        b = block();
     }
+    return cons(FUNCTION_DEFINITION, cons(JOIN, id, pList), b);
 }
 
 Lexeme *classDefinition(void) {
