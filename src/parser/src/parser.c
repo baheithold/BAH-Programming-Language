@@ -189,9 +189,10 @@ Lexeme *classDefinition(void) {
         fprintf(stdout, "CALL: classDefinition\n");
     }
     match(CLASS);
-    match(ID_TYPE);
-    optInheritance();
-    block();
+    Lexeme *id = match(ID_TYPE);
+    Lexeme *inherit = optInheritance();
+    Lexeme *b = block();
+    return cons(CLASS_DEFINITION, cons(JOIN, id, inherit), b);
 }
 
 Lexeme *optInheritance(void) {
@@ -200,8 +201,10 @@ Lexeme *optInheritance(void) {
     }
     if (check(COLON)) {
         match(COLON);
-        match(ID_TYPE);
+        Lexeme *id = match(ID_TYPE);
+        return cons(INHERITANCE, id, NULL);
     }
+    return NULL;
 }
 
 Lexeme *optInit(void) {
