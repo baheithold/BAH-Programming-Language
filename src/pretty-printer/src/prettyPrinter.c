@@ -90,7 +90,7 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == OPAREN) prettyParenthesizedExpression(fp, tree);
     else {
         printLexeme(fp, tree);
-        /* fprintf(fp, "ERROR: Bad expression"); */
+        fprintf(fp, "ERROR: Bad expression");
     }
 }
 
@@ -131,6 +131,7 @@ void prettyProgram(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     if (car(tree) != NULL) prettyPrint(fp, car(tree)); // imports
     if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree)); // statements
+    fprintf(fp, "\n");
 }
 
 
@@ -149,7 +150,6 @@ void prettyStatement(FILE *fp, Lexeme *tree) {
     if (type == EXPRESSION || type == RETURN_STATEMENT || CONTINUE || BREAK) {
         fprintf(fp, ";");
     }
-    printf("\n");
 }
 
 
@@ -206,7 +206,6 @@ void prettyDimensionList(FILE *fp, Lexeme *tree) {
         prettyPrint(fp, cdr(tree));
     }
 }
-
 
 
 void prettyParameterList(FILE *fp, Lexeme *tree) {
@@ -267,7 +266,7 @@ void prettyLambdaDefinition(FILE *fp, Lexeme *tree) {
 
 void prettyBlock(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
-    fprintf(fp, " {");
+    fprintf(fp, "{");
     // print the statement list
     if (car(tree) != NULL) prettyPrint(fp, car(tree));
     fprintf(fp, "}");
