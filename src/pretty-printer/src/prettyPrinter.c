@@ -70,6 +70,7 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == STATEMENT) prettyStatement(fp, tree);
     else if (type == STATEMENT_LIST) prettyStatementList(fp, tree);
     else if (type == VARIABLE_DEFINITION) prettyVariableDefinition(fp, tree);
+    else if (type == FUNCTION_DEFINITION) prettyFunctionDefinition(fp, tree);
     else if (type == FUNCTION_CALL) prettyFunctionCall(fp, tree);
     else if (type == INIT) prettyInit(fp, tree);
     else if (type == DIMENSION) prettyDimension(fp, tree);
@@ -166,6 +167,11 @@ void prettyVariableDefinition(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     fprintf(fp, "var %s", getLexemeStringValue(car(tree)));
     if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+}
+
+
+void prettyFunctionDefinition(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
 }
 
 
