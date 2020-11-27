@@ -362,7 +362,7 @@ void prettyNot(FILE *fp, Lexeme *tree) {
 
 void prettyComparator(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
-    char *type = getLexemeType(tree);
+    char *type = getLexemeType(car(tree));
     if (type == EQUALS_COMPARATOR) fprintf(fp, "==");
     else if (type == NOT_EQUALS_COMPARATOR) fprintf(fp, "!=");
     else if (type == GREATER_THAN_COMPARATOR) fprintf(fp, ">");
