@@ -1,1 +1,1 @@
-legal
+var x;x=5;x="this is a";var y=" string";x+=y;var one=1;var two=2;var three=one+2;var eight=two^three;var ~PI=3.141590;var isEven?=true;var isOdd?=!isEven?;var lamb=lambda(x,y){x+y;};-one;x=10;-x+=-one;var negative5=-5;var nestedParens=two+((negative5*10)/7);nestedParens-=(nestedParens+2)*-((10/2)^2);var five=1+1+2+-(5-5)+1;var m=myFunction();var n=myFunction(x,y,negative5);n=differentFunctionCall(x,y,[1,2,3]);var arr=[1,2,3,4,5];var matrix=[[1,2,3],[4,5,6]];matrix[0][0]=10;var xTimes=x*arr[2];arr[0]=xTimes;
