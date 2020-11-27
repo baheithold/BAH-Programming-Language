@@ -315,7 +315,7 @@ void prettyReturnStatement(FILE *fp, Lexeme *tree) {
 
 void prettyUnaryOperator(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
-    char *type = getLexemeType(tree);
+    char *type = getLexemeType(car(tree));
     if (type == NEGATE_UNARY) fprintf(fp, "-");
     else if (type == INCREMENT_UNARY) fprintf(fp, "++");
     else if (type == DECREMENT_UNARY) fprintf(fp, "--");
