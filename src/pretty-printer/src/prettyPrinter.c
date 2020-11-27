@@ -52,6 +52,8 @@ static void prettyNot(FILE *, Lexeme *);
 static void prettyComparator(FILE *, Lexeme *);
 static void prettyJoin(FILE *, Lexeme *);
 static void prettyParenthesizedExpression(FILE *, Lexeme *);
+static void prettyUnaryPrint(FILE *, Lexeme *);
+static void prettyUnaryPrintLine(FILE *, Lexeme *);
 
 
 /********** prettyPrint definition **********/
@@ -90,8 +92,9 @@ void prettyPrint(FILE *fp, Lexeme *tree) {
     else if (type == COMPARATOR) prettyComparator(fp, tree);
     else if (type == JOIN) prettyJoin(fp, tree);
     else if (type == OPAREN) prettyParenthesizedExpression(fp, tree);
+    else if (type == PRINT) prettyUnaryPrint(fp, tree);
+    else if (type == PRINTLN) prettyUnaryPrintLine(fp, tree);
     else {
-        printLexeme(fp, tree);
         fprintf(fp, "ERROR: Bad expression");
     }
 }
@@ -384,5 +387,23 @@ void prettyParenthesizedExpression(FILE *fp, Lexeme *tree) {
     assert(tree != NULL);
     fprintf(fp, "(");
     prettyPrint(fp, car(tree));
+    fprintf(fp, ")");
+}
+
+
+void prettyUnaryPrint(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "print(");
+    // print arguments
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
+    fprintf(fp, ")");
+}
+
+
+void prettyUnaryPrintLine(FILE *fp, Lexeme *tree) {
+    assert(tree != NULL);
+    fprintf(fp, "println(");
+    // print arguments
+    if (cdr(tree) != NULL) prettyPrint(fp, cdr(tree));
     fprintf(fp, ")");
 }
